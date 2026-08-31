@@ -47,9 +47,12 @@
     details.activo[open] summary::after { transform:rotate(90deg); color:#8e44ad; }
     details.activo[open] summary { background:#8e44ad08; }
 
-    .activo-nombre { font-size:.9em; color:#2d3436; flex:1; }
-    .activo-valor  { font-size:.82em; color:#636e72; font-weight:600;
-                      white-space:nowrap; margin-right:4px; }
+    .activo-nombre    { font-size:.9em; color:#2d3436; flex:1; }
+    .activo-valor-wrap { text-align:right; margin-right:4px; flex-shrink:0; }
+    .activo-valor-lbl  { display:block; font-size:.65em; color:#aaa;
+                          text-transform:uppercase; letter-spacing:.05em; }
+    .activo-valor      { font-size:.88em; color:#2d3436; font-weight:700;
+                          white-space:nowrap; }
 
     .activo-detalle {
       padding:10px 14px 14px;
@@ -92,14 +95,14 @@
   <div class="resumen">
     <div>
       <div class="resumen-lbl">Total zona</div>
-      <div class="resumen-val">$2.318.346.259</div>
-      <div class="resumen-sub">7 activos registrados</div>
+      <div class="resumen-val">$1.898.880.254</div>
+      <div class="resumen-sub">10 activos registrados</div>
     </div>
     <div style="text-align:right">
       <div class="resumen-lbl">Construcción</div>
-      <div style="font-weight:700;font-size:.95em">$1.709.992.295</div>
+      <div style="font-weight:700;font-size:.95em">$1.832.182.687</div>
       <div class="resumen-lbl" style="margin-top:6px">Equipo y Maquinaria</div>
-      <div style="font-weight:700;font-size:.95em">$608.353.964</div>
+      <div style="font-weight:700;font-size:.95em">$66.697.567</div>
     </div>
   </div>
 
@@ -107,45 +110,16 @@
   <div class="seccion">
     <div class="seccion-header" style="background:#8e44ad22;border-left:4px solid #8e44ad">
       <span class="seccion-titulo" style="color:#8e44ad">Construcción</span>
-      <span class="seccion-total" style="color:#8e44ad">$1.709.992.295</span>
+      <span class="seccion-total" style="color:#8e44ad">$1.832.182.687</span>
     </div>
     <div class="activos-lista">
     <details class="activo">
       <summary>
         <span class="activo-nombre">Terrenos</span>
-        <span class="activo-valor">$1.401.482.395</span>
-      </summary>
-      <div class="activo-detalle">
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Valor en libros</span>
-          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
-        </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Estado</span>
-          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
-        </div>
-      </div>
-    </details>
-    <details class="activo">
-      <summary>
-        <span class="activo-nombre">Sistema de acueducto</span>
-        <span class="activo-valor">$145.212.435</span>
-      </summary>
-      <div class="activo-detalle">
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Valor en libros</span>
-          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
-        </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Estado</span>
-          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
-        </div>
-      </div>
-    </details>
-    <details class="activo">
-      <summary>
-        <span class="activo-nombre">Vias internas</span>
-        <span class="activo-valor">$81.961.311</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$1.283.004.601</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -161,7 +135,67 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">Casa Flor de la Canela</span>
-        <span class="activo-valor">$62.314.464</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$145.940.452</span>
+        </span>
+      </summary>
+      <div class="activo-detalle">
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Valor en libros</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Estado</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
+        </div>
+      </div>
+    </details>
+    <details class="activo">
+      <summary>
+        <span class="activo-nombre">Terrenos - mejoramiento suelo</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$118.477.794</span>
+        </span>
+      </summary>
+      <div class="activo-detalle">
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Valor en libros</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Estado</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
+        </div>
+      </div>
+    </details>
+    <details class="activo">
+      <summary>
+        <span class="activo-nombre">Sistema de acueducto - Pozo 3</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$111.794.078</span>
+        </span>
+      </summary>
+      <div class="activo-detalle">
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Valor en libros</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Estado</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
+        </div>
+      </div>
+    </details>
+    <details class="activo">
+      <summary>
+        <span class="activo-nombre">Vias internas</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$81.961.311</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -177,7 +211,29 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">Corrales</span>
-        <span class="activo-valor">$19.021.690</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$78.204.094</span>
+        </span>
+      </summary>
+      <div class="activo-detalle">
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Valor en libros</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Estado</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
+        </div>
+      </div>
+    </details>
+    <details class="activo">
+      <summary>
+        <span class="activo-nombre">Sistema de acueducto</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$12.800.357</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -196,13 +252,16 @@
   <div class="seccion">
     <div class="seccion-header" style="background:#8e44ad22;border-left:4px solid #8e44ad">
       <span class="seccion-titulo" style="color:#8e44ad">Equipo y Maquinaria</span>
-      <span class="seccion-total" style="color:#8e44ad">$608.353.964</span>
+      <span class="seccion-total" style="color:#8e44ad">$66.697.567</span>
     </div>
     <div class="activos-lista">
     <details class="activo">
       <summary>
-        <span class="activo-nombre">Insumos instalaciones agropecuarias</span>
-        <span class="activo-valor">$568.947.667</span>
+        <span class="activo-nombre">SES (Solar Energy System) 7</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$28.442.427</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -217,8 +276,30 @@
     </details>
     <details class="activo">
       <summary>
-        <span class="activo-nombre">SES (Solar Energy System) 4</span>
-        <span class="activo-valor">$39.406.297</span>
+        <span class="activo-nombre">Maquinaria Agricola</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$25.358.140</span>
+        </span>
+      </summary>
+      <div class="activo-detalle">
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Valor en libros</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Estado</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
+        </div>
+      </div>
+    </details>
+    <details class="activo">
+      <summary>
+        <span class="activo-nombre">SES (Solar Energy System) 6</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$12.897.000</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -236,7 +317,7 @@
 
   <div class="total-zona">
     <span class="total-zona-lbl">Total FLOR DE LA CANELA</span>
-    <span class="total-zona-val">$2.318.346.259</span>
+    <span class="total-zona-val">$1.898.880.254</span>
   </div>
 
   <div class="mapa-wrap">

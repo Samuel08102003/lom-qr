@@ -47,9 +47,12 @@
     details.activo[open] summary::after { transform:rotate(90deg); color:#2980b9; }
     details.activo[open] summary { background:#2980b908; }
 
-    .activo-nombre { font-size:.9em; color:#2d3436; flex:1; }
-    .activo-valor  { font-size:.82em; color:#636e72; font-weight:600;
-                      white-space:nowrap; margin-right:4px; }
+    .activo-nombre    { font-size:.9em; color:#2d3436; flex:1; }
+    .activo-valor-wrap { text-align:right; margin-right:4px; flex-shrink:0; }
+    .activo-valor-lbl  { display:block; font-size:.65em; color:#aaa;
+                          text-transform:uppercase; letter-spacing:.05em; }
+    .activo-valor      { font-size:.88em; color:#2d3436; font-weight:700;
+                          white-space:nowrap; }
 
     .activo-detalle {
       padding:10px 14px 14px;
@@ -92,14 +95,14 @@
   <div class="resumen">
     <div>
       <div class="resumen-lbl">Total zona</div>
-      <div class="resumen-val">$4.768.368.416</div>
-      <div class="resumen-sub">29 activos registrados</div>
+      <div class="resumen-val">$4.888.492.065</div>
+      <div class="resumen-sub">27 activos registrados</div>
     </div>
     <div style="text-align:right">
       <div class="resumen-lbl">Construcción</div>
-      <div style="font-weight:700;font-size:.95em">$4.127.952.062</div>
+      <div style="font-weight:700;font-size:.95em">$4.434.496.677</div>
       <div class="resumen-lbl" style="margin-top:6px">Equipo y Maquinaria</div>
-      <div style="font-weight:700;font-size:.95em">$640.416.354</div>
+      <div style="font-weight:700;font-size:.95em">$453.995.388</div>
     </div>
   </div>
 
@@ -107,13 +110,16 @@
   <div class="seccion">
     <div class="seccion-header" style="background:#2980b922;border-left:4px solid #2980b9">
       <span class="seccion-titulo" style="color:#2980b9">Construcción</span>
-      <span class="seccion-total" style="color:#2980b9">$4.127.952.062</span>
+      <span class="seccion-total" style="color:#2980b9">$4.434.496.677</span>
     </div>
     <div class="activos-lista">
     <details class="activo">
       <summary>
         <span class="activo-nombre">Terrenos Tranquera</span>
-        <span class="activo-valor">$2.387.558.326</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$2.386.182.732</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -129,7 +135,10 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">Casa principal</span>
-        <span class="activo-valor">$794.902.096</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$798.534.068</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -145,7 +154,10 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">Campamentos</span>
-        <span class="activo-valor">$289.985.613</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$616.896.321</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -161,7 +173,10 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">Estercolero</span>
-        <span class="activo-valor">$175.423.695</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$175.423.695</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -177,23 +192,10 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">Vias internas</span>
-        <span class="activo-valor">$142.019.680</span>
-      </summary>
-      <div class="activo-detalle">
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Valor en libros</span>
-          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
-        </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Estado</span>
-          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
-        </div>
-      </div>
-    </details>
-    <details class="activo">
-      <summary>
-        <span class="activo-nombre">Sistema de acueducto</span>
-        <span class="activo-valor">$129.449.969</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$142.019.680</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -209,7 +211,10 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">Corrales</span>
-        <span class="activo-valor">$123.350.891</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$132.116.200</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -225,7 +230,48 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">Casa porteria-bascula</span>
-        <span class="activo-valor">$72.908.822</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$72.908.822</span>
+        </span>
+      </summary>
+      <div class="activo-detalle">
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Valor en libros</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Estado</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
+        </div>
+      </div>
+    </details>
+    <details class="activo">
+      <summary>
+        <span class="activo-nombre">Sistema de acueducto</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$71.885.755</span>
+        </span>
+      </summary>
+      <div class="activo-detalle">
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Valor en libros</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Estado</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
+        </div>
+      </div>
+    </details>
+    <details class="activo">
+      <summary>
+        <span class="activo-nombre">Sistema de acueducto - Pozo 2</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$22.256.434</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -241,7 +287,29 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">Centro de acopio 1</span>
-        <span class="activo-valor">$12.352.970</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$12.352.970</span>
+        </span>
+      </summary>
+      <div class="activo-detalle">
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Valor en libros</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Estado</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
+        </div>
+      </div>
+    </details>
+    <details class="activo">
+      <summary>
+        <span class="activo-nombre">Sistema de acueducto - Pozo septico</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$3.920.000</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -260,45 +328,16 @@
   <div class="seccion">
     <div class="seccion-header" style="background:#2980b922;border-left:4px solid #2980b9">
       <span class="seccion-titulo" style="color:#2980b9">Equipo y Maquinaria</span>
-      <span class="seccion-total" style="color:#2980b9">$640.416.354</span>
+      <span class="seccion-total" style="color:#2980b9">$453.995.388</span>
     </div>
     <div class="activos-lista">
     <details class="activo">
       <summary>
-        <span class="activo-nombre">Separador y sis. riego de porquinaza</span>
-        <span class="activo-valor">$113.246.283</span>
-      </summary>
-      <div class="activo-detalle">
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Valor en libros</span>
-          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
-        </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Estado</span>
-          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
-        </div>
-      </div>
-    </details>
-    <details class="activo">
-      <summary>
-        <span class="activo-nombre">CT (Communication Tower)</span>
-        <span class="activo-valor">$76.643.540</span>
-      </summary>
-      <div class="activo-detalle">
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Valor en libros</span>
-          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
-        </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Estado</span>
-          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
-        </div>
-      </div>
-    </details>
-    <details class="activo">
-      <summary>
-        <span class="activo-nombre">CAN-AM Vehiculo admin</span>
-        <span class="activo-valor">$75.726.378</span>
+        <span class="activo-nombre">Tractor 1</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$112.783.448</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -314,7 +353,10 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">Tractor 2</span>
-        <span class="activo-valor">$74.323.541</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$100.736.564</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -329,8 +371,11 @@
     </details>
     <details class="activo">
       <summary>
-        <span class="activo-nombre">Tractor 1</span>
-        <span class="activo-valor">$62.555.239</span>
+        <span class="activo-nombre">CT (Communication Tower)</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$76.643.540</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -345,8 +390,11 @@
     </details>
     <details class="activo">
       <summary>
-        <span class="activo-nombre">Planta electrica 1</span>
-        <span class="activo-valor">$52.594.046</span>
+        <span class="activo-nombre">CAN-AM Vehiculo admin</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$75.726.378</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -362,7 +410,10 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">SES (Solar Energy System) 3</span>
-        <span class="activo-valor">$40.616.205</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$26.414.884</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -377,56 +428,11 @@
     </details>
     <details class="activo">
       <summary>
-        <span class="activo-nombre">SES (Solar Energy System) 1</span>
-        <span class="activo-valor">$39.246.695</span>
-      </summary>
-      <div class="activo-detalle">
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Valor en libros</span>
-          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
-        </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Estado</span>
-          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
-        </div>
-      </div>
-    </details>
-    <details class="activo">
-      <summary>
-        <span class="activo-nombre">SES (Solar Energy System) 2</span>
-        <span class="activo-valor">$38.024.749</span>
-      </summary>
-      <div class="activo-detalle">
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Valor en libros</span>
-          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
-        </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Estado</span>
-          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
-        </div>
-      </div>
-    </details>
-    <details class="activo">
-      <summary>
-        <span class="activo-nombre">Herramientas</span>
-        <span class="activo-valor">$17.642.011</span>
-      </summary>
-      <div class="activo-detalle">
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Valor en libros</span>
-          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
-        </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Estado</span>
-          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
-        </div>
-      </div>
-    </details>
-    <details class="activo">
-      <summary>
-        <span class="activo-nombre">Moto 200ZW</span>
-        <span class="activo-valor">$15.490.000</span>
+        <span class="activo-nombre">SES (Solar Energy System) 4</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$18.353.363</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -442,7 +448,29 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">Caballos</span>
-        <span class="activo-valor">$12.600.000</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$12.600.000</span>
+        </span>
+      </summary>
+      <div class="activo-detalle">
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Valor en libros</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Estado</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
+        </div>
+      </div>
+    </details>
+    <details class="activo">
+      <summary>
+        <span class="activo-nombre">SES (Solar Energy System) 5</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$9.029.544</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -458,7 +486,10 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">Bascula finca</span>
-        <span class="activo-valor">$4.902.475</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$4.902.475</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -474,7 +505,10 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">Televisores</span>
-        <span class="activo-valor">$3.738.586</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$3.738.586</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -490,7 +524,10 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">Camaras trampa</span>
-        <span class="activo-valor">$3.417.406</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$3.417.406</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -506,7 +543,10 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">Moto 96C</span>
-        <span class="activo-valor">$3.000.000</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$3.000.000</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -522,7 +562,10 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">Congelador finca 1</span>
-        <span class="activo-valor">$2.599.900</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$2.599.900</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -538,7 +581,10 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">Granja Apicultura</span>
-        <span class="activo-valor">$1.529.400</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$1.529.400</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -554,7 +600,10 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">STARLINK 1</span>
-        <span class="activo-valor">$1.370.000</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$1.370.000</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -570,7 +619,10 @@
     <details class="activo">
       <summary>
         <span class="activo-nombre">Congelador finca 2</span>
-        <span class="activo-valor">$1.149.900</span>
+        <span class="activo-valor-wrap">
+          <span class="activo-valor-lbl">Valor compra</span>
+          <span class="activo-valor">$1.149.900</span>
+        </span>
       </summary>
       <div class="activo-detalle">
         <div class="detalle-fila">
@@ -588,7 +640,7 @@
 
   <div class="total-zona">
     <span class="total-zona-lbl">Total LA TRANQUERA</span>
-    <span class="total-zona-val">$4.768.368.416</span>
+    <span class="total-zona-val">$4.888.492.065</span>
   </div>
 
   <div class="mapa-wrap">
