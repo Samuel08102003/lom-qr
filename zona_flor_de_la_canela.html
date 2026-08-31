@@ -6,49 +6,81 @@
   <title>FLOR DE LA CANELA - LOM SAS</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:Arial,sans-serif; background:#f5f6fa; font-size:13px; }
+    body { font-family:Arial,sans-serif; background:#f5f6fa; }
     header { background:#8e44ad; color:#fff; padding:20px 16px; text-align:center; }
     h1 { font-size:1.4em; font-weight:700; }
     .sub { font-size:.8em; opacity:.85; margin-top:4px; }
-    .total-card {
+
+    .resumen {
       background:#8e44ad; color:#fff;
-      margin:14px; border-radius:10px; padding:14px 16px;
+      margin:14px; border-radius:12px; padding:16px;
       display:flex; justify-content:space-between; align-items:center;
     }
-    .total-card .label { font-size:.75em; opacity:.85; }
-    .total-card .valor { font-size:1.2em; font-weight:700; }
-    .section { margin:0 14px 14px; }
-    .cat-label {
-      font-size:.7em; font-weight:700; text-transform:uppercase;
-      letter-spacing:.08em; margin:14px 0 6px;
+    .resumen-lbl { font-size:.72em; opacity:.8; margin-bottom:2px; }
+    .resumen-val { font-size:1.3em; font-weight:700; }
+    .resumen-sub { font-size:.78em; opacity:.9; margin-top:6px; }
+
+    .seccion { margin:0 14px 12px; }
+    .seccion-header {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:10px 12px; border-radius:8px 8px 0 0;
     }
-    table { width:100%; border-collapse:collapse; background:#fff;
-             border-radius:10px; overflow:hidden;
-             box-shadow:0 2px 8px rgba(0,0,0,.07); }
-    thead tr { background:#8e44ad20; }
-    th { padding:9px 10px; text-align:left; font-size:.75em;
-          color:#8e44ad; font-weight:700; text-transform:uppercase;
-          letter-spacing:.05em; }
-    td { padding:8px 10px; border-bottom:1px solid #f0f0f0; color:#2d3436; }
-    tr:last-child td { border:none; }
-    .num { text-align:right; font-variant-numeric:tabular-nums; }
-    .pend { color:#aaa; }
-    .badge { display:inline-block; padding:3px 9px; border-radius:20px;
-              font-size:.75em; font-weight:700; white-space:nowrap; }
-    .subtotal td { background:#f8f9fa; font-weight:700; color:#8e44ad; border-top:2px solid #8e44ad30; }
-    .grand-total {
-      margin:14px; border-radius:10px; overflow:hidden;
+    .seccion-titulo { font-size:.75em; font-weight:700; text-transform:uppercase; letter-spacing:.07em; }
+    .seccion-total  { font-size:.85em; font-weight:700; }
+
+    .activos-lista { background:#fff; border-radius:0 0 10px 10px;
+                      box-shadow:0 2px 8px rgba(0,0,0,.07); overflow:hidden; }
+
+    details.activo { border-bottom:1px solid #f0f0f0; }
+    details.activo:last-child { border-bottom:none; }
+
+    details.activo summary {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:12px 14px; cursor:pointer; list-style:none;
+      user-select:none;
+    }
+    details.activo summary::-webkit-details-marker { display:none; }
+    details.activo summary::after {
+      content:"›"; font-size:1.2em; color:#ccc;
+      transition:transform .2s; margin-left:8px; flex-shrink:0;
+    }
+    details.activo[open] summary::after { transform:rotate(90deg); color:#8e44ad; }
+    details.activo[open] summary { background:#8e44ad08; }
+
+    .activo-nombre { font-size:.9em; color:#2d3436; flex:1; }
+    .activo-valor  { font-size:.82em; color:#636e72; font-weight:600;
+                      white-space:nowrap; margin-right:4px; }
+
+    .activo-detalle {
+      padding:10px 14px 14px;
+      background:#8e44ad05;
+      border-top:1px solid #8e44ad20;
+    }
+    .detalle-fila {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:6px 0; border-bottom:1px solid #f0f0f0;
+    }
+    .detalle-fila:last-child { border-bottom:none; }
+    .detalle-lbl { font-size:.75em; color:#999; font-weight:600; text-transform:uppercase; letter-spacing:.05em; }
+    .detalle-val { font-size:.82em; font-weight:700; }
+    .badge { padding:4px 10px; border-radius:20px; font-size:.78em; font-weight:700; }
+
+    .total-zona {
+      margin:14px; padding:14px 16px;
+      background:#fff; border-radius:10px;
       box-shadow:0 2px 8px rgba(0,0,0,.07);
+      display:flex; justify-content:space-between; align-items:center;
+      border-left:4px solid #8e44ad;
     }
-    .grand-total table { border-radius:0; box-shadow:none; }
-    .grand-total tr { background:#8e44ad15; }
-    .grand-total td { font-weight:700; font-size:1em; color:#8e44ad; border:none; padding:12px 10px; }
-    .mapa-wrap { margin:0 14px 14px; }
+    .total-zona-lbl { font-size:.75em; font-weight:700; color:#8e44ad; text-transform:uppercase; }
+    .total-zona-val { font-size:1.1em; font-weight:700; color:#8e44ad; }
+
+    .mapa-wrap { margin:14px; }
     iframe { width:100%; height:280px; border:0; border-radius:10px;
               box-shadow:0 2px 8px rgba(0,0,0,.1); display:block; }
     .btn { display:block; background:#8e44ad; color:#fff; text-align:center;
             padding:14px; border-radius:10px; text-decoration:none;
-            font-weight:700; margin:0 14px 28px; font-size:.9em; }
+            font-weight:700; margin:14px 14px 28px; font-size:.9em; }
   </style>
 </head>
 <body>
@@ -57,113 +89,154 @@
     <p class="sub">Inversiones Agropecuarias LOM SAS</p>
   </header>
 
-  <div class="total-card">
+  <div class="resumen">
     <div>
-      <div class="label">Total zona</div>
-      <div class="valor">$2.318.346.259</div>
+      <div class="resumen-lbl">Total zona</div>
+      <div class="resumen-val">$2.318.346.259</div>
+      <div class="resumen-sub">7 activos registrados</div>
     </div>
     <div style="text-align:right">
-      <div class="label">Construcción</div>
-      <div style="font-size:.95em;font-weight:700">$1.709.992.295</div>
-      <div class="label" style="margin-top:4px">Equipo y Maquinaria</div>
-      <div style="font-size:.95em;font-weight:700">$608.353.964</div>
+      <div class="resumen-lbl">Construcción</div>
+      <div style="font-weight:700;font-size:.95em">$1.709.992.295</div>
+      <div class="resumen-lbl" style="margin-top:6px">Equipo y Maquinaria</div>
+      <div style="font-weight:700;font-size:.95em">$608.353.964</div>
     </div>
   </div>
 
-  <div class="section">
-    
-  <div class="cat-label" style="color:#8e44ad">Construcción</div>
-  <table>
-    <thead>
-      <tr>
-        <th>Activo</th>
-        <th class="num">Valor compra</th>
-        <th class="num">Valor en libros</th>
-        <th>Estado</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>Terrenos</td>
-          <td class="num">$1.401.482.395</td>
-          <td class="num pend">Pendiente</td>
-          <td><span class="badge" style="background:#f8f9fa;color:#aaa">Pendiente</span></td>
-        </tr>
-        <tr>
-          <td>Sistema de acueducto</td>
-          <td class="num">$145.212.435</td>
-          <td class="num pend">Pendiente</td>
-          <td><span class="badge" style="background:#f8f9fa;color:#aaa">Pendiente</span></td>
-        </tr>
-        <tr>
-          <td>Vias internas</td>
-          <td class="num">$81.961.311</td>
-          <td class="num pend">Pendiente</td>
-          <td><span class="badge" style="background:#f8f9fa;color:#aaa">Pendiente</span></td>
-        </tr>
-        <tr>
-          <td>Casa Flor de la Canela</td>
-          <td class="num">$62.314.464</td>
-          <td class="num pend">Pendiente</td>
-          <td><span class="badge" style="background:#f8f9fa;color:#aaa">Pendiente</span></td>
-        </tr>
-        <tr>
-          <td>Corrales</td>
-          <td class="num">$19.021.690</td>
-          <td class="num pend">Pendiente</td>
-          <td><span class="badge" style="background:#f8f9fa;color:#aaa">Pendiente</span></td>
-        </tr>
-      <tr class="subtotal">
-        <td>Subtotal Construcción</td>
-        <td class="num">$1.709.992.295</td>
-        <td class="num pend">Pendiente</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-    
-  <div class="cat-label" style="color:#8e44ad">Equipo y Maquinaria</div>
-  <table>
-    <thead>
-      <tr>
-        <th>Activo</th>
-        <th class="num">Valor compra</th>
-        <th class="num">Valor en libros</th>
-        <th>Estado</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>Insumos instalaciones agropecuarias</td>
-          <td class="num">$568.947.667</td>
-          <td class="num pend">Pendiente</td>
-          <td><span class="badge" style="background:#f8f9fa;color:#aaa">Pendiente</span></td>
-        </tr>
-        <tr>
-          <td>SES (Solar Energy System) 4</td>
-          <td class="num">$39.406.297</td>
-          <td class="num pend">Pendiente</td>
-          <td><span class="badge" style="background:#f8f9fa;color:#aaa">Pendiente</span></td>
-        </tr>
-      <tr class="subtotal">
-        <td>Subtotal Equipo y Maquinaria</td>
-        <td class="num">$608.353.964</td>
-        <td class="num pend">Pendiente</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+  
+  <div class="seccion">
+    <div class="seccion-header" style="background:#8e44ad22;border-left:4px solid #8e44ad">
+      <span class="seccion-titulo" style="color:#8e44ad">Construcción</span>
+      <span class="seccion-total" style="color:#8e44ad">$1.709.992.295</span>
+    </div>
+    <div class="activos-lista">
+    <details class="activo">
+      <summary>
+        <span class="activo-nombre">Terrenos</span>
+        <span class="activo-valor">$1.401.482.395</span>
+      </summary>
+      <div class="activo-detalle">
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Valor en libros</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Estado</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
+        </div>
+      </div>
+    </details>
+    <details class="activo">
+      <summary>
+        <span class="activo-nombre">Sistema de acueducto</span>
+        <span class="activo-valor">$145.212.435</span>
+      </summary>
+      <div class="activo-detalle">
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Valor en libros</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Estado</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
+        </div>
+      </div>
+    </details>
+    <details class="activo">
+      <summary>
+        <span class="activo-nombre">Vias internas</span>
+        <span class="activo-valor">$81.961.311</span>
+      </summary>
+      <div class="activo-detalle">
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Valor en libros</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Estado</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
+        </div>
+      </div>
+    </details>
+    <details class="activo">
+      <summary>
+        <span class="activo-nombre">Casa Flor de la Canela</span>
+        <span class="activo-valor">$62.314.464</span>
+      </summary>
+      <div class="activo-detalle">
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Valor en libros</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Estado</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
+        </div>
+      </div>
+    </details>
+    <details class="activo">
+      <summary>
+        <span class="activo-nombre">Corrales</span>
+        <span class="activo-valor">$19.021.690</span>
+      </summary>
+      <div class="activo-detalle">
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Valor en libros</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Estado</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
+        </div>
+      </div>
+    </details>
+    </div>
+  </div>
+  
+  <div class="seccion">
+    <div class="seccion-header" style="background:#8e44ad22;border-left:4px solid #8e44ad">
+      <span class="seccion-titulo" style="color:#8e44ad">Equipo y Maquinaria</span>
+      <span class="seccion-total" style="color:#8e44ad">$608.353.964</span>
+    </div>
+    <div class="activos-lista">
+    <details class="activo">
+      <summary>
+        <span class="activo-nombre">Insumos instalaciones agropecuarias</span>
+        <span class="activo-valor">$568.947.667</span>
+      </summary>
+      <div class="activo-detalle">
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Valor en libros</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Estado</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
+        </div>
+      </div>
+    </details>
+    <details class="activo">
+      <summary>
+        <span class="activo-nombre">SES (Solar Energy System) 4</span>
+        <span class="activo-valor">$39.406.297</span>
+      </summary>
+      <div class="activo-detalle">
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Valor en libros</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">Pendiente</span>
+        </div>
+        <div class="detalle-fila">
+          <span class="detalle-lbl">Estado</span>
+          <span class="detalle-val badge" style="background:#f0f0f0;color:#999">· Pendiente</span>
+        </div>
+      </div>
+    </details>
+    </div>
   </div>
 
-  <div class="grand-total">
-    <table>
-      <tr>
-        <td>TOTAL FLOR DE LA CANELA</td>
-        <td class="num">$2.318.346.259</td>
-        <td class="num pend">Pendiente</td>
-        <td></td>
-      </tr>
-    </table>
+  <div class="total-zona">
+    <span class="total-zona-lbl">Total FLOR DE LA CANELA</span>
+    <span class="total-zona-val">$2.318.346.259</span>
   </div>
 
   <div class="mapa-wrap">
