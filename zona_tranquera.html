@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TRANQUERA - LOM SAS</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #f5f6fa; }
+    header { background: #2980b9; color: #fff; padding: 22px 16px; text-align: center; }
+    h1 { font-size: 1.4em; font-weight: 700; }
+    .sub { font-size: .82em; opacity: .85; margin-top: 4px; }
+    .card { background: #fff; margin: 12px; border-radius: 12px; padding: 16px;
+             box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    .label { font-size: .72em; font-weight: 700; color: #999;
+              text-transform: uppercase; letter-spacing: .1em; margin-bottom: 12px; }
+    ul { list-style: none; }
+    li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: .9em; color: #2d3436; }
+    li::before { content: "> "; color: #2980b9; font-weight: 700; }
+    li:last-child { border: none; }
+    .section-title { font-size: .72em; font-weight: 700; color: #999;
+                      text-transform: uppercase; letter-spacing: .1em;
+                      margin: 0 12px 8px; }
+    .mapa-wrap { margin: 0 12px 12px; border-radius: 12px; overflow: hidden;
+                  box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+    iframe { width: 100%; height: 400px; border: 0; display: block; }
+    .btn { display: block; background: #2980b9; color: #fff; text-align: center;
+            padding: 14px; border-radius: 12px; text-decoration: none;
+            font-weight: 700; margin: 0 12px 24px; font-size: .92em; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>TRANQUERA</h1>
+    <p class="sub">Inversiones Agropecuarias LOM SAS</p>
+  </header>
+
+  <div class="card">
+    <p class="label">Activos &mdash; 12 registros</p>
+    <ul><li>Centro de acopio - 600 m2</li><li>Cuarto frio #1 - 80 m3</li><li>Cuarto frio #2 - 80 m3</li><li>Bascula ganadera - 2.000 kg</li><li>Manga de manejo bovino</li><li>Corrales de espera (x3)</li><li>Casino ganaderia - 150 m2</li><li>Tanque combustible ACPM - 2.000 L</li><li>Montacarga electrico - 2 ton</li><li>Compresor camara fria</li><li>Planta electrica - 30 kVA</li><li>Porteria y caseta de vigilancia</li></ul>
+  </div>
+
+  <p class="section-title">Mapa de la finca</p>
+  <div class="mapa-wrap">
+    <iframe src="http://192.168.0.144:8080/mapa_con_qr.html" allowfullscreen loading="lazy"></iframe>
+  </div>
+
+  <a class="btn" href="https://maps.google.com/?q=3.978171,-72.469507&z=16">Abrir mi ubicacion en Google Maps</a>
+</body>
+</html>

@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_fac432f2c4bb5ba978e02b7b7fb338aa {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_fac432f2c4bb5ba978e02b7b7fb338aa" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_fac432f2c4bb5ba978e02b7b7fb338aa = L.map(
+                "map_fac432f2c4bb5ba978e02b7b7fb338aa",
+                {
+                    center: [3.982937266666667, -72.45739780000001],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_470ca912c5d66f10f67966417269a907 = L.tileLayer(
+                "https://mt1.google.com/vt/lyrs=s\u0026x={x}\u0026y={y}\u0026z={z}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Google Satellite",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_470ca912c5d66f10f67966417269a907.addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var tile_layer_e27e29b42d407135cfb96098d8a94077 = L.tileLayer(
+                "https://mt1.google.com/vt/lyrs=h\u0026x={x}\u0026y={y}\u0026z={z}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Google Hybrid",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 0.7,
+}
+
+            );
+        
+    
+            tile_layer_e27e29b42d407135cfb96098d8a94077.addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var poly_line_8a5909f40a128ef0a30547c47cd2e56a = L.polyline(
+                [[3.973919, -72.467749], [3.929678, -72.537581]],
+                {"bubblingMouseEvents": true, "color": "#00FF00", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#00FF00", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.9, "smoothFactor": 1.0, "stroke": true, "weight": 5}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            poly_line_8a5909f40a128ef0a30547c47cd2e56a.bindTooltip(
+                `<div>
+                     VIA EXTERNA | 9.18 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_2bb8de62efefe16c7bce2cdc59251f05 = L.polyline(
+                [[3.973919, -72.467749], [4.012054, -72.437666]],
+                {"bubblingMouseEvents": true, "color": "#0080FF", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#0080FF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.9, "smoothFactor": 1.0, "stroke": true, "weight": 5}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            poly_line_2bb8de62efefe16c7bce2cdc59251f05.bindTooltip(
+                `<div>
+                     VIA INTERNA | 5.40 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_6b07fa36081ab640ec5b5ac5e2b1ab94 = L.circle(
+                [3.9776958571428573, -72.45073728571428],
+                {"bubblingMouseEvents": true, "color": "#e74c3c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e74c3c", "fillOpacity": 0.15, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 251.73371153152047, "stroke": true, "weight": 3}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+        var popup_aede2b7bec29c5d3aeacb469d27e4d6b = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_c66612e17c04206aac3bde381e92fb9e = $(`<div id="html_c66612e17c04206aac3bde381e92fb9e" style="width: 100.0%; height: 100.0%;"><div style='font-family:Arial;width:300px;'><div style='background:#e74c3c;color:white;padding:12px 16px;border-radius:8px 8px 0 0;text-align:center;'><b style='font-size:1.1em;'>GRANJA</b><br><span style='font-size:.76em;opacity:.85;'>Inversiones Agropecuarias LOM SAS</span></div><div style='padding:12px 16px;background:#fff;border:1px solid #eee;border-top:none;'><p style='font-size:.74em;font-weight:700;color:#e74c3c;margin-bottom:5px;'>ACTIVOS (20):</p><ul style='list-style:none;padding:0;margin:0;color:#333;max-height:180px;overflow-y:auto;'><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Galpon Nave 1 - 10.000 aves cap.</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Galpon Nave 2 - 10.000 aves cap.</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Galpon Nave 3 - 12.000 aves cap.</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Galpon Nave 4 - 12.000 aves cap.</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Silo de alimento #1 - 20 ton</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Silo de alimento #2 - 20 ton</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Planta solar - 48 paneles 450W</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Banco de baterias - 200 kWh</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Bomba sumergible pozo #1</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Bomba sumergible pozo #2</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Sistema bebederos nipple Nave 1-2</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Sistema bebederos nipple Nave 3-4</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Comederos automaticos Nave 1-2</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Comederos automaticos Nave 3-4</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Ventiladores extractores (x24)</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Calefactores a gas (x8)</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Bascula granja - 500 kg</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Tanque reserva agua - 50.000 L</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Sistema poquinaza - banda conveyor</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Terraza futura Nave 5-6 (obra civil)</li></ul><a href='http://192.168.0.144:8080/zona_granja.html' target='_blank' style='display:block;background:#e74c3c;color:white;text-align:center;padding:9px;border-radius:7px;text-decoration:none;font-weight:700;margin-top:10px;font-size:.85em;'>Ver activos + mapa completo</a></div></div></div>`)[0];
+                popup_aede2b7bec29c5d3aeacb469d27e4d6b.setContent(html_c66612e17c04206aac3bde381e92fb9e);
+            
+        
+
+        circle_6b07fa36081ab640ec5b5ac5e2b1ab94.bindPopup(popup_aede2b7bec29c5d3aeacb469d27e4d6b)
+        ;
+
+        
+    
+    
+            circle_6b07fa36081ab640ec5b5ac5e2b1ab94.bindTooltip(
+                `<div>
+                     GRANJA - 20 activos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_4def7bdb3779c3d753dd1f4d8bbc5399 = L.marker(
+                [3.9776958571428573, -72.45073728571428],
+                {
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var div_icon_98852f96b316fa171c124ae4ebdbce83 = L.divIcon({
+  "html": "\u003cdiv style=\u0027background:#e74c3c;color:white;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72em;font-weight:900;box-shadow:0 3px 8px rgba(0,0,0,.45);border:2px solid white;cursor:pointer;\u0027\u003eQR\u003c/div\u003e",
+  "iconSize": [36, 36],
+  "iconAnchor": [18, 18],
+  "className": "empty",
+});
+        
+    
+        var popup_0f3b690010d3f39f362def380c4ab9d9 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_0ee79c402c64d9bca4e1c4f42944d650 = $(`<div id="html_0ee79c402c64d9bca4e1c4f42944d650" style="width: 100.0%; height: 100.0%;"><div style='font-family:Arial;width:300px;'><div style='background:#e74c3c;color:white;padding:12px 16px;border-radius:8px 8px 0 0;text-align:center;'><b style='font-size:1.1em;'>GRANJA</b><br><span style='font-size:.76em;opacity:.85;'>Inversiones Agropecuarias LOM SAS</span></div><div style='padding:12px 16px;background:#fff;border:1px solid #eee;border-top:none;'><p style='font-size:.74em;font-weight:700;color:#e74c3c;margin-bottom:5px;'>ACTIVOS (20):</p><ul style='list-style:none;padding:0;margin:0;color:#333;max-height:180px;overflow-y:auto;'><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Galpon Nave 1 - 10.000 aves cap.</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Galpon Nave 2 - 10.000 aves cap.</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Galpon Nave 3 - 12.000 aves cap.</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Galpon Nave 4 - 12.000 aves cap.</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Silo de alimento #1 - 20 ton</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Silo de alimento #2 - 20 ton</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Planta solar - 48 paneles 450W</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Banco de baterias - 200 kWh</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Bomba sumergible pozo #1</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Bomba sumergible pozo #2</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Sistema bebederos nipple Nave 1-2</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Sistema bebederos nipple Nave 3-4</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Comederos automaticos Nave 1-2</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Comederos automaticos Nave 3-4</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Ventiladores extractores (x24)</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Calefactores a gas (x8)</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Bascula granja - 500 kg</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Tanque reserva agua - 50.000 L</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Sistema poquinaza - banda conveyor</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Terraza futura Nave 5-6 (obra civil)</li></ul><a href='http://192.168.0.144:8080/zona_granja.html' target='_blank' style='display:block;background:#e74c3c;color:white;text-align:center;padding:9px;border-radius:7px;text-decoration:none;font-weight:700;margin-top:10px;font-size:.85em;'>Ver activos + mapa completo</a></div></div></div>`)[0];
+                popup_0f3b690010d3f39f362def380c4ab9d9.setContent(html_0ee79c402c64d9bca4e1c4f42944d650);
+            
+        
+
+        marker_4def7bdb3779c3d753dd1f4d8bbc5399.bindPopup(popup_0f3b690010d3f39f362def380c4ab9d9)
+        ;
+
+        
+    
+    
+            marker_4def7bdb3779c3d753dd1f4d8bbc5399.bindTooltip(
+                `<div>
+                     QR - GRANJA
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4def7bdb3779c3d753dd1f4d8bbc5399.setIcon(div_icon_98852f96b316fa171c124ae4ebdbce83);
+            
+    
+            var circle_b4872df0e3e9bfa36da53c36e9bfe8f1 = L.circle(
+                [4.0100625, -72.44036575],
+                {"bubblingMouseEvents": true, "color": "#8e44ad", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#8e44ad", "fillOpacity": 0.15, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 720.1955151421062, "stroke": true, "weight": 3}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+        var popup_b750d4cc496657afcf25d200adabd56a = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_2d1b8a9c00b895dd102ac6801cfa3ed7 = $(`<div id="html_2d1b8a9c00b895dd102ac6801cfa3ed7" style="width: 100.0%; height: 100.0%;"><div style='font-family:Arial;width:300px;'><div style='background:#8e44ad;color:white;padding:12px 16px;border-radius:8px 8px 0 0;text-align:center;'><b style='font-size:1.1em;'>FLOR DE LA CANELA</b><br><span style='font-size:.76em;opacity:.85;'>Inversiones Agropecuarias LOM SAS</span></div><div style='padding:12px 16px;background:#fff;border:1px solid #eee;border-top:none;'><p style='font-size:.74em;font-weight:700;color:#8e44ad;margin-bottom:5px;'>ACTIVOS (12):</p><ul style='list-style:none;padding:0;margin:0;color:#333;max-height:180px;overflow-y:auto;'><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Casa principal - 320 m2</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Generador electrico - 45 kVA</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Isotanque GLP - 10.000 L</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Tanque de agua elevado - 5.000 L</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Motobomba diesel - 3 pulg</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Terraza zona 2 - area cultivo</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Sistema riego por goteo sector A</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Sistema riego por goteo sector B</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Terrazas secundarias (x4)</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Invernadero - 800 m2</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Bodega de herramientas</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Compresor de aire - 100 psi</li></ul><a href='http://192.168.0.144:8080/zona_flor_de_la_canela.html' target='_blank' style='display:block;background:#8e44ad;color:white;text-align:center;padding:9px;border-radius:7px;text-decoration:none;font-weight:700;margin-top:10px;font-size:.85em;'>Ver activos + mapa completo</a></div></div></div>`)[0];
+                popup_b750d4cc496657afcf25d200adabd56a.setContent(html_2d1b8a9c00b895dd102ac6801cfa3ed7);
+            
+        
+
+        circle_b4872df0e3e9bfa36da53c36e9bfe8f1.bindPopup(popup_b750d4cc496657afcf25d200adabd56a)
+        ;
+
+        
+    
+    
+            circle_b4872df0e3e9bfa36da53c36e9bfe8f1.bindTooltip(
+                `<div>
+                     FLOR DE LA CANELA - 12 activos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cdb2f3f3e7865c18014395c6990dee2b = L.marker(
+                [4.0100625, -72.44036575],
+                {
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var div_icon_abe6792238d76d3e40e285d7d50fee3d = L.divIcon({
+  "html": "\u003cdiv style=\u0027background:#8e44ad;color:white;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72em;font-weight:900;box-shadow:0 3px 8px rgba(0,0,0,.45);border:2px solid white;cursor:pointer;\u0027\u003eQR\u003c/div\u003e",
+  "iconSize": [36, 36],
+  "iconAnchor": [18, 18],
+  "className": "empty",
+});
+        
+    
+        var popup_020161abb744db9022cf9bc0ff48df69 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_20f1bee48f6571c08bd7b902343f612e = $(`<div id="html_20f1bee48f6571c08bd7b902343f612e" style="width: 100.0%; height: 100.0%;"><div style='font-family:Arial;width:300px;'><div style='background:#8e44ad;color:white;padding:12px 16px;border-radius:8px 8px 0 0;text-align:center;'><b style='font-size:1.1em;'>FLOR DE LA CANELA</b><br><span style='font-size:.76em;opacity:.85;'>Inversiones Agropecuarias LOM SAS</span></div><div style='padding:12px 16px;background:#fff;border:1px solid #eee;border-top:none;'><p style='font-size:.74em;font-weight:700;color:#8e44ad;margin-bottom:5px;'>ACTIVOS (12):</p><ul style='list-style:none;padding:0;margin:0;color:#333;max-height:180px;overflow-y:auto;'><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Casa principal - 320 m2</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Generador electrico - 45 kVA</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Isotanque GLP - 10.000 L</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Tanque de agua elevado - 5.000 L</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Motobomba diesel - 3 pulg</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Terraza zona 2 - area cultivo</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Sistema riego por goteo sector A</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Sistema riego por goteo sector B</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Terrazas secundarias (x4)</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Invernadero - 800 m2</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Bodega de herramientas</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Compresor de aire - 100 psi</li></ul><a href='http://192.168.0.144:8080/zona_flor_de_la_canela.html' target='_blank' style='display:block;background:#8e44ad;color:white;text-align:center;padding:9px;border-radius:7px;text-decoration:none;font-weight:700;margin-top:10px;font-size:.85em;'>Ver activos + mapa completo</a></div></div></div>`)[0];
+                popup_020161abb744db9022cf9bc0ff48df69.setContent(html_20f1bee48f6571c08bd7b902343f612e);
+            
+        
+
+        marker_cdb2f3f3e7865c18014395c6990dee2b.bindPopup(popup_020161abb744db9022cf9bc0ff48df69)
+        ;
+
+        
+    
+    
+            marker_cdb2f3f3e7865c18014395c6990dee2b.bindTooltip(
+                `<div>
+                     QR - FLOR DE LA CANELA
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cdb2f3f3e7865c18014395c6990dee2b.setIcon(div_icon_abe6792238d76d3e40e285d7d50fee3d);
+            
+    
+            var circle_fb9ebe72fcd06f5fac5c65e1e4d32813 = L.circle(
+                [3.9781705, -72.4695065],
+                {"bubblingMouseEvents": true, "color": "#2980b9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2980b9", "fillOpacity": 0.15, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 629.1115460185531, "stroke": true, "weight": 3}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+        var popup_b273d7d1217cd756a24841ef45abf81f = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_364d3f46ae144e706629079b6a04efb0 = $(`<div id="html_364d3f46ae144e706629079b6a04efb0" style="width: 100.0%; height: 100.0%;"><div style='font-family:Arial;width:300px;'><div style='background:#2980b9;color:white;padding:12px 16px;border-radius:8px 8px 0 0;text-align:center;'><b style='font-size:1.1em;'>TRANQUERA</b><br><span style='font-size:.76em;opacity:.85;'>Inversiones Agropecuarias LOM SAS</span></div><div style='padding:12px 16px;background:#fff;border:1px solid #eee;border-top:none;'><p style='font-size:.74em;font-weight:700;color:#2980b9;margin-bottom:5px;'>ACTIVOS (12):</p><ul style='list-style:none;padding:0;margin:0;color:#333;max-height:180px;overflow-y:auto;'><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Centro de acopio - 600 m2</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Cuarto frio #1 - 80 m3</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Cuarto frio #2 - 80 m3</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Bascula ganadera - 2.000 kg</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Manga de manejo bovino</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Corrales de espera (x3)</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Casino ganaderia - 150 m2</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Tanque combustible ACPM - 2.000 L</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Montacarga electrico - 2 ton</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Compresor camara fria</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Planta electrica - 30 kVA</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Porteria y caseta de vigilancia</li></ul><a href='http://192.168.0.144:8080/zona_tranquera.html' target='_blank' style='display:block;background:#2980b9;color:white;text-align:center;padding:9px;border-radius:7px;text-decoration:none;font-weight:700;margin-top:10px;font-size:.85em;'>Ver activos + mapa completo</a></div></div></div>`)[0];
+                popup_b273d7d1217cd756a24841ef45abf81f.setContent(html_364d3f46ae144e706629079b6a04efb0);
+            
+        
+
+        circle_fb9ebe72fcd06f5fac5c65e1e4d32813.bindPopup(popup_b273d7d1217cd756a24841ef45abf81f)
+        ;
+
+        
+    
+    
+            circle_fb9ebe72fcd06f5fac5c65e1e4d32813.bindTooltip(
+                `<div>
+                     TRANQUERA - 12 activos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_0d9b9843e23f34810f9f3955523ae465 = L.marker(
+                [3.9781705, -72.4695065],
+                {
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var div_icon_a6d6253bd9fce2b53927da82569bfd9b = L.divIcon({
+  "html": "\u003cdiv style=\u0027background:#2980b9;color:white;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72em;font-weight:900;box-shadow:0 3px 8px rgba(0,0,0,.45);border:2px solid white;cursor:pointer;\u0027\u003eQR\u003c/div\u003e",
+  "iconSize": [36, 36],
+  "iconAnchor": [18, 18],
+  "className": "empty",
+});
+        
+    
+        var popup_8d37b8410b65f4591c775f8ed21b2f9a = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_b5e28c1a8c0d31daaab4abbdf028cb21 = $(`<div id="html_b5e28c1a8c0d31daaab4abbdf028cb21" style="width: 100.0%; height: 100.0%;"><div style='font-family:Arial;width:300px;'><div style='background:#2980b9;color:white;padding:12px 16px;border-radius:8px 8px 0 0;text-align:center;'><b style='font-size:1.1em;'>TRANQUERA</b><br><span style='font-size:.76em;opacity:.85;'>Inversiones Agropecuarias LOM SAS</span></div><div style='padding:12px 16px;background:#fff;border:1px solid #eee;border-top:none;'><p style='font-size:.74em;font-weight:700;color:#2980b9;margin-bottom:5px;'>ACTIVOS (12):</p><ul style='list-style:none;padding:0;margin:0;color:#333;max-height:180px;overflow-y:auto;'><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Centro de acopio - 600 m2</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Cuarto frio #1 - 80 m3</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Cuarto frio #2 - 80 m3</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Bascula ganadera - 2.000 kg</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Manga de manejo bovino</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Corrales de espera (x3)</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Casino ganaderia - 150 m2</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Tanque combustible ACPM - 2.000 L</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Montacarga electrico - 2 ton</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Compresor camara fria</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Planta electrica - 30 kVA</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Porteria y caseta de vigilancia</li></ul><a href='http://192.168.0.144:8080/zona_tranquera.html' target='_blank' style='display:block;background:#2980b9;color:white;text-align:center;padding:9px;border-radius:7px;text-decoration:none;font-weight:700;margin-top:10px;font-size:.85em;'>Ver activos + mapa completo</a></div></div></div>`)[0];
+                popup_8d37b8410b65f4591c775f8ed21b2f9a.setContent(html_b5e28c1a8c0d31daaab4abbdf028cb21);
+            
+        
+
+        marker_0d9b9843e23f34810f9f3955523ae465.bindPopup(popup_8d37b8410b65f4591c775f8ed21b2f9a)
+        ;
+
+        
+    
+    
+            marker_0d9b9843e23f34810f9f3955523ae465.bindTooltip(
+                `<div>
+                     QR - TRANQUERA
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0d9b9843e23f34810f9f3955523ae465.setIcon(div_icon_a6d6253bd9fce2b53927da82569bfd9b);
+            
+    
+            var marker_04626691d9525896e13eeeee9dd2d830 = L.marker(
+                [3.978417, -72.451624],
+                {
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var icon_828835563b48f17a316036079aa2d446 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f2ef034b4bf20f931e3180c852bc6916 = L.popup({
+  "maxWidth": 230,
+});
+
+        
+            
+                var i_frame_c4019146542e1b6eb3ca5a6285fc6ac5 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICA8ZGl2IHN0eWxlPSdmb250LWZhbWlseTpBcmlhbDt3aWR0aDoyMTBweDsnPjxoNCBzdHlsZT0nY29sb3I6cmVkO21hcmdpbi1ib3R0b206OHB4Oyc+TkFWRSAzIFkgNDwvaDQ+PHA+PGI+Wm9uYTo8L2I+IEdSQU5KQTwvcD48cD48Yj5MYXQ6PC9iPiAzLjk3ODQxNzwvcD48cD48Yj5Mbmc6PC9iPiAtNzIuNDUxNjI0PC9wPjxhIGhyZWY9J2h0dHBzOi8vbWFwcy5nb29nbGUuY29tLz9xPTMuOTc4NDE3LC03Mi40NTE2MjQnIHRhcmdldD0nX2JsYW5rJyBzdHlsZT0nY29sb3I6cmVkJz5WZXIgZW4gR29vZ2xlIE1hcHM8L2E+PC9kaXY+" width="230" style="border:none !important;" height="175"></iframe>`)[0];
+                popup_f2ef034b4bf20f931e3180c852bc6916.setContent(i_frame_c4019146542e1b6eb3ca5a6285fc6ac5);
+            
+        
+
+        marker_04626691d9525896e13eeeee9dd2d830.bindPopup(popup_f2ef034b4bf20f931e3180c852bc6916)
+        ;
+
+        
+    
+    
+            marker_04626691d9525896e13eeeee9dd2d830.bindTooltip(
+                `<div>
+                     1. NAVE 3 Y 4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_04626691d9525896e13eeeee9dd2d830.setIcon(icon_828835563b48f17a316036079aa2d446);
+            
+    
+            var marker_e7c0bbc145fbd68166a42e3709ba511e = L.marker(
+                [3.977316, -72.451386],
+                {
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var icon_2afa58afc7cd14753a3ddd3f1e353ae2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9d89fc3b76a83c6e3eac1c4949208856 = L.popup({
+  "maxWidth": 230,
+});
+
+        
+            
+                var i_frame_78d48a310fe9f09283b8549011cafd92 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICA8ZGl2IHN0eWxlPSdmb250LWZhbWlseTpBcmlhbDt3aWR0aDoyMTBweDsnPjxoNCBzdHlsZT0nY29sb3I6cmVkO21hcmdpbi1ib3R0b206OHB4Oyc+TkFWRSAxIFkgMjwvaDQ+PHA+PGI+Wm9uYTo8L2I+IEdSQU5KQTwvcD48cD48Yj5MYXQ6PC9iPiAzLjk3NzMxNjwvcD48cD48Yj5Mbmc6PC9iPiAtNzIuNDUxMzg2PC9wPjxhIGhyZWY9J2h0dHBzOi8vbWFwcy5nb29nbGUuY29tLz9xPTMuOTc3MzE2LC03Mi40NTEzODYnIHRhcmdldD0nX2JsYW5rJyBzdHlsZT0nY29sb3I6cmVkJz5WZXIgZW4gR29vZ2xlIE1hcHM8L2E+PC9kaXY+" width="230" style="border:none !important;" height="175"></iframe>`)[0];
+                popup_9d89fc3b76a83c6e3eac1c4949208856.setContent(i_frame_78d48a310fe9f09283b8549011cafd92);
+            
+        
+
+        marker_e7c0bbc145fbd68166a42e3709ba511e.bindPopup(popup_9d89fc3b76a83c6e3eac1c4949208856)
+        ;
+
+        
+    
+    
+            marker_e7c0bbc145fbd68166a42e3709ba511e.bindTooltip(
+                `<div>
+                     2. NAVE 1 Y 2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e7c0bbc145fbd68166a42e3709ba511e.setIcon(icon_2afa58afc7cd14753a3ddd3f1e353ae2);
+            
+    
+            var marker_73b8505e97cfb7e1f525a1d5492ce0b9 = L.marker(
+                [3.976747, -72.451759],
+                {
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var icon_e3930e6e1800cde549ca1241de1e0073 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c5852acfe26cd022bdeb5cab3bed3f98 = L.popup({
+  "maxWidth": 230,
+});
+
+        
+            
+                var i_frame_4da05bb60ea216fbb5a3ee5c10868ece = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICA8ZGl2IHN0eWxlPSdmb250LWZhbWlseTpBcmlhbDt3aWR0aDoyMTBweDsnPjxoNCBzdHlsZT0nY29sb3I6cmVkO21hcmdpbi1ib3R0b206OHB4Oyc+U2lzdGVtYSBkZSBhZ3VhIG5hdmUgMyB5IDQ8L2g0PjxwPjxiPlpvbmE6PC9iPiBHUkFOSkE8L3A+PHA+PGI+TGF0OjwvYj4gMy45NzY3NDc8L3A+PHA+PGI+TG5nOjwvYj4gLTcyLjQ1MTc1OTwvcD48YSBocmVmPSdodHRwczovL21hcHMuZ29vZ2xlLmNvbS8/cT0zLjk3Njc0NywtNzIuNDUxNzU5JyB0YXJnZXQ9J19ibGFuaycgc3R5bGU9J2NvbG9yOnJlZCc+VmVyIGVuIEdvb2dsZSBNYXBzPC9hPjwvZGl2Pg==" width="230" style="border:none !important;" height="175"></iframe>`)[0];
+                popup_c5852acfe26cd022bdeb5cab3bed3f98.setContent(i_frame_4da05bb60ea216fbb5a3ee5c10868ece);
+            
+        
+
+        marker_73b8505e97cfb7e1f525a1d5492ce0b9.bindPopup(popup_c5852acfe26cd022bdeb5cab3bed3f98)
+        ;
+
+        
+    
+    
+            marker_73b8505e97cfb7e1f525a1d5492ce0b9.bindTooltip(
+                `<div>
+                     3. Sistema de agua nave 3 y 4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_73b8505e97cfb7e1f525a1d5492ce0b9.setIcon(icon_e3930e6e1800cde549ca1241de1e0073);
+            
+    
+            var marker_74d2faf0c7b76ecb420c36704ade9de2 = L.marker(
+                [3.977293, -72.449361],
+                {
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var icon_32996fc5dc0f499155c746e0735c6f24 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_11c83e7329648f3b61fe6938a24702ea = L.popup({
+  "maxWidth": 230,
+});
+
+        
+            
+                var i_frame_328d5c4716ca868175fe12b8175fa2ab = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICA8ZGl2IHN0eWxlPSdmb250LWZhbWlseTpBcmlhbDt3aWR0aDoyMTBweDsnPjxoNCBzdHlsZT0nY29sb3I6cmVkO21hcmdpbi1ib3R0b206OHB4Oyc+UExBTlRBUyBTT0xBUkVTPC9oND48cD48Yj5ab25hOjwvYj4gR1JBTkpBPC9wPjxwPjxiPkxhdDo8L2I+IDMuOTc3MjkzPC9wPjxwPjxiPkxuZzo8L2I+IC03Mi40NDkzNjE8L3A+PGEgaHJlZj0naHR0cHM6Ly9tYXBzLmdvb2dsZS5jb20vP3E9My45NzcyOTMsLTcyLjQ0OTM2MScgdGFyZ2V0PSdfYmxhbmsnIHN0eWxlPSdjb2xvcjpyZWQnPlZlciBlbiBHb29nbGUgTWFwczwvYT48L2Rpdj4=" width="230" style="border:none !important;" height="175"></iframe>`)[0];
+                popup_11c83e7329648f3b61fe6938a24702ea.setContent(i_frame_328d5c4716ca868175fe12b8175fa2ab);
+            
+        
+
+        marker_74d2faf0c7b76ecb420c36704ade9de2.bindPopup(popup_11c83e7329648f3b61fe6938a24702ea)
+        ;
+
+        
+    
+    
+            marker_74d2faf0c7b76ecb420c36704ade9de2.bindTooltip(
+                `<div>
+                     4. PLANTAS SOLARES
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_74d2faf0c7b76ecb420c36704ade9de2.setIcon(icon_32996fc5dc0f499155c746e0735c6f24);
+            
+    
+            var marker_8a9d29787eb7a45a624427e90762a2c0 = L.marker(
+                [4.011405, -72.439902],
+                {
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var icon_adf416434a2e03998f8da627d1ba88f1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_def56b2ccd19985bf062262a4883aa94 = L.popup({
+  "maxWidth": 230,
+});
+
+        
+            
+                var i_frame_708a1638b70a2293fc9cd5b71a6761dc = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICA8ZGl2IHN0eWxlPSdmb250LWZhbWlseTpBcmlhbDt3aWR0aDoyMTBweDsnPjxoNCBzdHlsZT0nY29sb3I6cHVycGxlO21hcmdpbi1ib3R0b206OHB4Oyc+SVNPVEFOUVVFPC9oND48cD48Yj5ab25hOjwvYj4gRkxPUiBERSBMQSBDQU5FTEE8L3A+PHA+PGI+TGF0OjwvYj4gNC4wMTE0MDU8L3A+PHA+PGI+TG5nOjwvYj4gLTcyLjQzOTkwMjwvcD48YSBocmVmPSdodHRwczovL21hcHMuZ29vZ2xlLmNvbS8/cT00LjAxMTQwNSwtNzIuNDM5OTAyJyB0YXJnZXQ9J19ibGFuaycgc3R5bGU9J2NvbG9yOnB1cnBsZSc+VmVyIGVuIEdvb2dsZSBNYXBzPC9hPjwvZGl2Pg==" width="230" style="border:none !important;" height="175"></iframe>`)[0];
+                popup_def56b2ccd19985bf062262a4883aa94.setContent(i_frame_708a1638b70a2293fc9cd5b71a6761dc);
+            
+        
+
+        marker_8a9d29787eb7a45a624427e90762a2c0.bindPopup(popup_def56b2ccd19985bf062262a4883aa94)
+        ;
+
+        
+    
+    
+            marker_8a9d29787eb7a45a624427e90762a2c0.bindTooltip(
+                `<div>
+                     5. ISOTANQUE
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8a9d29787eb7a45a624427e90762a2c0.setIcon(icon_adf416434a2e03998f8da627d1ba88f1);
+            
+    
+            var marker_d8e9fc25de8b000d94c73d2b2d05f77a = L.marker(
+                [4.010898, -72.439292],
+                {
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var icon_451da5caa5cb189af7b7df0055405b6e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6a6488096f79030fb0e333f08a5244c0 = L.popup({
+  "maxWidth": 230,
+});
+
+        
+            
+                var i_frame_7b02bd3b40e8cff2f8a74d382fec1f2e = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICA8ZGl2IHN0eWxlPSdmb250LWZhbWlseTpBcmlhbDt3aWR0aDoyMTBweDsnPjxoNCBzdHlsZT0nY29sb3I6cHVycGxlO21hcmdpbi1ib3R0b206OHB4Oyc+VGVycmF6YSB6b25hcyBkb3M8L2g0PjxwPjxiPlpvbmE6PC9iPiBGTE9SIERFIExBIENBTkVMQTwvcD48cD48Yj5MYXQ6PC9iPiA0LjAxMDg5ODwvcD48cD48Yj5Mbmc6PC9iPiAtNzIuNDM5MjkyPC9wPjxhIGhyZWY9J2h0dHBzOi8vbWFwcy5nb29nbGUuY29tLz9xPTQuMDEwODk4LC03Mi40MzkyOTInIHRhcmdldD0nX2JsYW5rJyBzdHlsZT0nY29sb3I6cHVycGxlJz5WZXIgZW4gR29vZ2xlIE1hcHM8L2E+PC9kaXY+" width="230" style="border:none !important;" height="175"></iframe>`)[0];
+                popup_6a6488096f79030fb0e333f08a5244c0.setContent(i_frame_7b02bd3b40e8cff2f8a74d382fec1f2e);
+            
+        
+
+        marker_d8e9fc25de8b000d94c73d2b2d05f77a.bindPopup(popup_6a6488096f79030fb0e333f08a5244c0)
+        ;
+
+        
+    
+    
+            marker_d8e9fc25de8b000d94c73d2b2d05f77a.bindTooltip(
+                `<div>
+                     6. Terraza zonas dos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d8e9fc25de8b000d94c73d2b2d05f77a.setIcon(icon_451da5caa5cb189af7b7df0055405b6e);
+            
+    
+            var marker_24f8aa4a3bdbbcb8fc15eeff7ba07171 = L.marker(
+                [4.012054, -72.437666],
+                {
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var icon_79944d2c9ff9e86dd45953356951adb4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4e20ceb647f702fcc38461280243ec97 = L.popup({
+  "maxWidth": 230,
+});
+
+        
+            
+                var i_frame_092516b69c764fb63a7774bc354a2dc4 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICA8ZGl2IHN0eWxlPSdmb250LWZhbWlseTpBcmlhbDt3aWR0aDoyMTBweDsnPjxoNCBzdHlsZT0nY29sb3I6cHVycGxlO21hcmdpbi1ib3R0b206OHB4Oyc+Q2FzYSBwcmluY2lwYWwgRmxvciBDYW5lbGE8L2g0PjxwPjxiPlpvbmE6PC9iPiBGTE9SIERFIExBIENBTkVMQTwvcD48cD48Yj5MYXQ6PC9iPiA0LjAxMjA1NDwvcD48cD48Yj5Mbmc6PC9iPiAtNzIuNDM3NjY2PC9wPjxhIGhyZWY9J2h0dHBzOi8vbWFwcy5nb29nbGUuY29tLz9xPTQuMDEyMDU0LC03Mi40Mzc2NjYnIHRhcmdldD0nX2JsYW5rJyBzdHlsZT0nY29sb3I6cHVycGxlJz5WZXIgZW4gR29vZ2xlIE1hcHM8L2E+PC9kaXY+" width="230" style="border:none !important;" height="175"></iframe>`)[0];
+                popup_4e20ceb647f702fcc38461280243ec97.setContent(i_frame_092516b69c764fb63a7774bc354a2dc4);
+            
+        
+
+        marker_24f8aa4a3bdbbcb8fc15eeff7ba07171.bindPopup(popup_4e20ceb647f702fcc38461280243ec97)
+        ;
+
+        
+    
+    
+            marker_24f8aa4a3bdbbcb8fc15eeff7ba07171.bindTooltip(
+                `<div>
+                     7. Casa principal Flor Canela
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_24f8aa4a3bdbbcb8fc15eeff7ba07171.setIcon(icon_79944d2c9ff9e86dd45953356951adb4);
+            
+    
+            var marker_aee2135585615937c9399d50712cda83 = L.marker(
+                [4.005893, -72.444603],
+                {
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var icon_8e0152d8d5726fa315b5dc377b8128c9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_02bcb76db064d7d1c12276cbb439b8f1 = L.popup({
+  "maxWidth": 230,
+});
+
+        
+            
+                var i_frame_824bcd31d6a67065ee8a3114a5c7dadc = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICA8ZGl2IHN0eWxlPSdmb250LWZhbWlseTpBcmlhbDt3aWR0aDoyMTBweDsnPjxoNCBzdHlsZT0nY29sb3I6cHVycGxlO21hcmdpbi1ib3R0b206OHB4Oyc+VGVycmF6YXMgc2VjdW5kYXJpYXM8L2g0PjxwPjxiPlpvbmE6PC9iPiBGTE9SIERFIExBIENBTkVMQTwvcD48cD48Yj5MYXQ6PC9iPiA0LjAwNTg5MzwvcD48cD48Yj5Mbmc6PC9iPiAtNzIuNDQ0NjAzPC9wPjxhIGhyZWY9J2h0dHBzOi8vbWFwcy5nb29nbGUuY29tLz9xPTQuMDA1ODkzLC03Mi40NDQ2MDMnIHRhcmdldD0nX2JsYW5rJyBzdHlsZT0nY29sb3I6cHVycGxlJz5WZXIgZW4gR29vZ2xlIE1hcHM8L2E+PC9kaXY+" width="230" style="border:none !important;" height="175"></iframe>`)[0];
+                popup_02bcb76db064d7d1c12276cbb439b8f1.setContent(i_frame_824bcd31d6a67065ee8a3114a5c7dadc);
+            
+        
+
+        marker_aee2135585615937c9399d50712cda83.bindPopup(popup_02bcb76db064d7d1c12276cbb439b8f1)
+        ;
+
+        
+    
+    
+            marker_aee2135585615937c9399d50712cda83.bindTooltip(
+                `<div>
+                     8. Terrazas secundarias
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_aee2135585615937c9399d50712cda83.setIcon(icon_8e0152d8d5726fa315b5dc377b8128c9);
+            
+    
+            var marker_0033df54dde23660d763f00930573502 = L.marker(
+                [3.978983, -72.450969],
+                {
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var icon_365e73905edfef5901db6c86772f4531 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_23555392a992680c8c94a81de94aa641 = L.popup({
+  "maxWidth": 230,
+});
+
+        
+            
+                var i_frame_557be0655fb6f285964652fb92b88cd7 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICA8ZGl2IHN0eWxlPSdmb250LWZhbWlseTpBcmlhbDt3aWR0aDoyMTBweDsnPjxoNCBzdHlsZT0nY29sb3I6cmVkO21hcmdpbi1ib3R0b206OHB4Oyc+U0lTVEVNQSBQT1FVSU5BWkE8L2g0PjxwPjxiPlpvbmE6PC9iPiBHUkFOSkE8L3A+PHA+PGI+TGF0OjwvYj4gMy45Nzg5ODM8L3A+PHA+PGI+TG5nOjwvYj4gLTcyLjQ1MDk2OTwvcD48YSBocmVmPSdodHRwczovL21hcHMuZ29vZ2xlLmNvbS8/cT0zLjk3ODk4MywtNzIuNDUwOTY5JyB0YXJnZXQ9J19ibGFuaycgc3R5bGU9J2NvbG9yOnJlZCc+VmVyIGVuIEdvb2dsZSBNYXBzPC9hPjwvZGl2Pg==" width="230" style="border:none !important;" height="175"></iframe>`)[0];
+                popup_23555392a992680c8c94a81de94aa641.setContent(i_frame_557be0655fb6f285964652fb92b88cd7);
+            
+        
+
+        marker_0033df54dde23660d763f00930573502.bindPopup(popup_23555392a992680c8c94a81de94aa641)
+        ;
+
+        
+    
+    
+            marker_0033df54dde23660d763f00930573502.bindTooltip(
+                `<div>
+                     9. SISTEMA POQUINAZA
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0033df54dde23660d763f00930573502.setIcon(icon_365e73905edfef5901db6c86772f4531);
+            
+    
+            var marker_2c6ab20e591d50871a0ab3c8a766dcb4 = L.marker(
+                [3.978532, -72.450645],
+                {
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var icon_7acda3784f6d91812a4b3dd60a4d75e3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5138b83dd68af7f7181061c0e4b2b030 = L.popup({
+  "maxWidth": 230,
+});
+
+        
+            
+                var i_frame_a4282cc27ea3fbe44a5dd5bf8f46c4e8 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICA8ZGl2IHN0eWxlPSdmb250LWZhbWlseTpBcmlhbDt3aWR0aDoyMTBweDsnPjxoNCBzdHlsZT0nY29sb3I6cmVkO21hcmdpbi1ib3R0b206OHB4Oyc+RE9TIFBPWk9TIFkgU0lTVEVNQSBTT0xBUjwvaDQ+PHA+PGI+Wm9uYTo8L2I+IEdSQU5KQTwvcD48cD48Yj5MYXQ6PC9iPiAzLjk3ODUzMjwvcD48cD48Yj5Mbmc6PC9iPiAtNzIuNDUwNjQ1PC9wPjxhIGhyZWY9J2h0dHBzOi8vbWFwcy5nb29nbGUuY29tLz9xPTMuOTc4NTMyLC03Mi40NTA2NDUnIHRhcmdldD0nX2JsYW5rJyBzdHlsZT0nY29sb3I6cmVkJz5WZXIgZW4gR29vZ2xlIE1hcHM8L2E+PC9kaXY+" width="230" style="border:none !important;" height="175"></iframe>`)[0];
+                popup_5138b83dd68af7f7181061c0e4b2b030.setContent(i_frame_a4282cc27ea3fbe44a5dd5bf8f46c4e8);
+            
+        
+
+        marker_2c6ab20e591d50871a0ab3c8a766dcb4.bindPopup(popup_5138b83dd68af7f7181061c0e4b2b030)
+        ;
+
+        
+    
+    
+            marker_2c6ab20e591d50871a0ab3c8a766dcb4.bindTooltip(
+                `<div>
+                     10. DOS POZOS Y SISTEMA SOLAR
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2c6ab20e591d50871a0ab3c8a766dcb4.setIcon(icon_7acda3784f6d91812a4b3dd60a4d75e3);
+            
+    
+            var marker_a780303401ef0cc1584b913eab156646 = L.marker(
+                [3.97352, -72.467364],
+                {
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var icon_e3c320d6b762a61a68ad88f53f09ae2c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1f385ee00a7b642444cba835b0063877 = L.popup({
+  "maxWidth": 230,
+});
+
+        
+            
+                var i_frame_344655cfdd701cb02c66ae4f405d47fe = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICA8ZGl2IHN0eWxlPSdmb250LWZhbWlseTpBcmlhbDt3aWR0aDoyMTBweDsnPjxoNCBzdHlsZT0nY29sb3I6Ymx1ZTttYXJnaW4tYm90dG9tOjhweDsnPkNFTlRSTyBERSBBQ09QSU88L2g0PjxwPjxiPlpvbmE6PC9iPiBUUkFOUVVFUkE8L3A+PHA+PGI+TGF0OjwvYj4gMy45NzM1MjA8L3A+PHA+PGI+TG5nOjwvYj4gLTcyLjQ2NzM2NDwvcD48YSBocmVmPSdodHRwczovL21hcHMuZ29vZ2xlLmNvbS8/cT0zLjk3MzUyLC03Mi40NjczNjQnIHRhcmdldD0nX2JsYW5rJyBzdHlsZT0nY29sb3I6Ymx1ZSc+VmVyIGVuIEdvb2dsZSBNYXBzPC9hPjwvZGl2Pg==" width="230" style="border:none !important;" height="175"></iframe>`)[0];
+                popup_1f385ee00a7b642444cba835b0063877.setContent(i_frame_344655cfdd701cb02c66ae4f405d47fe);
+            
+        
+
+        marker_a780303401ef0cc1584b913eab156646.bindPopup(popup_1f385ee00a7b642444cba835b0063877)
+        ;
+
+        
+    
+    
+            marker_a780303401ef0cc1584b913eab156646.bindTooltip(
+                `<div>
+                     11. CENTRO DE ACOPIO
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a780303401ef0cc1584b913eab156646.setIcon(icon_e3c320d6b762a61a68ad88f53f09ae2c);
+            
+    
+            var marker_cdf26b94197ceebcc013a72302f0f254 = L.marker(
+                [3.982821, -72.471649],
+                {
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var icon_bf5eea4e2f993d92f8e54d8a51aafa5c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fffe331cba7c7f864e340b9839753c1d = L.popup({
+  "maxWidth": 230,
+});
+
+        
+            
+                var i_frame_be1f56b4f0264b7f85c1bf446d952bdc = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICA8ZGl2IHN0eWxlPSdmb250LWZhbWlseTpBcmlhbDt3aWR0aDoyMTBweDsnPjxoNCBzdHlsZT0nY29sb3I6Ymx1ZTttYXJnaW4tYm90dG9tOjhweDsnPkNhc2lubyBnYW5hZGVyaWE8L2g0PjxwPjxiPlpvbmE6PC9iPiBUUkFOUVVFUkE8L3A+PHA+PGI+TGF0OjwvYj4gMy45ODI4MjE8L3A+PHA+PGI+TG5nOjwvYj4gLTcyLjQ3MTY0OTwvcD48YSBocmVmPSdodHRwczovL21hcHMuZ29vZ2xlLmNvbS8/cT0zLjk4MjgyMSwtNzIuNDcxNjQ5JyB0YXJnZXQ9J19ibGFuaycgc3R5bGU9J2NvbG9yOmJsdWUnPlZlciBlbiBHb29nbGUgTWFwczwvYT48L2Rpdj4=" width="230" style="border:none !important;" height="175"></iframe>`)[0];
+                popup_fffe331cba7c7f864e340b9839753c1d.setContent(i_frame_be1f56b4f0264b7f85c1bf446d952bdc);
+            
+        
+
+        marker_cdf26b94197ceebcc013a72302f0f254.bindPopup(popup_fffe331cba7c7f864e340b9839753c1d)
+        ;
+
+        
+    
+    
+            marker_cdf26b94197ceebcc013a72302f0f254.bindTooltip(
+                `<div>
+                     12. Casino ganaderia
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cdf26b94197ceebcc013a72302f0f254.setIcon(icon_bf5eea4e2f993d92f8e54d8a51aafa5c);
+            
+    
+            var marker_af77802839e4e2a01bda0f15271e3666 = L.marker(
+                [3.976583, -72.449417],
+                {
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var icon_8827f7445ceb018fa3639de1f3c6de7f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_80669aff140e666acfd658dc77d7a031 = L.popup({
+  "maxWidth": 230,
+});
+
+        
+            
+                var i_frame_dba82ebe927a423ef9e6ab4fb27a4c2c = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICA8ZGl2IHN0eWxlPSdmb250LWZhbWlseTpBcmlhbDt3aWR0aDoyMTBweDsnPjxoNCBzdHlsZT0nY29sb3I6cmVkO21hcmdpbi1ib3R0b206OHB4Oyc+VEVSUkFaQSBQQVJBIE5BVkUgNSBZIDY8L2g0PjxwPjxiPlpvbmE6PC9iPiBHUkFOSkE8L3A+PHA+PGI+TGF0OjwvYj4gMy45NzY1ODM8L3A+PHA+PGI+TG5nOjwvYj4gLTcyLjQ0OTQxNzwvcD48YSBocmVmPSdodHRwczovL21hcHMuZ29vZ2xlLmNvbS8/cT0zLjk3NjU4MywtNzIuNDQ5NDE3JyB0YXJnZXQ9J19ibGFuaycgc3R5bGU9J2NvbG9yOnJlZCc+VmVyIGVuIEdvb2dsZSBNYXBzPC9hPjwvZGl2Pg==" width="230" style="border:none !important;" height="175"></iframe>`)[0];
+                popup_80669aff140e666acfd658dc77d7a031.setContent(i_frame_dba82ebe927a423ef9e6ab4fb27a4c2c);
+            
+        
+
+        marker_af77802839e4e2a01bda0f15271e3666.bindPopup(popup_80669aff140e666acfd658dc77d7a031)
+        ;
+
+        
+    
+    
+            marker_af77802839e4e2a01bda0f15271e3666.bindTooltip(
+                `<div>
+                     13. TERRAZA PARA NAVE 5 Y 6
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_af77802839e4e2a01bda0f15271e3666.setIcon(icon_8827f7445ceb018fa3639de1f3c6de7f);
+            
+    
+            var marker_74902451698f5c58960b24ac4fe28eeb = L.marker(
+                [3.929678, -72.537581],
+                {
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var icon_1bdf55b59382cf95f395a3d23183f0b8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1ba79e634915c61e745603c7ab56c055 = L.popup({
+  "maxWidth": 230,
+});
+
+        
+            
+                var i_frame_e0906f044fa88c8e74ccc1c83662f92d = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICA8ZGl2IHN0eWxlPSdmb250LWZhbWlseTpBcmlhbDt3aWR0aDoyMTBweDsnPjxoNCBzdHlsZT0nY29sb3I6Z3JlZW47bWFyZ2luLWJvdHRvbTo4cHg7Jz5Db21pZW56byBjYXJyZXRlcmEgZmluY2EgdGVyY2VybzwvaDQ+PHA+PGI+Wm9uYTo8L2I+IFB1bnRvIEZpbmNhIFRlcmNlcm88L3A+PHA+PGI+TGF0OjwvYj4gMy45Mjk2Nzg8L3A+PHA+PGI+TG5nOjwvYj4gLTcyLjUzNzU4MTwvcD48YSBocmVmPSdodHRwczovL21hcHMuZ29vZ2xlLmNvbS8/cT0zLjkyOTY3OCwtNzIuNTM3NTgxJyB0YXJnZXQ9J19ibGFuaycgc3R5bGU9J2NvbG9yOmdyZWVuJz5WZXIgZW4gR29vZ2xlIE1hcHM8L2E+PC9kaXY+" width="230" style="border:none !important;" height="175"></iframe>`)[0];
+                popup_1ba79e634915c61e745603c7ab56c055.setContent(i_frame_e0906f044fa88c8e74ccc1c83662f92d);
+            
+        
+
+        marker_74902451698f5c58960b24ac4fe28eeb.bindPopup(popup_1ba79e634915c61e745603c7ab56c055)
+        ;
+
+        
+    
+    
+            marker_74902451698f5c58960b24ac4fe28eeb.bindTooltip(
+                `<div>
+                     14. Comienzo carretera finca tercero
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_74902451698f5c58960b24ac4fe28eeb.setIcon(icon_1bdf55b59382cf95f395a3d23183f0b8);
+            
+    
+            var marker_1de448731f0fb8dd21ee25afb37ab963 = L.marker(
+                [3.973919, -72.467749],
+                {
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+        
+    
+            var icon_3605ab6ca607a571e4e409ccea115050 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8f8524f3a6ad8c07fa7f7c958b9165f3 = L.popup({
+  "maxWidth": 230,
+});
+
+        
+            
+                var i_frame_609671c223a4dc3c0d6c23b228cbb584 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICA8ZGl2IHN0eWxlPSdmb250LWZhbWlseTpBcmlhbDt3aWR0aDoyMTBweDsnPjxoNCBzdHlsZT0nY29sb3I6Z3JlZW47bWFyZ2luLWJvdHRvbTo4cHg7Jz5Db21pZW56byBjYXJyZXRlcmEgVHJhbnF1ZXJhPC9oND48cD48Yj5ab25hOjwvYj4gUHVudG8gSW5pY2lvIFRyYW5xdWVyYTwvcD48cD48Yj5MYXQ6PC9iPiAzLjk3MzkxOTwvcD48cD48Yj5Mbmc6PC9iPiAtNzIuNDY3NzQ5PC9wPjxhIGhyZWY9J2h0dHBzOi8vbWFwcy5nb29nbGUuY29tLz9xPTMuOTczOTE5LC03Mi40Njc3NDknIHRhcmdldD0nX2JsYW5rJyBzdHlsZT0nY29sb3I6Z3JlZW4nPlZlciBlbiBHb29nbGUgTWFwczwvYT48L2Rpdj4=" width="230" style="border:none !important;" height="175"></iframe>`)[0];
+                popup_8f8524f3a6ad8c07fa7f7c958b9165f3.setContent(i_frame_609671c223a4dc3c0d6c23b228cbb584);
+            
+        
+
+        marker_1de448731f0fb8dd21ee25afb37ab963.bindPopup(popup_8f8524f3a6ad8c07fa7f7c958b9165f3)
+        ;
+
+        
+    
+    
+            marker_1de448731f0fb8dd21ee25afb37ab963.bindTooltip(
+                `<div>
+                     15. Comienzo carretera Tranquera
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1de448731f0fb8dd21ee25afb37ab963.setIcon(icon_3605ab6ca607a571e4e409ccea115050);
+            
+    
+            var layer_control_377e8715696520bc8ec04daae4d5b79e_layers = {
+                base_layers : {
+                    "https://mt1.google.com/vt/lyrs=s\u0026x={x}\u0026y={y}\u0026z={z}" : tile_layer_470ca912c5d66f10f67966417269a907,
+                },
+                overlays :  {
+                    "Etiquetas" : tile_layer_e27e29b42d407135cfb96098d8a94077,
+                },
+            };
+            let layer_control_377e8715696520bc8ec04daae4d5b79e = L.control.layers(
+                layer_control_377e8715696520bc8ec04daae4d5b79e_layers.base_layers,
+                layer_control_377e8715696520bc8ec04daae4d5b79e_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
+
+        
+</script>
+</html>
