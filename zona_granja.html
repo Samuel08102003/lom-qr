@@ -5,45 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GRANJA — Sitio 3 - LOM SAS</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; background: #f5f6fa; }
-    header {
-      background: #e74c3c; color: #fff;
-      padding: 24px 16px; text-align: center;
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:Arial,sans-serif; background:#f5f6fa; font-size:13px; }
+    header { background:#e74c3c; color:#fff; padding:20px 16px; text-align:center; }
+    h1 { font-size:1.4em; font-weight:700; }
+    .sub { font-size:.8em; opacity:.85; margin-top:4px; }
+    .total-card {
+      background:#e74c3c; color:#fff;
+      margin:14px; border-radius:10px; padding:14px 16px;
+      display:flex; justify-content:space-between; align-items:center;
     }
-    h1 { font-size: 1.5em; font-weight: 700; }
-    .sub { font-size: .82em; opacity: .85; margin-top: 5px; }
-    .card {
-      background: #fff; margin: 14px;
-      border-radius: 12px; padding: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    .total-card .label { font-size:.75em; opacity:.85; }
+    .total-card .valor { font-size:1.2em; font-weight:700; }
+    .section { margin:0 14px 14px; }
+    .cat-label {
+      font-size:.7em; font-weight:700; text-transform:uppercase;
+      letter-spacing:.08em; margin:14px 0 6px;
     }
-    .label {
-      font-size: .72em; font-weight: 700; color: #999;
-      text-transform: uppercase; letter-spacing: .1em;
-      margin-bottom: 12px;
+    table { width:100%; border-collapse:collapse; background:#fff;
+             border-radius:10px; overflow:hidden;
+             box-shadow:0 2px 8px rgba(0,0,0,.07); }
+    thead tr { background:#e74c3c20; }
+    th { padding:9px 10px; text-align:left; font-size:.75em;
+          color:#e74c3c; font-weight:700; text-transform:uppercase;
+          letter-spacing:.05em; }
+    td { padding:8px 10px; border-bottom:1px solid #f0f0f0; color:#2d3436; }
+    tr:last-child td { border:none; }
+    .num { text-align:right; font-variant-numeric:tabular-nums; }
+    .pend { color:#aaa; }
+    .subtotal td { background:#f8f9fa; font-weight:700; color:#e74c3c; border-top:2px solid #e74c3c30; }
+    .grand-total {
+      margin:14px; border-radius:10px; overflow:hidden;
+      box-shadow:0 2px 8px rgba(0,0,0,.07);
     }
-    ul { list-style: none; }
-    li {
-      padding: 9px 0; border-bottom: 1px solid #f0f0f0;
-      font-size: .92em; color: #2d3436;
-    }
-    li::before { content: "› "; color: #e74c3c; font-weight: 700; }
-    li:last-child { border: none; }
-    .mapa-wrap { margin: 0 14px 14px; }
-    iframe {
-      width: 100%; height: 300px; border: 0;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.1);
-    }
-    .btn {
-      display: block; background: #e74c3c; color: #fff;
-      text-align: center; padding: 15px;
-      border-radius: 12px; text-decoration: none;
-      font-weight: 700; margin: 0 14px 28px;
-      font-size: .95em;
-      box-shadow: 0 4px 12px rgba(0,0,0,.15);
-    }
+    .grand-total table { border-radius:0; box-shadow:none; }
+    .grand-total tr { background:#e74c3c15; }
+    .grand-total td { font-weight:700; font-size:1em; color:#e74c3c; border:none; padding:12px 10px; }
+    .mapa-wrap { margin:0 14px 14px; }
+    iframe { width:100%; height:280px; border:0; border-radius:10px;
+              box-shadow:0 2px 8px rgba(0,0,0,.1); display:block; }
+    .btn { display:block; background:#e74c3c; color:#fff; text-align:center;
+            padding:14px; border-radius:10px; text-decoration:none;
+            font-weight:700; margin:0 14px 28px; font-size:.9em; }
   </style>
 </head>
 <body>
@@ -52,24 +55,118 @@
     <p class="sub">Inversiones Agropecuarias LOM SAS</p>
   </header>
 
-  <div class="card">
-    <p class="label">Activos — 7 registros</p>
-    <ul>
-    <li>Naves Sitio 3</li>
-    <li>Campamentos</li>
-    <li>Separador y sis. riego de porquinaza</li>
-    <li>Silos</li>
-    <li>Elevador concentrado</li>
-    <li>Planta electrica 2</li>
-    <li>Planta electrica 3</li>
-    </ul>
+  <div class="total-card">
+    <div>
+      <div class="label">Total zona</div>
+      <div class="valor">$8.434.223.329</div>
+    </div>
+    <div style="text-align:right">
+      <div class="label">Construcción</div>
+      <div style="font-size:.95em;font-weight:700">$7.675.996.817</div>
+      <div class="label" style="margin-top:4px">Equipo y Maquinaria</div>
+      <div style="font-size:.95em;font-weight:700">$758.226.512</div>
+    </div>
   </div>
 
-  <!-- Mapa folium de la finca centrado en esta zona -->
+  <div class="section">
+    
+  <div class="cat-label" style="color:#e74c3c">Construcción</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Activo</th>
+        <th class="num">Valor compra</th>
+        <th class="num">Valor en libros</th>
+        <th class="num">Pendiente</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>Naves Sitio 3</td>
+          <td class="num">$7.286.236.722</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Campamentos</td>
+          <td class="num">$389.760.095</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+      <tr class="subtotal">
+        <td>Subtotal Construcción</td>
+        <td class="num">$7.675.996.817</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+    </tbody>
+  </table>
+    
+  <div class="cat-label" style="color:#e74c3c">Equipo y Maquinaria</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Activo</th>
+        <th class="num">Valor compra</th>
+        <th class="num">Valor en libros</th>
+        <th class="num">Pendiente</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>Separador y sis. riego de porquinaza</td>
+          <td class="num">$272.286.007</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Silos</td>
+          <td class="num">$213.693.459</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Elevador concentrado</td>
+          <td class="num">$185.795.700</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Planta electrica 2</td>
+          <td class="num">$47.420.178</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Planta electrica 3</td>
+          <td class="num">$39.031.168</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+      <tr class="subtotal">
+        <td>Subtotal Equipo y Maquinaria</td>
+        <td class="num">$758.226.512</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="grand-total">
+    <table>
+      <tr>
+        <td>TOTAL GRANJA — SITIO 3</td>
+        <td class="num">$8.434.223.329</td>
+        <td class="num pend">—</td>
+        <td class="num pend">—</td>
+      </tr>
+    </table>
+  </div>
+
   <div class="mapa-wrap">
     <iframe src="index.html#lat=3.977696&lng=-72.450737&zoom=16" loading="lazy" allowfullscreen></iframe>
   </div>
-
   <a class="btn" href="index.html#lat=3.977696&lng=-72.450737&zoom=16">Ver en el mapa de la finca</a>
 </body>
 </html>

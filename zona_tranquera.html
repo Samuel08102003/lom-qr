@@ -5,45 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>LA TRANQUERA - LOM SAS</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; background: #f5f6fa; }
-    header {
-      background: #2980b9; color: #fff;
-      padding: 24px 16px; text-align: center;
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:Arial,sans-serif; background:#f5f6fa; font-size:13px; }
+    header { background:#2980b9; color:#fff; padding:20px 16px; text-align:center; }
+    h1 { font-size:1.4em; font-weight:700; }
+    .sub { font-size:.8em; opacity:.85; margin-top:4px; }
+    .total-card {
+      background:#2980b9; color:#fff;
+      margin:14px; border-radius:10px; padding:14px 16px;
+      display:flex; justify-content:space-between; align-items:center;
     }
-    h1 { font-size: 1.5em; font-weight: 700; }
-    .sub { font-size: .82em; opacity: .85; margin-top: 5px; }
-    .card {
-      background: #fff; margin: 14px;
-      border-radius: 12px; padding: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    .total-card .label { font-size:.75em; opacity:.85; }
+    .total-card .valor { font-size:1.2em; font-weight:700; }
+    .section { margin:0 14px 14px; }
+    .cat-label {
+      font-size:.7em; font-weight:700; text-transform:uppercase;
+      letter-spacing:.08em; margin:14px 0 6px;
     }
-    .label {
-      font-size: .72em; font-weight: 700; color: #999;
-      text-transform: uppercase; letter-spacing: .1em;
-      margin-bottom: 12px;
+    table { width:100%; border-collapse:collapse; background:#fff;
+             border-radius:10px; overflow:hidden;
+             box-shadow:0 2px 8px rgba(0,0,0,.07); }
+    thead tr { background:#2980b920; }
+    th { padding:9px 10px; text-align:left; font-size:.75em;
+          color:#2980b9; font-weight:700; text-transform:uppercase;
+          letter-spacing:.05em; }
+    td { padding:8px 10px; border-bottom:1px solid #f0f0f0; color:#2d3436; }
+    tr:last-child td { border:none; }
+    .num { text-align:right; font-variant-numeric:tabular-nums; }
+    .pend { color:#aaa; }
+    .subtotal td { background:#f8f9fa; font-weight:700; color:#2980b9; border-top:2px solid #2980b930; }
+    .grand-total {
+      margin:14px; border-radius:10px; overflow:hidden;
+      box-shadow:0 2px 8px rgba(0,0,0,.07);
     }
-    ul { list-style: none; }
-    li {
-      padding: 9px 0; border-bottom: 1px solid #f0f0f0;
-      font-size: .92em; color: #2d3436;
-    }
-    li::before { content: "› "; color: #2980b9; font-weight: 700; }
-    li:last-child { border: none; }
-    .mapa-wrap { margin: 0 14px 14px; }
-    iframe {
-      width: 100%; height: 300px; border: 0;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.1);
-    }
-    .btn {
-      display: block; background: #2980b9; color: #fff;
-      text-align: center; padding: 15px;
-      border-radius: 12px; text-decoration: none;
-      font-weight: 700; margin: 0 14px 28px;
-      font-size: .95em;
-      box-shadow: 0 4px 12px rgba(0,0,0,.15);
-    }
+    .grand-total table { border-radius:0; box-shadow:none; }
+    .grand-total tr { background:#2980b915; }
+    .grand-total td { font-weight:700; font-size:1em; color:#2980b9; border:none; padding:12px 10px; }
+    .mapa-wrap { margin:0 14px 14px; }
+    iframe { width:100%; height:280px; border:0; border-radius:10px;
+              box-shadow:0 2px 8px rgba(0,0,0,.1); display:block; }
+    .btn { display:block; background:#2980b9; color:#fff; text-align:center;
+            padding:14px; border-radius:10px; text-decoration:none;
+            font-weight:700; margin:0 14px 28px; font-size:.9em; }
   </style>
 </head>
 <body>
@@ -52,46 +55,250 @@
     <p class="sub">Inversiones Agropecuarias LOM SAS</p>
   </header>
 
-  <div class="card">
-    <p class="label">Activos — 29 registros</p>
-    <ul>
-    <li>Terrenos Tranquera</li>
-    <li>Casa principal</li>
-    <li>Campamentos</li>
-    <li>Estercolero</li>
-    <li>Vias internas</li>
-    <li>Sistema de acueducto</li>
-    <li>Corrales</li>
-    <li>Separador y sis. riego de porquinaza</li>
-    <li>CT (Communication Tower)</li>
-    <li>CAN-AM Vehiculo admin</li>
-    <li>Tractor 1</li>
-    <li>Tractor 2</li>
-    <li>Casa porteria-bascula</li>
-    <li>Planta electrica 1</li>
-    <li>SES (Solar Energy System) 1</li>
-    <li>SES (Solar Energy System) 2</li>
-    <li>SES (Solar Energy System) 3</li>
-    <li>Herramientas</li>
-    <li>Moto 200ZW</li>
-    <li>Moto 96C</li>
-    <li>Caballos</li>
-    <li>Centro de acopio 1</li>
-    <li>Bascula finca</li>
-    <li>Televisores</li>
-    <li>Camaras trampa</li>
-    <li>Congelador finca 1</li>
-    <li>Congelador finca 2</li>
-    <li>Granja Apicultura</li>
-    <li>STARLINK 1</li>
-    </ul>
+  <div class="total-card">
+    <div>
+      <div class="label">Total zona</div>
+      <div class="valor">$4.768.368.416</div>
+    </div>
+    <div style="text-align:right">
+      <div class="label">Construcción</div>
+      <div style="font-size:.95em;font-weight:700">$4.127.952.062</div>
+      <div class="label" style="margin-top:4px">Equipo y Maquinaria</div>
+      <div style="font-size:.95em;font-weight:700">$640.416.354</div>
+    </div>
   </div>
 
-  <!-- Mapa folium de la finca centrado en esta zona -->
+  <div class="section">
+    
+  <div class="cat-label" style="color:#2980b9">Construcción</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Activo</th>
+        <th class="num">Valor compra</th>
+        <th class="num">Valor en libros</th>
+        <th class="num">Pendiente</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>Terrenos Tranquera</td>
+          <td class="num">$2.387.558.326</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Casa principal</td>
+          <td class="num">$794.902.096</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Campamentos</td>
+          <td class="num">$289.985.613</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Estercolero</td>
+          <td class="num">$175.423.695</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Vias internas</td>
+          <td class="num">$142.019.680</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Sistema de acueducto</td>
+          <td class="num">$129.449.969</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Corrales</td>
+          <td class="num">$123.350.891</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Casa porteria-bascula</td>
+          <td class="num">$72.908.822</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Centro de acopio 1</td>
+          <td class="num">$12.352.970</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+      <tr class="subtotal">
+        <td>Subtotal Construcción</td>
+        <td class="num">$4.127.952.062</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+    </tbody>
+  </table>
+    
+  <div class="cat-label" style="color:#2980b9">Equipo y Maquinaria</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Activo</th>
+        <th class="num">Valor compra</th>
+        <th class="num">Valor en libros</th>
+        <th class="num">Pendiente</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>Separador y sis. riego de porquinaza</td>
+          <td class="num">$113.246.283</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>CT (Communication Tower)</td>
+          <td class="num">$76.643.540</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>CAN-AM Vehiculo admin</td>
+          <td class="num">$75.726.378</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Tractor 2</td>
+          <td class="num">$74.323.541</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Tractor 1</td>
+          <td class="num">$62.555.239</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Planta electrica 1</td>
+          <td class="num">$52.594.046</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>SES (Solar Energy System) 3</td>
+          <td class="num">$40.616.205</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>SES (Solar Energy System) 1</td>
+          <td class="num">$39.246.695</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>SES (Solar Energy System) 2</td>
+          <td class="num">$38.024.749</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Herramientas</td>
+          <td class="num">$17.642.011</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Moto 200ZW</td>
+          <td class="num">$15.490.000</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Caballos</td>
+          <td class="num">$12.600.000</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Bascula finca</td>
+          <td class="num">$4.902.475</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Televisores</td>
+          <td class="num">$3.738.586</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Camaras trampa</td>
+          <td class="num">$3.417.406</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Moto 96C</td>
+          <td class="num">$3.000.000</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Congelador finca 1</td>
+          <td class="num">$2.599.900</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Granja Apicultura</td>
+          <td class="num">$1.529.400</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>STARLINK 1</td>
+          <td class="num">$1.370.000</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+        <tr>
+          <td>Congelador finca 2</td>
+          <td class="num">$1.149.900</td>
+          <td class="num pend">—</td>
+          <td class="num pend">—</td>
+        </tr>
+      <tr class="subtotal">
+        <td>Subtotal Equipo y Maquinaria</td>
+        <td class="num">$640.416.354</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="grand-total">
+    <table>
+      <tr>
+        <td>TOTAL LA TRANQUERA</td>
+        <td class="num">$4.768.368.416</td>
+        <td class="num pend">—</td>
+        <td class="num pend">—</td>
+      </tr>
+    </table>
+  </div>
+
   <div class="mapa-wrap">
     <iframe src="index.html#lat=3.978171&lng=-72.469507&zoom=16" loading="lazy" allowfullscreen></iframe>
   </div>
-
   <a class="btn" href="index.html#lat=3.978171&lng=-72.469507&zoom=16">Ver en el mapa de la finca</a>
 </body>
 </html>
