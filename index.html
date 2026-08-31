@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     
@@ -1123,5 +1123,21 @@
             ).addTo(map_fac432f2c4bb5ba978e02b7b7fb338aa);
 
         
+</script>
+<script>
+window.addEventListener('load', function () {
+    setTimeout(function () {
+        var hash = window.location.hash.replace('#', '');
+        if (!hash) return;
+        var p = {};
+        hash.split('&').forEach(function (kv) {
+            var parts = kv.split('=');
+            p[parts[0]] = parseFloat(parts[1]);
+        });
+        if (p.lat && p.lng) {
+            map_fac432f2c4bb5ba978e02b7b7fb338aa.setView([p.lat, p.lng], p.zoom || 16);
+        }
+    }, 800);
+});
 </script>
 </html>
