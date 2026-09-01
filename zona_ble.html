@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BLE - LOM SAS</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:Arial,sans-serif; background:#f5f6fa; }
+    header { background:#27ae60; color:#fff; padding:20px 16px; text-align:center; }
+    h1 { font-size:1.4em; font-weight:700; }
+    .sub { font-size:.8em; opacity:.85; margin-top:4px; }
+    .responsable { font-size:.78em; opacity:.9; margin-top:6px; }
+    .responsable span { font-weight:700; }
+
+    .resumen {
+      background:#27ae60; color:#fff;
+      margin:14px; border-radius:12px; padding:16px;
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .resumen-lbl { font-size:.72em; opacity:.8; margin-bottom:2px; }
+    .resumen-val { font-size:1.3em; font-weight:700; }
+    .resumen-sub { font-size:.78em; opacity:.9; margin-top:6px; }
+
+    .seccion { margin:0 14px 12px; }
+    .seccion-header {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:10px 12px; border-radius:8px 8px 0 0;
+    }
+    .seccion-titulo { font-size:.75em; font-weight:700; text-transform:uppercase; letter-spacing:.07em; }
+    .seccion-total  { font-size:.85em; font-weight:700; }
+
+    .activos-lista { background:#fff; border-radius:0 0 10px 10px;
+                      box-shadow:0 2px 8px rgba(0,0,0,.07); overflow:hidden; }
+
+    details.activo { border-bottom:1px solid #f0f0f0; }
+    details.activo:last-child { border-bottom:none; }
+
+    details.activo summary {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:12px 14px; cursor:pointer; list-style:none;
+      user-select:none;
+    }
+    details.activo summary::-webkit-details-marker { display:none; }
+    details.activo summary::after {
+      content:"›"; font-size:1.2em; color:#ccc;
+      transition:transform .2s; margin-left:8px; flex-shrink:0;
+    }
+    details.activo[open] summary::after { transform:rotate(90deg); color:#27ae60; }
+    details.activo[open] summary { background:#27ae6008; }
+
+    .activo-nombre    { font-size:.9em; color:#2d3436; flex:1; }
+    .activo-valor-wrap { text-align:right; margin-right:4px; flex-shrink:0; }
+    .activo-valor-lbl  { display:block; font-size:.65em; color:#aaa;
+                          text-transform:uppercase; letter-spacing:.05em; }
+    .activo-valor      { font-size:.88em; color:#2d3436; font-weight:700;
+                          white-space:nowrap; }
+
+    .activo-detalle {
+      padding:10px 14px 14px;
+      background:#27ae6005;
+      border-top:1px solid #27ae6020;
+    }
+    .detalle-fila {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:6px 0; border-bottom:1px solid #f0f0f0;
+    }
+    .detalle-fila:last-child { border-bottom:none; }
+    .detalle-lbl { font-size:.75em; color:#999; font-weight:600; text-transform:uppercase; letter-spacing:.05em; }
+    .detalle-val { font-size:.82em; font-weight:700; }
+    .badge { padding:4px 10px; border-radius:20px; font-size:.78em; font-weight:700; }
+
+    .total-zona {
+      margin:14px; padding:14px 16px;
+      background:#fff; border-radius:10px;
+      box-shadow:0 2px 8px rgba(0,0,0,.07);
+      display:flex; justify-content:space-between; align-items:center;
+      border-left:4px solid #27ae60;
+    }
+    .total-zona-lbl { font-size:.75em; font-weight:700; color:#27ae60; text-transform:uppercase; }
+    .total-zona-val { font-size:1.1em; font-weight:700; color:#27ae60; }
+
+    .mapa-wrap { margin:14px; }
+    iframe { width:100%; height:280px; border:0; border-radius:10px;
+              box-shadow:0 2px 8px rgba(0,0,0,.1); display:block; }
+    .btn { display:block; background:#27ae60; color:#fff; text-align:center;
+            padding:14px; border-radius:10px; text-decoration:none;
+            font-weight:700; margin:14px 14px 28px; font-size:.9em; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BLE</h1>
+    <p class="sub">Inversiones Agropecuarias LOM SAS</p>
+    <p class="responsable">Responsable: <span>Fredy</span></p>
+  </header>
+
+  <div class="resumen">
+    <div>
+      <div class="resumen-lbl">Total zona</div>
+      <div class="resumen-val">$ •••.•••.•••</div>
+      <div class="resumen-sub">0 activos registrados</div>
+    </div>
+    <div style="text-align:right">
+      <div class="resumen-lbl">Construcción</div>
+      <div style="font-weight:700;font-size:.95em">$ •••.•••.•••</div>
+      <div class="resumen-lbl" style="margin-top:6px">Equipo y Maquinaria</div>
+      <div style="font-weight:700;font-size:.95em">$ •••.•••.•••</div>
+    </div>
+  </div>
+
+  
+  
+
+  <div class="total-zona">
+    <span class="total-zona-lbl">Total BLE</span>
+    <span class="total-zona-val">$ •••.•••.•••</span>
+  </div>
+
+  <div class="mapa-wrap">
+    <iframe src="index.html#lat=4.6287292&lng=-74.1703667&zoom=16" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <a class="btn" href="index.html#lat=4.6287292&lng=-74.1703667&zoom=16">Ver en el mapa de la finca</a>
+</body>
+</html>
