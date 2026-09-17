@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Mantenimiento · Granja Sitio 3 | LOM SAS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>body { margin:0; }</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useCallback, useRef } = React;
+
+// ── Supabase ───────────────────────────────────────────────────────────────
+const SUPA_URL = "https://pqcgibsdewrrbukibubd.supabase.co";
+const SUPA_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxY2dpYnNkZXdycmJ1a2lidWJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3OTQyMDQsImV4cCI6MjA5MDM3MDIwNH0.7WnJydoru0E_aOGkyMGxPgZXTAEVmu4KQwqPPM-W14A";
+const BUCKET    = "lom-fotos";
+const ZONA_SLUG = "granja";
+
+const { createClient } = supabase;
+const db = createClient(SUPA_URL, SUPA_KEY);
+
+const photoUrlFor = (path) =>
+  path ? `${SUPA_URL}/storage/v1/object/public/${BUCKET}/${path}` : null;
+
+const fromDB = (r) => ({
+  id: r.id,
+  consecutivo: r.consecutivo,
+  areaId: r.area_id,
+  areaName: r.area_nombre,
+  itemName: r.item_nombre,
+  fechaReporte: r.fecha_reporte,
+  fechaEjecucion: r.fecha_ejecucion,
+  tipo: r.tipo,
+  prioridad: r.prioridad,
+  estado: r.estado,
+  problema: r.problema,
+  trabajo: r.trabajo,
+  materiales: r.materiales,
+  numFactura: r.num_factura,
+  costo: r.costo,
+  proveedor: r.proveedor,
+  responsable: r.responsable,
+  tipoResponsable: r.tipo_responsable,
+  verificadoPor: r.verificado_por,
+  impactoVidaUtil: r.impacto_vida_util,
+  afecta: r.afecta,
+  afectaDetalle: r.afecta_detalle,
+  corrales: r.corrales,
+  fotoPath: r.foto_path,
+  createdAt: r.created_at,
+});
+
+async function loadRecords() {
+  const { data, error } = await db
+    .from("lom_mantenimientos")
+    .select("*")
+    .eq("zona_slug", ZONA_SLUG)
+    .order("created_at", { ascending: false });
+  if (error) throw error;
+  return (data || []).map(fromDB);
+}
+
+async function getNextConsecutivo() {
+  const year = new Date().getFullYear();
+  const { data } = await db
+    .from("lom_mantenimientos")
+    .select("consecutivo")
+    .eq("zona_slug", ZONA_SLUG)
+    .like("consecutivo", `MI-${year}-%`);
+  const nums = (data || []).map(r => {
+    const m = (r.consecutivo || "").match(/MI-\d{4}-(\d+)/);
+    return m ? parseInt(m[1]) : 0;
+  });
+  const seq = (nums.length ? Math.max(...nums) : 0) + 1;
+  return `MI-${year}-${String(seq).padStart(3, "0")}`;
+}
+
+async function uploadFoto(id, dataUrl) {
+  const res = await fetch(dataUrl);
+  const blob = await res.blob();
+  const path = `${ZONA_SLUG}/${id}.jpg`;
+  const { error } = await db.storage.from(BUCKET).upload(path, blob, {
+    contentType: "image/jpeg",
+    upsert: true,
+  });
+  if (error) throw error;
+  return path;
+}
+
+async function removeFoto(path) {
+  if (!path) return;
+  await db.storage.from(BUCKET).remove([path]);
+}
+
+function newId() {
+  return crypto.randomUUID
+    ? crypto.randomUUID()
+    : "rec_" + Date.now() + "_" + Math.random().toString(36).slice(2);
+}
+
+// ── Paleta Lomarosa ────────────────────────────────────────────────────────
+const C = {
+  green:"#33502f", greenD:"#26401f",
+  clay:"#a94f38",  orange:"#e87d12",
+  sand:"#d8c69a",  salmon:"#e0a290", bg:"#f6f2ea",
+};
+const serif = { fontFamily:'"Playfair Display", Georgia, "Times New Roman", serif' };
+
+// ── Iconos SVG inline (Lucide) ─────────────────────────────────────────────
+const mkIcon = (html) => ({ size=24, className, style }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24"
+    fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+    className={className} style={style} dangerouslySetInnerHTML={{ __html: html }} />
+);
+
+const Warehouse     = mkIcon('<path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a3 3 0 0 0-3-3 3 3 0 0 0-3 3v4"/><path d="M2 7h20"/>');
+const Zap           = mkIcon('<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>');
+const Building2     = mkIcon('<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/>');
+const Tent          = mkIcon('<path d="M3.5 21 14 3"/><path d="M20.5 21 10 3"/><path d="M15.5 21 12 15l-3.5 6"/><path d="M2 21h20"/>');
+const Droplets      = mkIcon('<path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/>');
+const Droplet       = mkIcon('<path d="m12 2.69 5.66 5.66a8 8 0 1 1-11.31 0L12 2.69z"/>');
+const Wrench        = mkIcon('<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>');
+const ChevronLeft   = mkIcon('<path d="m15 18-6-6 6-6"/>');
+const Plus          = mkIcon('<path d="M5 12h14"/><path d="M12 5v14"/>');
+const Camera        = mkIcon('<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/>');
+const Search        = mkIcon('<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>');
+const Trash2        = mkIcon('<path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>');
+const Pencil        = mkIcon('<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/>');
+const XIcon         = mkIcon('<path d="M18 6 6 18"/><path d="m6 6 12 12"/>');
+const Check         = mkIcon('<path d="M20 6 9 17l-5-5"/>');
+const FileText      = mkIcon('<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>');
+const User          = mkIcon('<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>');
+const Calendar      = mkIcon('<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/>');
+const TrendingUp    = mkIcon('<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>');
+const Package       = mkIcon('<path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"/><path d="m7.5 4.27 9 5.15"/>');
+const AlertCircle   = mkIcon('<circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/>');
+const ShieldAlert   = mkIcon('<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M12 8v4"/><path d="M12 16h.01"/>');
+const Hash          = mkIcon('<line x1="4" x2="20" y1="9" y2="9"/><line x1="4" x2="20" y1="15" y2="15"/><line x1="10" x2="8" y1="3" y2="21"/><line x1="16" x2="14" y1="3" y2="21"/>');
+const ClipboardCheck = mkIcon('<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>');
+const Layers        = mkIcon('<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m6.08 9.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/><path d="m6.08 14.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/>');
+const Flag          = mkIcon('<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/>');
+
+// ── Áreas de la granja ─────────────────────────────────────────────────────
+const AREAS = [
+  { id:"nave12", name:"Nave 1 y 2", Icon:Warehouse,
+    items:["Corrales (1–32)","Pasillos","Embarcadero","Elevador","Sistema de alimentación","Silos de alimento"] },
+  { id:"nave34", name:"Nave 3 y 4", Icon:Warehouse,
+    items:["Corrales (33–59)","Pasillos","Embarcadero","Elevador","Sistema de alimentación","Silos de alimento"] },
+  { id:"planta", name:"Planta eléctrica", Icon:Zap,
+    items:["Planta 75 kVA","Planta 44 kVA"] },
+  { id:"oficina", name:"Oficina", Icon:Building2,
+    items:["Filtro de desinfección","Zona de lavado","Oficina y sala"] },
+  { id:"campamento", name:"Campamento", Icon:Tent,
+    items:["Habitaciones","Cocina y comedor","Alrededores"] },
+  { id:"estiercoleros", name:"Tanques estiercoleros", Icon:Droplets,
+    items:["Mantenimiento general","Tanque 1","Tanque 2","Tanque 3","Separador de sólidos"] },
+  { id:"agua", name:"Tanques de agua", Icon:Droplet,
+    items:["Tanque 1","Tanque 2","Hidrosilo","Bomba solar","Bomba eléctrica"] },
+  { id:"otros", name:"Otros", Icon:Wrench, items:["General"] },
+];
+
+const TIPOS       = ["Preventivo","Correctivo","Mejora"];
+const PRIORIDADES = ["Alta","Media","Baja"];
+const ESTADOS     = ["Terminado","En proceso","Pendiente"];
+const RESP_DEFAULT = "Jefferson Guzmán Vale";
+
+const tipoStyle = {
+  Preventivo:"bg-sky-100 text-sky-800 border-sky-200",
+  Correctivo:"bg-amber-100 text-amber-800 border-amber-200",
+  Mejora:"bg-emerald-100 text-emerald-800 border-emerald-200",
+};
+const prioridadStyle = {
+  Alta:"bg-red-100 text-red-700 border-red-200",
+  Media:"bg-amber-100 text-amber-700 border-amber-200",
+  Baja:"bg-stone-100 text-stone-500 border-stone-200",
+};
+const estadoStyle = {
+  Terminado:"bg-emerald-100 text-emerald-700",
+  "En proceso":"bg-sky-100 text-sky-700",
+  Pendiente:"bg-stone-200 text-stone-600",
+};
+
+// ── Utilidades ────────────────────────────────────────────────────────────
+const fmtCOP = (n) => { const v=Number(n); if(!v&&v!==0) return "—"; return "$ "+v.toLocaleString("es-CO"); };
+const fmtFecha = (iso) => { if(!iso) return "—"; const [y,m,d]=iso.split("-"); return `${d}/${m}/${y}`; };
+const todayISO = () => new Date().toISOString().slice(0,10);
+const sortKey = (r) => r.fechaEjecucion || r.fechaReporte || "";
+const trabajoDe = (r) => r.trabajo || "(sin descripción)";
+
+function resizeImage(file, maxDim=1100, q=0.62) {
+  return new Promise((res,rej) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        let { width, height } = img;
+        if(width>height && width>maxDim){ height=(height*maxDim)/width; width=maxDim; }
+        else if(height>maxDim){ width=(width*maxDim)/height; height=maxDim; }
+        const c=document.createElement("canvas"); c.width=width; c.height=height;
+        c.getContext("2d").drawImage(img,0,0,width,height);
+        res(c.toDataURL("image/jpeg",q));
+      };
+      img.onerror=rej; img.src=e.target.result;
+    };
+    reader.onerror=rej; reader.readAsDataURL(file);
+  });
+}
+
+// ── Ilustración SVG naves ─────────────────────────────────────────────────
+function Lomas({ className }) {
+  const postsA = Array.from({ length:11 });
+  const postsB = Array.from({ length:9 });
+  return (
+    <svg viewBox="0 0 480 120" className={className} preserveAspectRatio="xMidYMid meet"
+      style={{ display:"block", width:"100%", height:"auto" }} aria-hidden="true">
+      <path d="M0 58 Q130 30 270 48 T480 42 V120 H0 Z" fill="#82a361" />
+      <path d="M110 80 Q250 44 360 64 L360 82 L110 82 Z" fill={C.salmon} opacity="0.5" />
+      <path d="M0 80 Q150 62 320 72 Q400 78 480 68 V120 H0 Z" fill="#5f8244" />
+      <g>
+        <rect x="300" y="54" width="166" height="20" rx="1.5" fill="#ebdfc3" />
+        <rect x="306" y="61" width="154" height="10" fill="#d8c9a2" />
+        <g fill="#9a8c63">
+          {postsA.map((_,i) => <rect key={i} x={311+i*14} y="61" width="2.3" height="10" />)}
+        </g>
+        <polygon points="294,54 474,47 474,51 300,58" fill="#c7b384" />
+      </g>
+      <g>
+        <rect x="248" y="66" width="150" height="16" rx="1.5" fill="#f2e9d3" />
+        <rect x="254" y="71" width="138" height="9" fill="#dccea7" />
+        <g fill="#a4966d">
+          {postsB.map((_,i) => <rect key={i} x={260+i*15} y="71" width="2.1" height="9" />)}
+        </g>
+        <polygon points="243,66 400,60 400,64 249,70" fill="#ccb987" />
+      </g>
+      <path d="M0 100 Q150 86 320 98 Q400 104 480 102 V120 H0 Z" fill="#3f5e2e" />
+    </svg>
+  );
+}
+
+// ── APP ───────────────────────────────────────────────────────────────────
+function App() {
+  const [view, setView]       = useState("home");
+  const [records, setRecords] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(null);
+  const [area, setArea]       = useState(null);
+  const [item, setItem]       = useState(null);
+  const [current, setCurrent] = useState(null);
+  const [query, setQuery]     = useState("");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const buscar = params.get("buscar");
+    if (buscar) setQuery(decodeURIComponent(buscar));
+
+    (async () => {
+      try {
+        const rows = await loadRecords();
+        setRecords(rows);
+      } catch (e) {
+        console.error(e);
+        setLoadError("No se pudo conectar con la base de datos. Verifica tu conexión e intenta de nuevo.");
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  const countFor = (aId, it) => records.filter(r => r.areaId===aId && r.itemName===it).length;
+  const countArea = (aId) => records.filter(r => r.areaId===aId).length;
+  const totalCosto = records.reduce((s,r) => s+(Number(r.costo)||0), 0);
+
+  const handleSave = async (data, photoDataUrl, shouldRemovePhoto) => {
+    const isNew = !data.id;
+    const id = data.id || newId();
+
+    // Eliminar foto anterior si se pidió
+    if (shouldRemovePhoto && data.fotoPath) {
+      await removeFoto(data.fotoPath);
+    }
+
+    // Subir nueva foto si hay
+    let fotoPath = shouldRemovePhoto ? null : (data.fotoPath || null);
+    if (photoDataUrl) {
+      fotoPath = await uploadFoto(id, photoDataUrl);
+    }
+
+    // Consecutivo solo para registros nuevos
+    let consecutivo = data.consecutivo;
+    if (isNew) {
+      consecutivo = await getNextConsecutivo();
+    }
+
+    const dbRec = {
+      id,
+      consecutivo,
+      zona_slug: ZONA_SLUG,
+      zona_nombre: "Granja Sitio 3",
+      area_id: data.areaId,
+      area_nombre: data.areaName,
+      item_nombre: data.itemName,
+      fecha_reporte: data.fechaReporte || null,
+      fecha_ejecucion: data.fechaEjecucion || null,
+      tipo: data.tipo,
+      prioridad: data.prioridad,
+      estado: data.estado,
+      problema: data.problema || null,
+      trabajo: data.trabajo || null,
+      materiales: data.materiales || null,
+      num_factura: data.numFactura || null,
+      costo: data.costo === "" ? 0 : Number(data.costo) || 0,
+      proveedor: data.proveedor || null,
+      responsable: data.responsable || null,
+      tipo_responsable: data.tipoResponsable || null,
+      verificado_por: data.verificadoPor || null,
+      impacto_vida_util: data.impactoVidaUtil || null,
+      afecta: data.afecta || null,
+      afecta_detalle: data.afectaDetalle || null,
+      corrales: data.corrales || null,
+      foto_path: fotoPath,
+    };
+
+    if (isNew) {
+      const { error } = await db.from("lom_mantenimientos").insert(dbRec);
+      if (error) throw error;
+    } else {
+      const { error } = await db.from("lom_mantenimientos").update(dbRec).eq("id", id);
+      if (error) throw error;
+    }
+
+    setRecords(await loadRecords());
+    setCurrent(null);
+    setView(item ? "item" : "home");
+  };
+
+  const handleDelete = async (id) => {
+    const rec = records.find(r => r.id === id);
+    if (rec?.fotoPath) await removeFoto(rec.fotoPath);
+    const { error } = await db.from("lom_mantenimientos").delete().eq("id", id);
+    if (error) throw error;
+    setRecords(await loadRecords());
+    setCurrent(null);
+    setView(item ? "item" : "home");
+  };
+
+  const searchResults = query.trim()
+    ? records.filter(r => {
+        const q = query.toLowerCase();
+        return [r.consecutivo,r.itemName,r.areaName,r.problema,r.trabajo,r.corrales,r.numFactura,r.proveedor,r.responsable,r.materiales]
+          .filter(Boolean).some(f => f.toLowerCase().includes(q));
+      }) : [];
+
+  const back = () => {
+    if(view==="detail"||view==="form") setView(item?"item":"home");
+    else if(view==="item") setView("area");
+    else if(view==="area") setView("home");
+  };
+
+  return (
+    <div className="min-h-screen font-sans text-stone-800" style={{ background:C.bg }}>
+      <div className="mx-auto max-w-2xl">
+        <header className="sticky top-0 z-20 text-white shadow-md" style={{ background:C.green }}>
+          <div className="flex items-center gap-3 px-4 py-3">
+            {view !== "home" ? (
+              <button onClick={back} className="rounded-full p-1.5 hover:bg-white/10 transition" aria-label="Volver">
+                <ChevronLeft size={22} />
+              </button>
+            ) : (
+              <a href="zona_granja.html" className="rounded-full p-1.5 hover:bg-white/10 transition" aria-label="Inventario">
+                <ChevronLeft size={22} />
+              </a>
+            )}
+            <div className="flex-1 min-w-0">
+              {view==="home" ? (
+                <div className="flex items-baseline gap-2">
+                  <span style={serif} className="text-2xl font-bold tracking-tight">Lomarosa</span>
+                  <span className="text-xs uppercase tracking-widest text-white/60">Granja — Sitio 3</span>
+                </div>
+              ) : (
+                <>
+                  <h1 className="font-bold leading-tight truncate">
+                    {view==="area" && area?.name}
+                    {view==="item" && item}
+                    {view==="form" && (current ? "Editar registro" : "Nuevo mantenimiento")}
+                    {view==="detail" && (current?.consecutivo || "Detalle")}
+                  </h1>
+                  <p className="text-xs text-white/60 truncate">
+                    {view==="item" ? area?.name : view==="area" ? "Selecciona un ítem" : ""}
+                  </p>
+                </>
+              )}
+            </div>
+          </div>
+        </header>
+
+        <main className="px-4 pb-28 pt-4">
+          {loading ? (
+            <div className="py-20 text-center text-stone-400">Cargando registros…</div>
+          ) : loadError ? (
+            <div className="mt-8 rounded-2xl border border-red-200 bg-red-50 p-6 text-center">
+              <AlertCircle size={32} className="mx-auto mb-3 text-red-400" />
+              <p className="font-semibold text-red-700">Error de conexión</p>
+              <p className="mt-1 text-sm text-red-600">{loadError}</p>
+              <button onClick={() => { setLoadError(null); setLoading(true); loadRecords().then(setRecords).catch(e => setLoadError(e.message)).finally(() => setLoading(false)); }}
+                className="mt-4 inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold text-white" style={{ background:C.clay }}>
+                Reintentar
+              </button>
+            </div>
+          ) : (
+            <>
+              {view==="home" && (
+                <HomeView areas={AREAS} countArea={countArea} totalRegistros={records.length} totalCosto={totalCosto}
+                  query={query} setQuery={setQuery} searchResults={searchResults}
+                  openArea={a => { setArea(a); setView("area"); }}
+                  openRecord={r => { setCurrent(r); setView("detail"); }} />
+              )}
+              {view==="area" && area && (
+                <AreaView area={area} countFor={countFor} openItem={it => { setItem(it); setView("item"); }} />
+              )}
+              {view==="item" && item && area && (
+                <ItemView area={area} itemName={item}
+                  records={records.filter(r => r.areaId===area.id && r.itemName===item)}
+                  onNew={() => { setCurrent(null); setView("form"); }}
+                  openRecord={r => { setCurrent(r); setView("detail"); }} />
+              )}
+              {view==="form" && (
+                <RecordForm area={area} itemName={item} existing={current}
+                  onCancel={() => setView(item?"item":"home")} onSave={handleSave} />
+              )}
+              {view==="detail" && current && (
+                <DetailView record={current}
+                  onEdit={() => { setArea(AREAS.find(a => a.id===current.areaId)); setItem(current.itemName); setView("form"); }}
+                  onDelete={handleDelete} />
+              )}
+            </>
+          )}
+        </main>
+
+        {view==="item" && (
+          <button onClick={() => { setCurrent(null); setView("form"); }}
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 rounded-full px-5 py-3 text-white font-semibold shadow-lg active:scale-95 transition"
+            style={{ background:C.orange }}>
+            <Plus size={20} /> Registrar mantenimiento
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── HOME ─────────────────────────────────────────────────────────────────
+function HomeView({ areas, countArea, totalRegistros, totalCosto, query, setQuery, searchResults, openArea, openRecord }) {
+  return (
+    <div className="space-y-5">
+      <div className="overflow-hidden rounded-2xl shadow-sm border border-stone-200 bg-white">
+        <div className="relative px-5 pt-5 pb-0" style={{ background:"linear-gradient(180deg,#3c5b34,#33502f)" }}>
+          <p style={serif} className="text-white text-xl font-bold leading-tight">Registro de mantenimiento de instalaciones</p>
+          <p className="text-white/70 text-xs mt-0.5 mb-3">Cada arreglo con su fecha, foto y factura</p>
+          <Lomas className="w-full" />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <div className="rounded-2xl bg-white p-4 shadow-sm border border-stone-200">
+          <div className="flex items-center gap-2 text-stone-500 text-xs font-medium"><FileText size={14} /> Registros</div>
+          <div className="mt-1 text-2xl font-bold" style={{ color:C.green }}>{totalRegistros}</div>
+        </div>
+        <div className="rounded-2xl bg-white p-4 shadow-sm border border-stone-200">
+          <div className="flex items-center gap-2 text-stone-500 text-xs font-medium"><TrendingUp size={14} /> Inversión total</div>
+          <div className="mt-1 text-2xl font-bold" style={{ color:C.clay }}>{fmtCOP(totalCosto)}</div>
+        </div>
+      </div>
+
+      <div className="relative">
+        <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
+        <input value={query} onChange={e => setQuery(e.target.value)}
+          placeholder="Buscar por corral, factura, consecutivo…"
+          className="w-full rounded-xl border border-stone-200 bg-white py-2.5 pl-10 pr-3 text-sm outline-none focus:border-[#33502f] focus:ring-1 focus:ring-[#33502f]" />
+      </div>
+
+      {query.trim() ? (
+        <div className="space-y-2">
+          <p className="text-xs text-stone-500">{searchResults.length} resultado(s)</p>
+          {searchResults.map(r => <RecordRow key={r.id} r={r} onClick={() => openRecord(r)} showArea />)}
+          {searchResults.length===0 && <p className="py-8 text-center text-stone-400 text-sm">Sin coincidencias.</p>}
+        </div>
+      ) : (
+        <div>
+          <h2 className="mb-2 text-base font-bold" style={{ ...serif, color:C.green }}>Áreas de la granja</h2>
+          <div className="grid grid-cols-2 gap-3">
+            {areas.map(a => {
+              const n = countArea(a.id);
+              return (
+                <button key={a.id} onClick={() => openArea(a)}
+                  className="group flex flex-col items-start gap-3 rounded-2xl bg-white p-4 text-left shadow-sm border border-stone-200 hover:shadow-md hover:border-[#a94f38] active:scale-[.98] transition">
+                  <span className="rounded-xl p-2.5 transition" style={{ background:"rgba(51,80,47,0.10)", color:C.green }}>
+                    <a.Icon size={22} />
+                  </span>
+                  <span className="font-semibold leading-tight text-sm">{a.name}</span>
+                  <span className="text-xs text-stone-400">{n} {n===1?"registro":"registros"}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── ÁREA ─────────────────────────────────────────────────────────────────
+function AreaView({ area, countFor, openItem }) {
+  return (
+    <div className="space-y-2">
+      {area.items.map(it => {
+        const n = countFor(area.id, it);
+        return (
+          <button key={it} onClick={() => openItem(it)}
+            className="flex w-full items-center justify-between rounded-xl bg-white p-4 text-left shadow-sm border border-stone-200 hover:border-[#a94f38] active:scale-[.99] transition">
+            <div className="flex items-center gap-3">
+              <Package size={18} className="text-stone-400" />
+              <span className="font-medium text-sm">{it}</span>
+            </div>
+            <span className="rounded-full px-2.5 py-0.5 text-xs font-semibold"
+              style={n ? { background:"rgba(51,80,47,0.10)", color:C.green } : { background:"#f5f5f4", color:"#a8a29e" }}>{n}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+// ── ÍTEM ─────────────────────────────────────────────────────────────────
+function ItemView({ area, itemName, records, onNew, openRecord }) {
+  const sorted = [...records].sort((a,b) => sortKey(b).localeCompare(sortKey(a)));
+  const costo = records.reduce((s,r) => s+(Number(r.costo)||0), 0);
+  return (
+    <div className="space-y-3">
+      {records.length > 0 && (
+        <div className="flex gap-3 rounded-xl bg-white p-3 shadow-sm border border-stone-200 text-center text-xs">
+          <div className="flex-1"><div className="text-lg font-bold" style={{ color:C.green }}>{records.length}</div><div className="text-stone-400">mantenimientos</div></div>
+          <div className="w-px bg-stone-200" />
+          <div className="flex-1"><div className="text-lg font-bold" style={{ color:C.clay }}>{fmtCOP(costo)}</div><div className="text-stone-400">invertido</div></div>
+        </div>
+      )}
+      {sorted.length===0 ? (
+        <div className="rounded-2xl border-2 border-dashed border-stone-300 bg-white/50 py-14 text-center">
+          <Wrench className="mx-auto mb-2 text-stone-300" size={36} />
+          <p className="text-sm text-stone-500">Aún no hay mantenimientos en <b>{itemName}</b>.</p>
+          <button onClick={onNew} className="mt-4 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white" style={{ background:C.green }}>
+            <Plus size={16} /> Registrar el primero
+          </button>
+        </div>
+      ) : sorted.map(r => <RecordRow key={r.id} r={r} onClick={() => openRecord(r)} />)}
+    </div>
+  );
+}
+
+// ── Fila de registro ──────────────────────────────────────────────────────
+function RecordRow({ r, onClick, showArea }) {
+  return (
+    <button onClick={onClick}
+      className="flex w-full items-start gap-3 rounded-xl bg-white p-3.5 text-left shadow-sm border border-stone-200 hover:border-[#a94f38] active:scale-[.99] transition">
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-1.5 flex-wrap">
+          {r.consecutivo && <span className="text-[10px] font-bold text-stone-400">{r.consecutivo}</span>}
+          <span className={`rounded-md border px-1.5 py-0.5 text-[10px] font-bold ${tipoStyle[r.tipo]||""}`}>{r.tipo}</span>
+          {r.prioridad && <span className={`rounded-md border px-1.5 py-0.5 text-[10px] font-bold ${prioridadStyle[r.prioridad]||""}`}>{r.prioridad}</span>}
+          <span className={`rounded-md px-1.5 py-0.5 text-[10px] font-semibold ${estadoStyle[r.estado]||""}`}>{r.estado}</span>
+          {!!r.fotoPath && <Camera size={13} className="text-stone-400" />}
+          {r.afecta==="Sí" && <ShieldAlert size={13} className="text-red-500" />}
+        </div>
+        <p className="mt-1 font-medium text-sm leading-snug line-clamp-2">{trabajoDe(r)}</p>
+        <div className="mt-1 flex items-center gap-2 text-xs text-stone-400 flex-wrap">
+          <span className="flex items-center gap-1"><Calendar size={12} /> {fmtFecha(sortKey(r))}</span>
+          {showArea && <span className="truncate">· {r.areaName} / {r.itemName}</span>}
+          {r.corrales && <span>· Corrales: {r.corrales}</span>}
+        </div>
+      </div>
+      <div className="text-sm font-bold shrink-0" style={{ color:C.clay }}>{fmtCOP(r.costo)}</div>
+    </button>
+  );
+}
+
+// ── Formulario ────────────────────────────────────────────────────────────
+const inp = "w-full rounded-xl border border-stone-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-[#33502f] focus:ring-1 focus:ring-[#33502f]";
+
+function Field({ label, children }) {
+  return <label className="block"><span className="mb-1 block text-xs font-semibold text-stone-500">{label}</span>{children}</label>;
+}
+function Section({ title, icon:Icon, children }) {
+  return (
+    <div className="rounded-2xl bg-white p-4 shadow-sm border border-stone-200 space-y-3">
+      <div className="flex items-center gap-2 border-b border-stone-100 pb-2">
+        <Icon size={16} style={{ color:C.clay }} />
+        <h3 style={serif} className="font-bold">{title}</h3>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function RecordForm({ area, itemName, existing, onCancel, onSave }) {
+  const isCorrales = itemName?.toLowerCase().includes("corrales");
+  const [f, setF] = useState({
+    fechaReporte:    existing?.fechaReporte    || todayISO(),
+    fechaEjecucion:  existing?.fechaEjecucion  || todayISO(),
+    corrales:        existing?.corrales        || "",
+    tipo:            existing?.tipo            || "Correctivo",
+    prioridad:       existing?.prioridad       || "Media",
+    problema:        existing?.problema        || "",
+    trabajo:         existing?.trabajo         || "",
+    afecta:          existing?.afecta          || "No",
+    afectaDetalle:   existing?.afectaDetalle   || "",
+    materiales:      existing?.materiales      || "",
+    numFactura:      existing?.numFactura      || "",
+    proveedor:       existing?.proveedor       || "",
+    costo:           existing?.costo           ?? "",
+    responsable:     existing?.responsable     || RESP_DEFAULT,
+    tipoResponsable: existing?.tipoResponsable || "Interno",
+    verificadoPor:   existing?.verificadoPor   || "",
+    impactoVidaUtil: existing?.impactoVidaUtil || "",
+    estado:          existing?.estado          || "Terminado",
+  });
+  const [photo, setPhoto]           = useState(null);
+  const [removePhoto, setRemovePhoto] = useState(false);
+  const [busy, setBusy]             = useState(false);
+  const [err, setErr]               = useState("");
+  const fileRef = useRef();
+
+  const existingPhotoUrl = existing?.fotoPath ? photoUrlFor(existing.fotoPath) : null;
+  const shownPhoto = photo || (!removePhoto ? existingPhotoUrl : null);
+
+  const upd = (k,v) => setF(s => ({ ...s, [k]:v }));
+
+  const onFile = async (e) => {
+    const file = e.target.files?.[0]; if(!file) return;
+    try { setPhoto(await resizeImage(file)); setRemovePhoto(false); }
+    catch { setErr("No se pudo procesar la imagen."); }
+  };
+
+  const submit = async () => {
+    if(!f.trabajo.trim()) { setErr("Escribe el trabajo realizado."); return; }
+    setBusy(true); setErr("");
+    try {
+      const data = {
+        id: existing?.id,
+        consecutivo: existing?.consecutivo,
+        fotoPath: existing?.fotoPath || null,
+        areaId: area.id, areaName: area.name, itemName,
+        ...f,
+        costo: f.costo===""?0:Number(f.costo),
+      };
+      await onSave(data, photo, removePhoto);
+    } catch(e) {
+      setErr("Error al guardar: " + (e.message || e));
+    }
+    setBusy(false);
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="rounded-lg px-3 py-2 text-xs" style={{ background:"rgba(51,80,47,0.07)", color:C.green }}>
+        <b>{area?.name}</b> · {itemName}
+        {existing?.consecutivo ? ` · ${existing.consecutivo}` : " · consecutivo se asigna al guardar"}
+      </div>
+
+      <Section title="Diagnóstico" icon={AlertCircle}>
+        <div className="grid grid-cols-2 gap-3">
+          <Field label="Fecha de reporte"><input type="date" value={f.fechaReporte} onChange={e => upd("fechaReporte",e.target.value)} className={inp} /></Field>
+          <Field label="Fecha de ejecución"><input type="date" value={f.fechaEjecucion} onChange={e => upd("fechaEjecucion",e.target.value)} className={inp} /></Field>
+        </div>
+        {isCorrales && (
+          <Field label="¿Cuáles corrales?">
+            <input value={f.corrales} onChange={e => upd("corrales",e.target.value)} placeholder="Ej: 5, 8, 12  —  o  —  todos" className={inp} />
+          </Field>
+        )}
+        <Field label="Descripción del problema / motivo">
+          <textarea value={f.problema} onChange={e => upd("problema",e.target.value)} rows={2} placeholder="Ej: Gotera sobre el corral, humedad en la cama" className={inp} />
+        </Field>
+        <div className="grid grid-cols-2 gap-3">
+          <Field label="Tipo"><select value={f.tipo} onChange={e => upd("tipo",e.target.value)} className={inp}>{TIPOS.map(t => <option key={t}>{t}</option>)}</select></Field>
+          <Field label="Prioridad"><select value={f.prioridad} onChange={e => upd("prioridad",e.target.value)} className={inp}>{PRIORIDADES.map(t => <option key={t}>{t}</option>)}</select></Field>
+        </div>
+      </Section>
+
+      <Section title="Trabajo y evidencia" icon={Wrench}>
+        <Field label="Trabajo realizado">
+          <textarea value={f.trabajo} onChange={e => upd("trabajo",e.target.value)} rows={2} placeholder="Ej: Reemplazo de teja y sellado con silicona" className={inp} />
+        </Field>
+        <Field label="Materiales / insumos usados">
+          <input value={f.materiales} onChange={e => upd("materiales",e.target.value)} placeholder="Ej: 2 tejas, sellante" className={inp} />
+        </Field>
+        <Field label="Foto del arreglo (opcional)">
+          {shownPhoto ? (
+            <div className="relative">
+              <img src={shownPhoto} alt="Arreglo" className="w-full rounded-xl object-cover max-h-64" />
+              <button onClick={() => { setPhoto(null); setRemovePhoto(true); if(fileRef.current) fileRef.current.value=""; }}
+                className="absolute top-2 right-2 rounded-full bg-black/60 p-1.5 text-white hover:bg-black/80"><XIcon size={16} /></button>
+            </div>
+          ) : (
+            <button onClick={() => fileRef.current?.click()}
+              className="flex w-full items-center justify-center gap-2 rounded-xl border-2 border-dashed border-stone-300 py-6 text-stone-500 hover:border-[#a94f38] hover:text-[#a94f38] transition">
+              <Camera size={20} /> Tomar / subir foto
+            </button>
+          )}
+          <input ref={fileRef} type="file" accept="image/*" capture="environment" onChange={onFile} className="hidden" />
+        </Field>
+      </Section>
+
+      <Section title="Impacto" icon={ShieldAlert}>
+        <Field label="¿Afecta la bioseguridad o el bienestar animal?">
+          <div className="flex gap-2">
+            {["No","Sí"].map(op => (
+              <button key={op} onClick={() => upd("afecta",op)}
+                className={`flex-1 rounded-xl border py-2 text-sm font-semibold transition ${f.afecta===op
+                  ? op==="Sí" ? "bg-red-600 border-red-600 text-white" : "bg-[#33502f] border-[#33502f] text-white"
+                  : "border-stone-300 text-stone-500 hover:bg-stone-50"}`}>{op}</button>
+            ))}
+          </div>
+        </Field>
+        {f.afecta==="Sí" && (
+          <Field label="¿En qué afecta?">
+            <input value={f.afectaDetalle} onChange={e => upd("afectaDetalle",e.target.value)} placeholder="Ej: humedad, riesgo respiratorio" className={inp} />
+          </Field>
+        )}
+        <Field label="Para qué sirve / impacto en vida útil">
+          <input value={f.impactoVidaUtil} onChange={e => upd("impactoVidaUtil",e.target.value)} placeholder="Ej: +2 años · evita corrosión · alarga el motor" className={inp} />
+        </Field>
+      </Section>
+
+      <Section title="Soporte y cierre" icon={FileText}>
+        <div className="grid grid-cols-2 gap-3">
+          <Field label="N° factura / cuenta"><input value={f.numFactura} onChange={e => upd("numFactura",e.target.value)} placeholder="Ej: FV-0452" className={inp} /></Field>
+          <Field label="Costo (COP)"><input type="number" inputMode="numeric" value={f.costo} onChange={e => upd("costo",e.target.value)} placeholder="90000" className={inp} /></Field>
+        </div>
+        <Field label="Proveedor / dónde se compró">
+          <input value={f.proveedor} onChange={e => upd("proveedor",e.target.value)} placeholder="Ej: Ferretería El Campo" className={inp} />
+        </Field>
+        <div className="grid grid-cols-2 gap-3">
+          <Field label="Responsable"><input value={f.responsable} onChange={e => upd("responsable",e.target.value)} className={inp} /></Field>
+          <Field label="Ejecutor">
+            <select value={f.tipoResponsable} onChange={e => upd("tipoResponsable",e.target.value)} className={inp}>
+              <option>Interno</option><option>Externo</option>
+            </select>
+          </Field>
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <Field label="Verificado por"><input value={f.verificadoPor} onChange={e => upd("verificadoPor",e.target.value)} placeholder="Ej: Coordinador" className={inp} /></Field>
+          <Field label="Estado">
+            <select value={f.estado} onChange={e => upd("estado",e.target.value)} className={inp}>
+              {ESTADOS.map(t => <option key={t}>{t}</option>)}
+            </select>
+          </Field>
+        </div>
+      </Section>
+
+      {err && <p className="flex items-center gap-1.5 text-sm text-red-600"><AlertCircle size={15} /> {err}</p>}
+      <div className="flex gap-3 pt-1">
+        <button onClick={onCancel} className="flex-1 rounded-xl border border-stone-300 py-2.5 font-semibold text-stone-600 hover:bg-stone-50">Cancelar</button>
+        <button onClick={submit} disabled={busy}
+          className="flex-1 flex items-center justify-center gap-2 rounded-xl py-2.5 font-semibold text-white disabled:opacity-60" style={{ background:C.green }}>
+          <Check size={18} /> {busy ? "Guardando…" : "Guardar"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ── Detalle ───────────────────────────────────────────────────────────────
+function DetailView({ record, onEdit, onDelete }) {
+  const [confirmDel, setConfirmDel] = useState(false);
+  const photoUrl = record.fotoPath ? photoUrlFor(record.fotoPath) : null;
+
+  return (
+    <div className="space-y-4">
+      <div className="rounded-2xl bg-white shadow-sm border border-stone-200 overflow-hidden">
+        {photoUrl && <img src={photoUrl} alt="Arreglo" className="w-full object-cover max-h-72" />}
+        <div className="p-4 space-y-3">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {record.consecutivo && (
+              <span className="flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-bold text-white" style={{ background:C.clay }}>
+                <Hash size={12} />{record.consecutivo}
+              </span>
+            )}
+            <span className={`rounded-md border px-2 py-0.5 text-xs font-bold ${tipoStyle[record.tipo]||""}`}>{record.tipo}</span>
+            {record.prioridad && <span className={`rounded-md border px-2 py-0.5 text-xs font-bold ${prioridadStyle[record.prioridad]||""}`}>{record.prioridad}</span>}
+            <span className={`rounded-md px-2 py-0.5 text-xs font-semibold ${estadoStyle[record.estado]||""}`}>{record.estado}</span>
+          </div>
+          <h2 style={serif} className="text-lg font-bold leading-snug">{trabajoDe(record)}</h2>
+          <p className="text-xs text-stone-400">{record.areaName} · {record.itemName}{record.corrales?` · Corrales: ${record.corrales}`:""}</p>
+          {record.problema && (
+            <div className="rounded-lg bg-stone-50 px-3 py-2 text-sm">
+              <span className="text-xs font-semibold text-stone-400">Problema / motivo</span>
+              <p className="text-stone-700">{record.problema}</p>
+            </div>
+          )}
+          {record.afecta==="Sí" && (
+            <div className="flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+              <ShieldAlert size={16} className="mt-0.5 shrink-0" />
+              <span><b>Afecta bioseguridad / bienestar.</b>{record.afectaDetalle?` ${record.afectaDetalle}`:""}</span>
+            </div>
+          )}
+          <dl className="divide-y divide-stone-100 text-sm">
+            <Row icon={Calendar}       label="Reporte"        value={fmtFecha(record.fechaReporte)} />
+            <Row icon={Calendar}       label="Ejecución"      value={fmtFecha(record.fechaEjecucion)} />
+            <Row icon={Layers}         label="Materiales"     value={record.materiales||"—"} />
+            <Row icon={User}           label="Responsable"    value={`${record.responsable||"—"} (${record.tipoResponsable||"—"})`} />
+            <Row icon={FileText}       label="Factura"        value={record.numFactura||"—"} />
+            <Row icon={Package}        label="Proveedor"      value={record.proveedor||"—"} />
+            <Row icon={TrendingUp}     label="Costo"          value={fmtCOP(record.costo)} strong />
+            <Row icon={Flag}           label="Vida útil"      value={record.impactoVidaUtil||"—"} />
+            <Row icon={ClipboardCheck} label="Verificado por" value={record.verificadoPor||"—"} />
+          </dl>
+          {!photoUrl && <p className="rounded-lg bg-stone-50 px-3 py-2 text-xs text-stone-400">Sin foto adjunta.</p>}
+        </div>
+      </div>
+      <div className="flex gap-3">
+        <button onClick={onEdit} className="flex-1 flex items-center justify-center gap-2 rounded-xl border border-stone-300 py-2.5 font-semibold text-stone-700 hover:bg-stone-50">
+          <Pencil size={16} /> Editar
+        </button>
+        {confirmDel ? (
+          <button onClick={() => onDelete(record.id)} className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-red-600 py-2.5 font-semibold text-white hover:bg-red-700">
+            <Trash2 size={16} /> Confirmar
+          </button>
+        ) : (
+          <button onClick={() => setConfirmDel(true)} className="flex items-center justify-center gap-2 rounded-xl border border-red-200 px-4 py-2.5 font-semibold text-red-600 hover:bg-red-50">
+            <Trash2 size={16} />
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function Row({ icon:Icon, label, value, strong }) {
+  return (
+    <div className="flex items-center justify-between gap-3 py-2.5">
+      <span className="flex items-center gap-2 text-stone-500 shrink-0"><Icon size={15} /> {label}</span>
+      <span className={`text-right ${strong?"font-bold":"font-medium text-stone-700"}`}
+        style={strong?{ color:C.clay }:undefined}>{value}</span>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
