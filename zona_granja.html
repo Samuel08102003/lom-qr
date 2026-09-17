@@ -92,6 +92,33 @@
       text-decoration:none; font-size:.78em; font-weight:700;
       text-align:center; letter-spacing:.02em;
     }
+    .mant-registros { margin-top:8px; }
+    .mant-cargando { font-size:.7em; color:#aaa; text-align:center; padding:8px 0; }
+    .mant-vacio    { font-size:.7em; color:#bbb; padding:6px 0; }
+    .mant-lbl {
+      font-size:.65em; font-weight:700; color:#33502f;
+      text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px;
+    }
+    .mant-card {
+      background:#f2f5f2; border-radius:6px; padding:7px 10px;
+      margin-bottom:5px; border-left:3px solid #33502f;
+    }
+    .mant-meta {
+      display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-bottom:3px;
+    }
+    .mant-consec { font-size:.68em; font-weight:700; color:#33502f; }
+    .mant-fecha  { font-size:.66em; color:#aaa; }
+    .mant-tipo   {
+      font-size:.65em; background:#ddeadd; color:#33502f;
+      padding:1px 6px; border-radius:10px; font-weight:600;
+    }
+    .mant-estado-tag {
+      font-size:.65em; background:#f0f0f0; color:#888;
+      padding:1px 6px; border-radius:10px;
+    }
+    .mant-item { font-size:.7em; color:#777; margin-bottom:2px; }
+    .mant-prob { font-size:.73em; color:#444; line-height:1.35; }
+
   </style>
 </head>
 <body>
@@ -122,7 +149,7 @@
       <span class="seccion-total" style="color:#e74c3c">$ •••.•••.•••</span>
     </div>
     <div class="activos-lista">
-    <details class="activo">
+    <details class="activo" data-area="Nave 1 y 2">
       <summary>
         <span class="activo-nombre">Nave 1 y 2</span>
         <span class="activo-valor-wrap">
@@ -139,12 +166,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Nave%201%20y%202">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Nave 3 y 4">
       <summary>
         <span class="activo-nombre">Nave 3</span>
         <span class="activo-valor-wrap">
@@ -161,12 +189,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Nave%203">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Nave 3 y 4">
       <summary>
         <span class="activo-nombre">Nave 4</span>
         <span class="activo-valor-wrap">
@@ -183,12 +212,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Nave%204">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Campamento">
       <summary>
         <span class="activo-nombre">Campamentos</span>
         <span class="activo-valor-wrap">
@@ -205,12 +235,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Campamentos">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Oficina">
       <summary>
         <span class="activo-nombre">Casa oficina porcicultura</span>
         <span class="activo-valor-wrap">
@@ -227,12 +258,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Casa%20oficina%20porcicultura">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Oficina">
       <summary>
         <span class="activo-nombre">Casa planta</span>
         <span class="activo-valor-wrap">
@@ -249,12 +281,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Casa%20planta">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Otros">
       <summary>
         <span class="activo-nombre">Sistema de acueducto - Pozo 1</span>
         <span class="activo-valor-wrap">
@@ -271,12 +304,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Sistema%20de%20acueducto%20-%20Pozo%201">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Tanques de agua">
       <summary>
         <span class="activo-nombre">Sistema de acueducto - Tanque de agua</span>
         <span class="activo-valor-wrap">
@@ -293,12 +327,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Sistema%20de%20acueducto%20-%20Tanque%20de%20agua">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Tanques de agua">
       <summary>
         <span class="activo-nombre">Sistema de acueducto - Tanques</span>
         <span class="activo-valor-wrap">
@@ -315,12 +350,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Sistema%20de%20acueducto%20-%20Tanques">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Oficina">
       <summary>
         <span class="activo-nombre">Punto desinfeccion porcicultura</span>
         <span class="activo-valor-wrap">
@@ -337,6 +373,7 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Punto%20desinfeccion%20porcicultura">
           &#128295; Ver mantenimiento
         </a>
@@ -351,7 +388,7 @@
       <span class="seccion-total" style="color:#e74c3c">$ •••.•••.•••</span>
     </div>
     <div class="activos-lista">
-    <details class="activo">
+    <details class="activo" data-area="Nave 1 y 2">
       <summary>
         <span class="activo-nombre">Elevador concentrado</span>
         <span class="activo-valor-wrap">
@@ -368,12 +405,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Elevador%20concentrado">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Nave 1 y 2">
       <summary>
         <span class="activo-nombre">Silos</span>
         <span class="activo-valor-wrap">
@@ -390,12 +428,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Silos">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Tanques estiercoleros">
       <summary>
         <span class="activo-nombre">Separador y sis. riego - Separador de porquinaza</span>
         <span class="activo-valor-wrap">
@@ -412,12 +451,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Separador%20y%20sis.%20riego%20-%20Separador%20de%20porquinaza">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Tanques estiercoleros">
       <summary>
         <span class="activo-nombre">Separador y sis. riego - Riego</span>
         <span class="activo-valor-wrap">
@@ -434,12 +474,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Separador%20y%20sis.%20riego%20-%20Riego">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Tanques estiercoleros">
       <summary>
         <span class="activo-nombre">Separador y sis. riego - Tanques 2</span>
         <span class="activo-valor-wrap">
@@ -456,12 +497,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Separador%20y%20sis.%20riego%20-%20Tanques%202">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Planta eléctrica">
       <summary>
         <span class="activo-nombre">Planta electrica 1</span>
         <span class="activo-valor-wrap">
@@ -478,12 +520,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Planta%20electrica%201">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Tanques estiercoleros">
       <summary>
         <span class="activo-nombre">Separador y sis. riego - Tanques 1</span>
         <span class="activo-valor-wrap">
@@ -500,12 +543,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Separador%20y%20sis.%20riego%20-%20Tanques%201">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Planta eléctrica">
       <summary>
         <span class="activo-nombre">Planta electrica 2</span>
         <span class="activo-valor-wrap">
@@ -522,12 +566,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Planta%20electrica%202">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Tanques estiercoleros">
       <summary>
         <span class="activo-nombre">Separador y sis. riego - Tanques 3</span>
         <span class="activo-valor-wrap">
@@ -544,12 +589,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Separador%20y%20sis.%20riego%20-%20Tanques%203">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Otros">
       <summary>
         <span class="activo-nombre">SES (Solar Energy System) 2</span>
         <span class="activo-valor-wrap">
@@ -566,12 +612,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=SES%20%28Solar%20Energy%20System%29%202">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Tanques estiercoleros">
       <summary>
         <span class="activo-nombre">Separador y sis. riego de porquinaza</span>
         <span class="activo-valor-wrap">
@@ -588,12 +635,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Separador%20y%20sis.%20riego%20de%20porquinaza">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Otros">
       <summary>
         <span class="activo-nombre">SES (Solar Energy System) 1</span>
         <span class="activo-valor-wrap">
@@ -610,12 +658,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=SES%20%28Solar%20Energy%20System%29%201">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Nave 1 y 2">
       <summary>
         <span class="activo-nombre">Celdas de carga (Silos)</span>
         <span class="activo-valor-wrap">
@@ -632,12 +681,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Celdas%20de%20carga%20%28Silos%29">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Otros">
       <summary>
         <span class="activo-nombre">Motocarguero 200ZW</span>
         <span class="activo-valor-wrap">
@@ -654,12 +704,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Motocarguero%20200ZW">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Tanques estiercoleros">
       <summary>
         <span class="activo-nombre">Separador y sis. riego - Compostera</span>
         <span class="activo-valor-wrap">
@@ -676,12 +727,13 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Separador%20y%20sis.%20riego%20-%20Compostera">
           &#128295; Ver mantenimiento
         </a>
       </div>
     </details>
-    <details class="activo">
+    <details class="activo" data-area="Tanques estiercoleros">
       <summary>
         <span class="activo-nombre">Separador y sis. riego - Bomba</span>
         <span class="activo-valor-wrap">
@@ -698,6 +750,7 @@
           <span class="detalle-lbl">Estado</span>
           <span class="detalle-val badge" style="background:#eafaf1;color:#27ae60">▲ Buen estado</span>
         </div>
+        <div class="mant-registros"></div>
         <a class="btn-mant" href="mantenimiento_granja.html?buscar=Separador%20y%20sis.%20riego%20-%20Bomba">
           &#128295; Ver mantenimiento
         </a>
@@ -716,5 +769,54 @@
   </div>
   <a class="btn" href="index.html#lat=3.977696&lng=-72.450737&zoom=16">Ver en el mapa de la finca</a>
   <a class="btn" href="mantenimiento_granja.html" style="background:#33502f;margin-top:8px;margin-bottom:28px">Registro de mantenimiento</a>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+  (function () {
+    var SUPA_URL = "https://pqcgibsdewrrbukibubd.supabase.co";
+    var SUPA_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxY2dpYnNkZXdycmJ1a2lidWJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3OTQyMDQsImV4cCI6MjA5MDM3MDIwNH0.7WnJydoru0E_aOGkyMGxPgZXTAEVmu4KQwqPPM-W14A";
+    var db = supabase.createClient(SUPA_URL, SUPA_KEY);
+
+    document.querySelectorAll("details.activo[data-area]").forEach(function (det) {
+      det.addEventListener("toggle", async function () {
+        if (!det.open) return;
+        var box = det.querySelector(".mant-registros");
+        if (!box || box.dataset.ok) return;
+        box.dataset.ok = "1";
+        box.innerHTML = '<p class="mant-cargando">↻ cargando...</p>';
+
+        var res = await db
+          .from("lom_mantenimientos")
+          .select("consecutivo,fecha_ejecucion,fecha_reporte,tipo,estado,problema,item_nombre")
+          .eq("zona_slug", "granja")
+          .eq("area_nombre", det.dataset.area)
+          .order("created_at", { ascending: false })
+          .limit(5);
+
+        if (res.error || !res.data || !res.data.length) {
+          box.innerHTML = '<p class="mant-vacio">Sin registros de mantenimiento</p>';
+          return;
+        }
+
+        var cards = res.data.map(function (r) {
+          var fecha = r.fecha_ejecucion || r.fecha_reporte || "—";
+          return '<div class="mant-card">' +
+            '<div class="mant-meta">' +
+              (r.consecutivo ? '<span class="mant-consec">' + r.consecutivo + '</span>' : '') +
+              '<span class="mant-fecha">' + fecha + '</span>' +
+              (r.tipo ? '<span class="mant-tipo">' + r.tipo + '</span>' : '') +
+              (r.estado && r.estado !== 'Terminado' ? '<span class="mant-estado-tag">' + r.estado + '</span>' : '') +
+            '</div>' +
+            (r.item_nombre ? '<div class="mant-item">' + r.item_nombre + '</div>' : '') +
+            (r.problema ? '<div class="mant-prob">' + r.problema + '</div>' : '') +
+          '</div>';
+        }).join('');
+
+        box.innerHTML = '<p class="mant-lbl">&#128295; últimos mantenimientos</p>' + cards;
+      });
+    });
+  })();
+  </script>
+
 </body>
 </html>
