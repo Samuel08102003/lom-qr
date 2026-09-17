@@ -84,8 +84,12 @@ async function getNextConsecutivo() {
 }
 
 async function uploadFoto(id, dataUrl) {
-  const res = await fetch(dataUrl);
-  const blob = await res.blob();
+  const [header, b64] = dataUrl.split(",");
+  const mime = (header.match(/:(.*?);/) || [])[1] || "image/jpeg";
+  const bytes = atob(b64);
+  const arr = new Uint8Array(bytes.length);
+  for (let i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+  const blob = new Blob([arr], { type: mime });
   const path = `${ZONA_SLUG}/${id}.jpg`;
   const { error } = await db.storage.from(BUCKET).upload(path, blob, {
     contentType: "image/jpeg",
@@ -282,21 +286,20 @@ function App() {
     const isNew = !data.id;
     const id = data.id || newId();
 
-    // Eliminar foto anterior si se pidió
     if (shouldRemovePhoto && data.fotoPath) {
-      await removeFoto(data.fotoPath);
+      await removeFoto(data.fotoPath).catch(() => {});
     }
 
-    // Subir nueva foto si hay
     let fotoPath = shouldRemovePhoto ? null : (data.fotoPath || null);
     if (photoDataUrl) {
-      fotoPath = await uploadFoto(id, photoDataUrl);
+      try { fotoPath = await uploadFoto(id, photoDataUrl); }
+      catch(e) { throw new Error("Error subiendo foto: " + e.message); }
     }
 
-    // Consecutivo solo para registros nuevos
     let consecutivo = data.consecutivo;
     if (isNew) {
-      consecutivo = await getNextConsecutivo();
+      try { consecutivo = await getNextConsecutivo(); }
+      catch(e) { throw new Error("Error generando consecutivo: " + e.message); }
     }
 
     const dbRec = {
