@@ -102,7 +102,9 @@
     .mant-card {
       background:#f2f5f2; border-radius:6px; padding:7px 10px;
       margin-bottom:5px; border-left:3px solid #33502f;
+      cursor:pointer; transition:background .15s;
     }
+    .mant-card:hover { background:#e4ede4; }
     .mant-meta {
       display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-bottom:3px;
     }
@@ -118,6 +120,57 @@
     }
     .mant-item { font-size:.7em; color:#777; margin-bottom:2px; }
     .mant-prob { font-size:.73em; color:#444; line-height:1.35; }
+
+    /* Modal detalle */
+    #mm-overlay {
+      display:none; position:fixed; inset:0;
+      background:rgba(0,0,0,.55); z-index:9999;
+      align-items:center; justify-content:center; padding:16px;
+    }
+    #mm-overlay.open { display:flex; }
+    #mm-box {
+      background:#fff; border-radius:14px;
+      max-width:480px; width:100%; max-height:88vh;
+      overflow-y:auto; padding:20px 18px 24px;
+      position:relative; box-shadow:0 8px 32px rgba(0,0,0,.2);
+    }
+    #mm-close {
+      position:absolute; top:12px; right:14px;
+      background:none; border:none; font-size:1.3em;
+      cursor:pointer; color:#aaa; line-height:1;
+    }
+    .mm-consec {
+      font-size:.8em; font-weight:700; color:#33502f;
+      display:block; margin-bottom:2px;
+    }
+    .mm-area { font-size:.75em; color:#999; margin-bottom:10px; display:block; }
+    .mm-badges { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px; }
+    .mm-badge {
+      font-size:.72em; padding:3px 9px; border-radius:10px;
+      font-weight:600; border:1px solid #ddd;
+    }
+    .mm-badge.prev  { background:#e0f0ff; color:#1a6fa8; border-color:#b3d7f5; }
+    .mm-badge.corr  { background:#fff3e0; color:#b85c00; border-color:#f5cc8a; }
+    .mm-badge.mejo  { background:#e6f4ea; color:#2e7d32; border-color:#a5d6a7; }
+    .mm-badge.alta  { background:#fde8e8; color:#c0392b; border-color:#f5b7b1; }
+    .mm-badge.media { background:#fef9ec; color:#b7770d; border-color:#f5d98a; }
+    .mm-badge.baja  { background:#f4f4f4; color:#888;    border-color:#ddd; }
+    .mm-badge.term  { background:#e6f4ea; color:#2e7d32; border-color:#a5d6a7; }
+    .mm-badge.proc  { background:#e3f2fd; color:#1565c0; border-color:#90caf9; }
+    .mm-badge.pend  { background:#f4f4f4; color:#888;    border-color:#ddd; }
+    .mm-row {
+      display:flex; justify-content:space-between; align-items:flex-start;
+      padding:7px 0; border-bottom:1px solid #f0f0f0; gap:8px;
+    }
+    .mm-lbl { font-size:.7em; color:#aaa; font-weight:700; text-transform:uppercase; flex-shrink:0; }
+    .mm-val { font-size:.78em; font-weight:700; color:#2d3436; text-align:right; }
+    .mm-slbl {
+      font-size:.67em; color:#aaa; font-weight:700;
+      text-transform:uppercase; letter-spacing:.05em;
+      margin-top:14px; margin-bottom:4px;
+    }
+    .mm-text { font-size:.82em; color:#333; line-height:1.45; margin-bottom:4px; }
+    .mm-foto { width:100%; border-radius:8px; margin-top:14px; }
 
   </style>
 </head>
@@ -775,8 +828,87 @@
   (function () {
     var SUPA_URL = "https://pqcgibsdewrrbukibubd.supabase.co";
     var SUPA_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxY2dpYnNkZXdycmJ1a2lidWJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3OTQyMDQsImV4cCI6MjA5MDM3MDIwNH0.7WnJydoru0E_aOGkyMGxPgZXTAEVmu4KQwqPPM-W14A";
+    var BUCKET = "lom-fotos";
     var db = supabase.createClient(SUPA_URL, SUPA_KEY);
 
+    // Cache de registros por área: { "Nave 1 y 2": [ {...}, ... ] }
+    var cache = {};
+
+    // ── Modal ────────────────────────────────────────────────────────────────
+    var overlay = document.createElement("div");
+    overlay.id = "mm-overlay";
+    overlay.innerHTML = '<div id="mm-box"><button id="mm-close">&#10005;</button><div id="mm-body"></div></div>';
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener("click", function(e){ if (e.target === overlay) cerrar(); });
+    document.getElementById("mm-close").addEventListener("click", cerrar);
+
+    function cerrar() { overlay.classList.remove("open"); }
+
+    function copa(v) {
+      if (!v && v !== 0) return "";
+      return new Intl.NumberFormat("es-CO", { style:"currency", currency:"COP", maximumFractionDigits:0 }).format(v);
+    }
+
+    function fila(lbl, val) {
+      if (!val && val !== 0) return "";
+      return '<div class="mm-row"><span class="mm-lbl">' + lbl + '</span><span class="mm-val">' + val + '</span></div>';
+    }
+
+    function seccion(lbl, txt) {
+      if (!txt) return "";
+      return '<p class="mm-slbl">' + lbl + '</p><p class="mm-text">' + txt + '</p>';
+    }
+
+    function tipoCls(t) {
+      return { Preventivo:"prev", Correctivo:"corr", Mejora:"mejo" }[t] || "";
+    }
+    function prioCls(p) {
+      return { Alta:"alta", Media:"media", Baja:"baja" }[p] || "";
+    }
+    function estadoCls(e) {
+      return { Terminado:"term", "En proceso":"proc", Pendiente:"pend" }[e] || "";
+    }
+
+    function badge(txt, cls) {
+      return txt ? '<span class="mm-badge ' + cls + '">' + txt + '</span>' : "";
+    }
+
+    function abrirModal(r) {
+      var foto = r.foto_path
+        ? '<img class="mm-foto" src="' + SUPA_URL + '/storage/v1/object/public/' + BUCKET + '/' + r.foto_path + '" />'
+        : "";
+
+      document.getElementById("mm-body").innerHTML =
+        '<span class="mm-consec">' + (r.consecutivo || "—") + '</span>' +
+        '<span class="mm-area">' + (r.area_nombre || "") + (r.item_nombre ? " · " + r.item_nombre : "") + '</span>' +
+        '<div class="mm-badges">' +
+          badge(r.tipo, tipoCls(r.tipo)) +
+          badge(r.prioridad, prioCls(r.prioridad)) +
+          badge(r.estado, estadoCls(r.estado)) +
+        '</div>' +
+        fila("Fecha reporte",    r.fecha_reporte) +
+        fila("Fecha ejecución",  r.fecha_ejecucion) +
+        seccion("Problema",          r.problema) +
+        seccion("Trabajo realizado",  r.trabajo) +
+        seccion("Materiales",         r.materiales) +
+        fila("N° factura",       r.num_factura) +
+        fila("Costo",            r.costo ? copa(r.costo) : null) +
+        fila("Proveedor",        r.proveedor) +
+        fila("Responsable",      r.responsable) +
+        fila("Ejecutor",         r.tipo_responsable) +
+        fila("Verificado por",   r.verificado_por) +
+        fila("Impacto vida útil",r.impacto_vida_util) +
+        fila("Afecta operación", r.afecta) +
+        fila("Detalle afectación",r.afecta_detalle) +
+        fila("Corrales",         r.corrales) +
+        foto;
+
+      document.getElementById("mm-box").scrollTop = 0;
+      overlay.classList.add("open");
+    }
+
+    // ── Acordeones ───────────────────────────────────────────────────────────
     document.querySelectorAll("details.activo[data-area]").forEach(function (det) {
       det.addEventListener("toggle", async function () {
         if (!det.open) return;
@@ -785,11 +917,12 @@
         box.dataset.ok = "1";
         box.innerHTML = '<p class="mant-cargando">↻ cargando...</p>';
 
+        var area = det.dataset.area;
         var res = await db
           .from("lom_mantenimientos")
-          .select("consecutivo,fecha_ejecucion,fecha_reporte,tipo,estado,problema,item_nombre")
+          .select("*")
           .eq("zona_slug", "granja")
-          .eq("area_nombre", det.dataset.area)
+          .eq("area_nombre", area)
           .order("created_at", { ascending: false })
           .limit(5);
 
@@ -798,21 +931,31 @@
           return;
         }
 
-        var cards = res.data.map(function (r) {
-          var fecha = r.fecha_ejecucion || r.fecha_reporte || "—";
-          return '<div class="mant-card">' +
-            '<div class="mant-meta">' +
-              (r.consecutivo ? '<span class="mant-consec">' + r.consecutivo + '</span>' : '') +
-              '<span class="mant-fecha">' + fecha + '</span>' +
-              (r.tipo ? '<span class="mant-tipo">' + r.tipo + '</span>' : '') +
-              (r.estado && r.estado !== 'Terminado' ? '<span class="mant-estado-tag">' + r.estado + '</span>' : '') +
-            '</div>' +
-            (r.item_nombre ? '<div class="mant-item">' + r.item_nombre + '</div>' : '') +
-            (r.problema ? '<div class="mant-prob">' + r.problema + '</div>' : '') +
-          '</div>';
-        }).join('');
+        cache[area] = res.data;
 
-        box.innerHTML = '<p class="mant-lbl">&#128295; últimos mantenimientos</p>' + cards;
+        var html = '<p class="mant-lbl">&#128295; últimos mantenimientos</p>' +
+          res.data.map(function (r, i) {
+            var fecha = r.fecha_ejecucion || r.fecha_reporte || "—";
+            return '<div class="mant-card" data-area="' + area + '" data-idx="' + i + '">' +
+              '<div class="mant-meta">' +
+                (r.consecutivo ? '<span class="mant-consec">' + r.consecutivo + '</span>' : '') +
+                '<span class="mant-fecha">' + fecha + '</span>' +
+                (r.tipo ? '<span class="mant-tipo">' + r.tipo + '</span>' : '') +
+                (r.estado && r.estado !== 'Terminado' ? '<span class="mant-estado-tag">' + r.estado + '</span>' : '') +
+              '</div>' +
+              (r.item_nombre ? '<div class="mant-item">' + r.item_nombre + '</div>' : '') +
+              (r.problema ? '<div class="mant-prob">' + r.problema + '</div>' : '') +
+            '</div>';
+          }).join('');
+
+        box.innerHTML = html;
+
+        box.querySelectorAll(".mant-card").forEach(function (card) {
+          card.addEventListener("click", function () {
+            var rec = cache[this.dataset.area][parseInt(this.dataset.idx)];
+            abrirModal(rec);
+          });
+        });
       });
     });
   })();
