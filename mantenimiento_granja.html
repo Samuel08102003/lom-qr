@@ -55,6 +55,7 @@ const fromDB = (r) => ({
   afectaDetalle: r.afecta_detalle,
   corrales: r.corrales,
   fotoPath: r.foto_path,
+  activoInventario: r.activo_inventario,
   createdAt: r.created_at,
 });
 
@@ -258,12 +259,17 @@ function App() {
   const [area, setArea]       = useState(null);
   const [item, setItem]       = useState(null);
   const [current, setCurrent] = useState(null);
-  const [query, setQuery]     = useState("");
+  const [query, setQuery]           = useState("");
+  const [activoInventario, setActivoInventario] = useState(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const buscar = params.get("buscar");
-    if (buscar) setQuery(decodeURIComponent(buscar));
+    if (buscar) {
+      const nombre = decodeURIComponent(buscar);
+      setQuery(nombre);
+      setActivoInventario(nombre);
+    }
 
     (async () => {
       try {
@@ -329,6 +335,7 @@ function App() {
       afecta_detalle: data.afectaDetalle || null,
       corrales: data.corrales || null,
       foto_path: fotoPath,
+      activo_inventario: isNew ? activoInventario : (data.activoInventario || null),
     };
 
     if (isNew) {
