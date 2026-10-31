@@ -1602,5 +1602,43 @@ window.addEventListener('load', function () {
         }
     }, 1200);
 });
+
+        // ---- POLO ----
+        var circle_polo = L.circle(
+            [4.6685892, -74.0634701],
+            {color:"#f39c12",fill:true,fillColor:"#f39c12",fillOpacity:0.15,radius:200,weight:3}
+        ).addTo(map_c5c3f53107f3f51a09d959d611edc6b2);
+
+        var popup_polo = L.popup({maxWidth:320});
+        popup_polo.setContent(`<div style='font-family:Arial;width:300px;'>
+          <div style='background:#f39c12;color:white;padding:12px 16px;border-radius:8px 8px 0 0;text-align:center;'>
+            <b style='font-size:1.1em;'>POLO</b><br>
+            <span style='font-size:.76em;opacity:.85;'>Inversiones Agropecuarias LOM SAS</span>
+          </div>
+          <div style='padding:12px 16px;background:#fff;border:1px solid #eee;border-top:none;'>
+            <p style='font-size:.74em;font-weight:700;color:#f39c12;margin-bottom:5px;'>ACTIVOS (6):</p>
+            <ul style='list-style:none;padding:0;margin:0;color:#333;max-height:180px;overflow-y:auto;'>
+              <li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Computador AIO 23.8" Lenovo IdeaCentre</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Impresora termica SAT 22T Ethernet</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Multifuncional Epson EcoTank L3210</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Cajon registradora 24V</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Biblioteca melamina 18mm</li><li style='padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.82em'>Mesa Roma blanca 120cm</li>
+            </ul>
+            <a href='zona_polo.html' target='_blank'
+               style='display:block;background:#f39c12;color:white;text-align:center;padding:9px;
+                      border-radius:7px;text-decoration:none;font-weight:700;margin-top:10px;font-size:.85em;'>
+              Ver activos + detalle
+            </a>
+          </div>
+        </div>`);
+        circle_polo.bindPopup(popup_polo);
+        circle_polo.bindTooltip('<div>POLO &mdash; 6 activos</div>', {sticky:true});
+
+        var marker_polo = L.marker([4.6685892, -74.0634701]).addTo(map_c5c3f53107f3f51a09d959d611edc6b2);
+        var icon_polo = L.divIcon({
+          html: "<div style='background:#f39c12;color:white;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72em;font-weight:900;box-shadow:0 3px 8px rgba(0,0,0,.45);border:2px solid white;cursor:pointer;'>QR</div>",
+          iconSize:[36,36], iconAnchor:[18,18], className:"empty"
+        });
+        marker_polo.setIcon(icon_polo);
+        marker_polo.bindPopup(popup_polo);
+        marker_polo.bindTooltip('<div>QR &mdash; POLO</div>', {sticky:true});
+        // ---- fin POLO ----
+
 </script>
 </html>
