@@ -5,251 +5,461 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>POLO - LOM SAS</title>
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:Arial,sans-serif; background:#f5f6fa; }
-    header { background:#f39c12; color:#fff; padding:20px 16px; text-align:center; }
-    h1 { font-size:1.4em; font-weight:700; }
-    .sub { font-size:.8em; opacity:.85; margin-top:4px; }
-    .dir { font-size:.74em; opacity:.8; margin-top:5px; }
-    .resumen { background:#f39c12; color:#fff; margin:14px; border-radius:12px; padding:16px;
-                display:flex; justify-content:space-between; align-items:center; }
-    .resumen-lbl { font-size:.72em; opacity:.8; margin-bottom:2px; }
-    .resumen-val { font-size:1.3em; font-weight:700; }
-    .resumen-sub { font-size:.78em; opacity:.9; margin-top:6px; }
-    .seccion { margin:0 14px 12px; }
-    .seccion-header { display:flex; justify-content:space-between; align-items:center;
-                       padding:10px 12px; border-radius:8px 8px 0 0; }
-    .seccion-titulo { font-size:.75em; font-weight:700; text-transform:uppercase; letter-spacing:.07em; }
-    .seccion-total  { font-size:.85em; font-weight:700; }
-    .activos-lista { background:#fff; border-radius:0 0 10px 10px;
-                      box-shadow:0 2px 8px rgba(0,0,0,.07); overflow:hidden; }
-    details.activo { border-bottom:1px solid #f0f0f0; }
-    details.activo:last-child { border-bottom:none; }
-    details.activo summary { display:flex; justify-content:space-between; align-items:center;
-                               padding:12px 14px; cursor:pointer; list-style:none; user-select:none; }
-    details.activo summary::-webkit-details-marker { display:none; }
-    details.activo summary::after { content:"›"; font-size:1.2em; color:#ccc;
-                                      transition:transform .2s; margin-left:8px; flex-shrink:0; }
-    details.activo[open] summary::after { transform:rotate(90deg); color:#f39c12; }
-    details.activo[open] summary { background:#f39c1208; }
-    .activo-nombre     { font-size:.9em; color:#2d3436; flex:1; }
-    .activo-valor-wrap { text-align:right; margin-right:4px; flex-shrink:0; }
-    .activo-valor-lbl  { display:block; font-size:.65em; color:#aaa; text-transform:uppercase; letter-spacing:.05em; }
-    .activo-valor      { font-size:.88em; color:#2d3436; font-weight:700; white-space:nowrap; }
-    .activo-detalle    { padding:10px 14px 14px; border-top:1px solid #f39c1220; }
-    .detalle-fila      { display:flex; justify-content:space-between; align-items:center;
-                          padding:6px 0; border-bottom:1px solid #f0f0f0; }
-    .detalle-fila:last-child { border-bottom:none; }
-    .detalle-lbl { font-size:.75em; color:#999; font-weight:600; text-transform:uppercase; letter-spacing:.05em; }
-    .detalle-val { font-size:.82em; font-weight:700; }
-    .badge { padding:4px 10px; border-radius:20px; font-size:.78em; font-weight:700; }
-    .total-zona { margin:14px; padding:14px 16px; background:#fff; border-radius:10px;
-                   box-shadow:0 2px 8px rgba(0,0,0,.07);
-                   display:flex; justify-content:space-between; align-items:center;
-                   border-left:4px solid #f39c12; }
-    .total-zona-lbl { font-size:.75em; font-weight:700; color:#f39c12; text-transform:uppercase; }
-    .total-zona-val { font-size:1.1em; font-weight:700; color:#f39c12; }
-    .mapa-wrap { margin:14px; }
-    iframe { width:100%; height:280px; border:0; border-radius:10px;
-              box-shadow:0 2px 8px rgba(0,0,0,.1); display:block; }
-    .btn { display:block; background:#f39c12; color:#fff; text-align:center;
-            padding:14px; border-radius:10px; text-decoration:none;
-            font-weight:700; margin:14px 14px 0; font-size:.9em; }
-    .btn-maps { display:block; margin:10px 14px 28px; padding:9px 14px;
-                 background:#333; color:#fff; border-radius:8px;
-                 text-decoration:none; font-size:.78em; font-weight:700; text-align:center; }
-  </style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:Arial,sans-serif;background:#f0f2f5;}
+header{background:#f39c12;color:#fff;padding:20px 16px 18px;text-align:center;}
+h1{font-size:1.35em;font-weight:700;}
+.sub{font-size:.78em;opacity:.85;margin-top:3px;}
+.resp{font-size:.74em;opacity:.9;margin-top:5px;}
+.resp span{font-weight:700;}
+.dir-lbl{font-size:.7em;opacity:.7;margin-top:2px;}
+
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px;}
+.kpi{background:#fff;border-radius:12px;padding:12px 14px;
+      box-shadow:0 1px 4px rgba(0,0,0,.08);border-top:3px solid #f39c12;}
+.kpi-lbl{font-size:.62em;color:#aaa;font-weight:700;text-transform:uppercase;
+           letter-spacing:.06em;margin-bottom:4px;}
+.kpi-val{font-size:1.05em;font-weight:700;color:#1a1a2e;line-height:1.2;}
+.kpi-sub{font-size:.68em;color:#bbb;margin-top:3px;}
+
+.search-wrap{padding:0 14px 10px;}
+.search{width:100%;padding:10px 14px;border:1.5px solid #e0e0e0;border-radius:10px;
+          font-size:.88em;outline:none;background:#fff;}
+.search:focus{border-color:#f39c12;box-shadow:0 0 0 3px #f39c1222;}
+
+.seccion{margin:0 14px 10px;}
+.sec-hdr{display:flex;justify-content:space-between;align-items:center;
+           padding:10px 14px;border-radius:10px 10px 0 0;cursor:pointer;
+           user-select:none;}
+.sec-titulo{font-size:.73em;font-weight:700;text-transform:uppercase;letter-spacing:.07em;}
+.sec-meta{text-align:right;}
+.sec-total{font-size:.85em;font-weight:700;display:block;}
+.sec-cnt{font-size:.67em;opacity:.7;}
+.sec-body{background:#fff;border-radius:0 0 10px 10px;
+           box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:hidden;}
+
+details.act{border-bottom:1px solid #f5f5f5;}
+details.act:last-child{border-bottom:none;}
+details.act>summary{display:flex;justify-content:space-between;align-items:center;
+                      padding:11px 14px;cursor:pointer;list-style:none;user-select:none;}
+details.act>summary::-webkit-details-marker{display:none;}
+details.act>summary::after{content:"›";font-size:1.15em;color:#ccc;
+                              margin-left:8px;flex-shrink:0;transition:transform .2s;}
+details.act[open]>summary::after{transform:rotate(90deg);color:#f39c12;}
+details.act[open]>summary{background:#f39c1207;}
+.act-nom{font-size:.87em;color:#2d3436;flex:1;line-height:1.35;padding-right:6px;}
+.act-vr{text-align:right;flex-shrink:0;}
+.act-vr-lbl{display:block;font-size:.6em;color:#bbb;text-transform:uppercase;letter-spacing:.04em;}
+.act-vr-val{font-size:.87em;font-weight:700;color:#2d3436;white-space:nowrap;}
+
+.det{padding:10px 14px 14px;border-top:1px solid #f39c1218;background:#f39c1204;}
+.det-row{display:flex;justify-content:space-between;align-items:baseline;
+           padding:5px 0;border-bottom:1px solid #f5f5f5;}
+.det-row:last-child{border-bottom:none;}
+.det-lbl{font-size:.7em;color:#aaa;font-weight:600;text-transform:uppercase;letter-spacing:.04em;}
+.det-val{font-size:.82em;font-weight:700;color:#2d3436;text-align:right;}
+.vl-highlight{color:#f39c12;font-size:.88em;}
+.badge{padding:3px 8px;border-radius:12px;font-size:.74em;font-weight:700;}
+
+.resumen-zona{margin:14px;background:#fff;border-radius:12px;
+               box-shadow:0 1px 4px rgba(0,0,0,.08);border-left:4px solid #f39c12;
+               overflow:hidden;}
+.rz-titulo{font-size:.7em;font-weight:700;color:#f39c12;text-transform:uppercase;
+             letter-spacing:.06em;padding:12px 14px 8px;border-bottom:1px solid #f5f5f5;}
+.rz-row{display:flex;justify-content:space-between;padding:8px 14px;
+          border-bottom:1px solid #f5f5f5;}
+.rz-row:last-child{border-bottom:none;}
+.rz-lbl{font-size:.78em;color:#666;}
+.rz-val{font-size:.82em;font-weight:700;color:#2d3436;}
+.rz-val.hl{color:#f39c12;font-size:.88em;}
+
+.mapa-wrap{padding:0 14px;}
+iframe{width:100%;height:270px;border:0;border-radius:10px;
+         box-shadow:0 2px 8px rgba(0,0,0,.1);display:block;}
+.btn{display:block;background:#f39c12;color:#fff;text-align:center;
+       padding:13px;border-radius:10px;text-decoration:none;
+       font-weight:700;margin:12px 14px 0;font-size:.9em;}
+.btn-dark{background:#333;}
+.btn-mant{background:#33502f;}
+.bottom-pad{height:28px;}
+.hidden{display:none!important;}
+
+/* mantenimiento */
+.mant-box{margin-top:8px;}
+.mant-loading{font-size:.7em;color:#aaa;text-align:center;padding:8px 0;}
+.mant-empty{font-size:.7em;color:#ccc;padding:4px 0;}
+.mant-lbl{font-size:.64em;font-weight:700;color:#33502f;text-transform:uppercase;
+            letter-spacing:.06em;margin-bottom:5px;}
+.mant-card{background:#f2f5f2;border-radius:6px;padding:7px 10px;margin-bottom:5px;
+             border-left:3px solid #33502f;cursor:pointer;}
+.mant-card:hover{background:#e4ede4;}
+.mant-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:3px;}
+.mant-consec{font-size:.67em;font-weight:700;color:#33502f;}
+.mant-fecha{font-size:.65em;color:#aaa;}
+.mant-tipo{font-size:.64em;background:#ddeadd;color:#33502f;
+             padding:1px 6px;border-radius:10px;font-weight:600;}
+.mant-prob{font-size:.72em;color:#555;line-height:1.35;}
+#mm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);
+              z-index:9999;align-items:center;justify-content:center;padding:16px;}
+#mm-overlay.open{display:flex;}
+#mm-box{background:#fff;border-radius:14px;max-width:480px;width:100%;
+          max-height:88vh;overflow-y:auto;padding:20px 18px 24px;
+          position:relative;box-shadow:0 8px 32px rgba(0,0,0,.2);}
+#mm-close{position:absolute;top:12px;right:14px;background:none;border:none;
+            font-size:1.3em;cursor:pointer;color:#aaa;}
+.mm-consec{font-size:.8em;font-weight:700;color:#33502f;display:block;margin-bottom:2px;}
+.mm-area{font-size:.75em;color:#999;margin-bottom:10px;display:block;}
+.mm-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.mm-badge{font-size:.72em;padding:3px 9px;border-radius:10px;font-weight:600;border:1px solid #ddd;}
+.mm-badge.prev{background:#e0f0ff;color:#1a6fa8;border-color:#b3d7f5;}
+.mm-badge.corr{background:#fff3e0;color:#b85c00;border-color:#f5cc8a;}
+.mm-badge.mejo{background:#e6f4ea;color:#2e7d32;border-color:#a5d6a7;}
+.mm-badge.alta{background:#fde8e8;color:#c0392b;border-color:#f5b7b1;}
+.mm-badge.media{background:#fef9ec;color:#b7770d;border-color:#f5d98a;}
+.mm-badge.baja{background:#f4f4f4;color:#888;border-color:#ddd;}
+.mm-badge.term{background:#e6f4ea;color:#2e7d32;border-color:#a5d6a7;}
+.mm-badge.proc{background:#e3f2fd;color:#1565c0;border-color:#90caf9;}
+.mm-badge.pend{background:#f4f4f4;color:#888;border-color:#ddd;}
+.mm-row{display:flex;justify-content:space-between;padding:7px 0;
+          border-bottom:1px solid #f0f0f0;gap:8px;}
+.mm-lbl{font-size:.7em;color:#aaa;font-weight:700;text-transform:uppercase;flex-shrink:0;}
+.mm-val{font-size:.78em;font-weight:700;color:#2d3436;text-align:right;}
+.mm-slbl{font-size:.67em;color:#aaa;font-weight:700;text-transform:uppercase;
+           letter-spacing:.05em;margin-top:14px;margin-bottom:4px;}
+.mm-text{font-size:.82em;color:#333;line-height:1.45;margin-bottom:4px;}
+.mm-foto{width:100%;border-radius:8px;margin-top:14px;}
+</style>
 </head>
 <body>
   <header>
     <h1>POLO</h1>
     <p class="sub">Inversiones Agropecuarias LOM SAS</p>
-    <p class="dir">Ak Cra 24 #84-47, Barrios Unidos, Bogota</p>
+    <p class="resp">Responsable: <span>—</span></p>
+    <p class="dir-lbl">Ak Cra 24 #84-47, Barrios Unidos, Bogota</p>
   </header>
 
-  <div class="resumen">
-    <div>
-      <div class="resumen-lbl">Costo historico</div>
-      <div class="resumen-val">$5.327.470</div>
-      <div class="resumen-sub">6 activos registrados</div>
+  <div class="kpis">
+    <div class="kpi">
+      <div class="kpi-lbl">Activos</div>
+      <div class="kpi-val">6</div>
+      <div class="kpi-sub">3 categorias</div>
     </div>
-    <div style="text-align:right">
-      <div class="resumen-lbl">Valor en libros sep-26</div>
-      <div style="font-weight:700;font-size:1.05em">$5.120.016</div>
+    <div class="kpi">
+      <div class="kpi-lbl">Costo historico</div>
+      <div class="kpi-val">$5.327.470</div>
+      <div class="kpi-sub">Valor de compra</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Dep. acum. sep-26</div>
+      <div class="kpi-val">$207.454</div>
+      <div class="kpi-sub">4% del costo</div>
+    </div>
+    <div class="kpi" style="border-top-color:#f39c12;">
+      <div class="kpi-lbl">Valor en libros sep-26</div>
+      <div class="kpi-val" style="color:#f39c12;">$5.120.016</div>
+      <div class="kpi-sub">Saldo neto contable</div>
     </div>
   </div>
 
+  <div class="search-wrap">
+    <input class="search" type="search" placeholder="Buscar activo..." oninput="buscar(this.value)">
+  </div>
+
   <div class="seccion">
-    <div class="seccion-header" style="background:#f39c1222;border-left:4px solid #f39c12">
-      <span class="seccion-titulo" style="color:#f39c12">Equipo De Procesamiento De Datos</span>
-      <span class="seccion-total" style="color:#f39c12">$2.399.070</span>
+    <div class="sec-hdr" style="background:#f39c1218;border-left:4px solid #f39c12"
+         onclick="this.nextElementSibling.classList.toggle('hidden')">
+      <span class="sec-titulo" style="color:#f39c12">Equipo De Procesamiento De Datos</span>
+      <span class="sec-meta">
+        <span class="sec-total" style="color:#f39c12">$2.399.070</span>
+        <span class="sec-cnt" style="color:#f39c12">VL $2.279.116 &nbsp;·&nbsp; 1 activos</span>
+      </span>
     </div>
-    <div class="activos-lista">
-    <details class="activo">
+    <div class="sec-body">
+    <details class="act">
       <summary>
-        <span class="activo-nombre">COMPUTAOR AIO 23.8" LENOV IDEA AIO</span>
-        <span class="activo-valor-wrap">
-          <span class="activo-valor-lbl">Valor compra</span>
-          <span class="activo-valor">$2.399.070</span>
+        <span class="act-nom">COMPUTAOR AIO 23.8" LENOV IDEA AIO</span>
+        <span class="act-vr">
+          <span class="act-vr-lbl">Costo hist.</span>
+          <span class="act-vr-val">$2.399.070</span>
         </span>
       </summary>
-      <div class="activo-detalle">
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Valor en libros (sep-26)</span>
-          <span class="detalle-val" style="color:#f39c12;font-weight:700">$2.279.116</span>
+      <div class="det">
+        <div style="background:#f0f0f0;border-radius:4px;height:5px;margin:7px 0 3px;">
+          <div style="background:#27ae60;width:5.0%;height:5px;border-radius:4px;"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:.67em;color:#bbb;margin-bottom:6px;">
+          <span>Depreciado 5%</span><span>Saldo 95%</span></div>
+        <div class="det-row">
+          <span class="det-lbl">Valor en libros sep-26</span>
+          <span class="det-val vl-highlight">$2.279.116</span>
         </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Fecha compra</span>
-          <span class="detalle-val">2026-07-17</span>
+        <div class="det-row">
+          <span class="det-lbl">Dep. acumulada sep-26</span>
+          <span class="det-val">$119.954</span>
         </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Estado</span>
-          <span class="detalle-val badge" style="background:#fef9ef;color:#f39c12">En depreciación</span>
+        <div class="det-row">
+          <span class="det-lbl">Dep. causada 2026</span>
+          <span class="det-val">$239.907</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Fecha compra</span>
+          <span class="det-val">17/07/2026</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Vida util</span>
+          <span class="det-val">60 meses &nbsp;·&nbsp; 60 restantes</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Estado</span>
+          <span class="det-val badge" style="background:#eafaf1;color:#27ae60">En depreciación</span>
         </div>
       </div>
     </details>
     </div>
   </div>
   <div class="seccion">
-    <div class="seccion-header" style="background:#f39c1222;border-left:4px solid #f39c12">
-      <span class="seccion-titulo" style="color:#f39c12">Maquinaria Y Equipo De Planta</span>
-      <span class="seccion-total" style="color:#f39c12">$1.190.000</span>
+    <div class="sec-hdr" style="background:#f39c1218;border-left:4px solid #f39c12"
+         onclick="this.nextElementSibling.classList.toggle('hidden')">
+      <span class="sec-titulo" style="color:#f39c12">Maquinaria Y Equipo De Planta</span>
+      <span class="sec-meta">
+        <span class="sec-total" style="color:#f39c12">$1.190.000</span>
+        <span class="sec-cnt" style="color:#f39c12">VL $1.102.500 &nbsp;·&nbsp; 3 activos</span>
+      </span>
     </div>
-    <div class="activos-lista">
-    <details class="activo">
+    <div class="sec-body">
+    <details class="act">
       <summary>
-        <span class="activo-nombre">CAJON MID SIZE CASH DRAWER-24V.330MM WIDE</span>
-        <span class="activo-valor-wrap">
-          <span class="activo-valor-lbl">Valor compra</span>
-          <span class="activo-valor">$140.000</span>
+        <span class="act-nom">CAJON MID SIZE CASH DRAWER-24V.330MM WIDE</span>
+        <span class="act-vr">
+          <span class="act-vr-lbl">Costo hist.</span>
+          <span class="act-vr-val">$140.000</span>
         </span>
       </summary>
-      <div class="activo-detalle">
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Valor en libros (sep-26)</span>
-          <span class="detalle-val" style="color:#f39c12;font-weight:700">$105.000</span>
+      <div class="det">
+        <div style="background:#f0f0f0;border-radius:4px;height:5px;margin:7px 0 3px;">
+          <div style="background:#27ae60;width:25.0%;height:5px;border-radius:4px;"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:.67em;color:#bbb;margin-bottom:6px;">
+          <span>Depreciado 25%</span><span>Saldo 75%</span></div>
+        <div class="det-row">
+          <span class="det-lbl">Valor en libros sep-26</span>
+          <span class="det-val vl-highlight">$105.000</span>
         </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Fecha compra</span>
-          <span class="detalle-val">2026-07-18</span>
+        <div class="det-row">
+          <span class="det-lbl">Dep. acumulada sep-26</span>
+          <span class="det-val">$35.000</span>
         </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Estado</span>
-          <span class="detalle-val badge" style="background:#fef9ef;color:#f39c12">En depreciación</span>
+        <div class="det-row">
+          <span class="det-lbl">Dep. causada 2026</span>
+          <span class="det-val">$70.000</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Fecha compra</span>
+          <span class="det-val">18/07/2026</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Vida util</span>
+          <span class="det-val">12 meses &nbsp;·&nbsp; 12 restantes</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Estado</span>
+          <span class="det-val badge" style="background:#eafaf1;color:#27ae60">En depreciación</span>
         </div>
       </div>
     </details>
-    <details class="activo">
+    <details class="act">
       <summary>
-        <span class="activo-nombre">IMPRESORA TERMICA DE RECIBOS SAT 22T SAT 22T - ETHERNET</span>
-        <span class="activo-valor-wrap">
-          <span class="activo-valor-lbl">Valor compra</span>
-          <span class="activo-valor">$350.000</span>
+        <span class="act-nom">IMPRESORA TERMICA DE RECIBOS SAT 22T SAT 22T - ETHERNET</span>
+        <span class="act-vr">
+          <span class="act-vr-lbl">Costo hist.</span>
+          <span class="act-vr-val">$350.000</span>
         </span>
       </summary>
-      <div class="activo-detalle">
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Valor en libros (sep-26)</span>
-          <span class="detalle-val" style="color:#f39c12;font-weight:700">$332.500</span>
+      <div class="det">
+        <div style="background:#f0f0f0;border-radius:4px;height:5px;margin:7px 0 3px;">
+          <div style="background:#27ae60;width:5.0%;height:5px;border-radius:4px;"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:.67em;color:#bbb;margin-bottom:6px;">
+          <span>Depreciado 5%</span><span>Saldo 95%</span></div>
+        <div class="det-row">
+          <span class="det-lbl">Valor en libros sep-26</span>
+          <span class="det-val vl-highlight">$332.500</span>
         </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Fecha compra</span>
-          <span class="detalle-val">2026-07-18</span>
+        <div class="det-row">
+          <span class="det-lbl">Dep. acumulada sep-26</span>
+          <span class="det-val">$17.500</span>
         </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Estado</span>
-          <span class="detalle-val badge" style="background:#fef9ef;color:#f39c12">En depreciación</span>
+        <div class="det-row">
+          <span class="det-lbl">Dep. causada 2026</span>
+          <span class="det-val">$35.000</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Fecha compra</span>
+          <span class="det-val">18/07/2026</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Vida util</span>
+          <span class="det-val">60 meses &nbsp;·&nbsp; 60 restantes</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Estado</span>
+          <span class="det-val badge" style="background:#eafaf1;color:#27ae60">En depreciación</span>
         </div>
       </div>
     </details>
-    <details class="activo">
+    <details class="act">
       <summary>
-        <span class="activo-nombre">MULTIFUNCIONAL EPSON ECOTANK L3210 HG</span>
-        <span class="activo-valor-wrap">
-          <span class="activo-valor-lbl">Valor compra</span>
-          <span class="activo-valor">$700.000</span>
+        <span class="act-nom">MULTIFUNCIONAL EPSON ECOTANK L3210 HG</span>
+        <span class="act-vr">
+          <span class="act-vr-lbl">Costo hist.</span>
+          <span class="act-vr-val">$700.000</span>
         </span>
       </summary>
-      <div class="activo-detalle">
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Valor en libros (sep-26)</span>
-          <span class="detalle-val" style="color:#f39c12;font-weight:700">$665.000</span>
+      <div class="det">
+        <div style="background:#f0f0f0;border-radius:4px;height:5px;margin:7px 0 3px;">
+          <div style="background:#27ae60;width:5.0%;height:5px;border-radius:4px;"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:.67em;color:#bbb;margin-bottom:6px;">
+          <span>Depreciado 5%</span><span>Saldo 95%</span></div>
+        <div class="det-row">
+          <span class="det-lbl">Valor en libros sep-26</span>
+          <span class="det-val vl-highlight">$665.000</span>
         </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Fecha compra</span>
-          <span class="detalle-val">2026-07-18</span>
+        <div class="det-row">
+          <span class="det-lbl">Dep. acumulada sep-26</span>
+          <span class="det-val">$35.000</span>
         </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Estado</span>
-          <span class="detalle-val badge" style="background:#fef9ef;color:#f39c12">En depreciación</span>
+        <div class="det-row">
+          <span class="det-lbl">Dep. causada 2026</span>
+          <span class="det-val">$70.000</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Fecha compra</span>
+          <span class="det-val">18/07/2026</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Vida util</span>
+          <span class="det-val">60 meses &nbsp;·&nbsp; 60 restantes</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Estado</span>
+          <span class="det-val badge" style="background:#eafaf1;color:#27ae60">En depreciación</span>
         </div>
       </div>
     </details>
     </div>
   </div>
   <div class="seccion">
-    <div class="seccion-header" style="background:#f39c1222;border-left:4px solid #f39c12">
-      <span class="seccion-titulo" style="color:#f39c12">Muebles Y Enseres</span>
-      <span class="seccion-total" style="color:#f39c12">$1.738.400</span>
+    <div class="sec-hdr" style="background:#f39c1218;border-left:4px solid #f39c12"
+         onclick="this.nextElementSibling.classList.toggle('hidden')">
+      <span class="sec-titulo" style="color:#f39c12">Muebles Y Enseres</span>
+      <span class="sec-meta">
+        <span class="sec-total" style="color:#f39c12">$1.738.400</span>
+        <span class="sec-cnt" style="color:#f39c12">VL $1.738.400 &nbsp;·&nbsp; 2 activos</span>
+      </span>
     </div>
-    <div class="activos-lista">
-    <details class="activo">
+    <div class="sec-body">
+    <details class="act">
       <summary>
-        <span class="activo-nombre">BIBLIOTECA FABRICADA EN MELAMINA DE 18MM CON ESTRUCTURA BLAN</span>
-        <span class="activo-valor-wrap">
-          <span class="activo-valor-lbl">Valor compra</span>
-          <span class="activo-valor">$1.356.600</span>
+        <span class="act-nom">BIBLIOTECA FABRICADA EN MELAMINA DE 18MM CON ESTRUCTURA BLAN</span>
+        <span class="act-vr">
+          <span class="act-vr-lbl">Costo hist.</span>
+          <span class="act-vr-val">$1.356.600</span>
         </span>
       </summary>
-      <div class="activo-detalle">
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Valor en libros (sep-26)</span>
-          <span class="detalle-val" style="color:#f39c12;font-weight:700">$1.356.600</span>
+      <div class="det">
+        <div style="background:#f0f0f0;border-radius:4px;height:5px;margin:7px 0 3px;">
+          <div style="background:#27ae60;width:0.0%;height:5px;border-radius:4px;"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:.67em;color:#bbb;margin-bottom:6px;">
+          <span>Depreciado 0%</span><span>Saldo 100%</span></div>
+        <div class="det-row">
+          <span class="det-lbl">Valor en libros sep-26</span>
+          <span class="det-val vl-highlight">$1.356.600</span>
         </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Fecha compra</span>
-          <span class="detalle-val">2026-09-14</span>
+        <div class="det-row">
+          <span class="det-lbl">Dep. acumulada sep-26</span>
+          <span class="det-val">—</span>
         </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Estado</span>
-          <span class="detalle-val badge" style="background:#fef9ef;color:#f39c12">En depreciación</span>
+        <div class="det-row">
+          <span class="det-lbl">Dep. causada 2026</span>
+          <span class="det-val">$67.830</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Fecha compra</span>
+          <span class="det-val">14/09/2026</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Vida util</span>
+          <span class="det-val">60 meses &nbsp;·&nbsp; 60 restantes</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Estado</span>
+          <span class="det-val badge" style="background:#eafaf1;color:#27ae60">En depreciación</span>
         </div>
       </div>
     </details>
-    <details class="activo">
+    <details class="act">
       <summary>
-        <span class="activo-nombre">MESA ROMA BLANCA RECTANGULAR 120 CM + ENVIO</span>
-        <span class="activo-valor-wrap">
-          <span class="activo-valor-lbl">Valor compra</span>
-          <span class="activo-valor">$381.800</span>
+        <span class="act-nom">MESA ROMA BLANCA RECTANGULAR 120 CM + ENVIO</span>
+        <span class="act-vr">
+          <span class="act-vr-lbl">Costo hist.</span>
+          <span class="act-vr-val">$381.800</span>
         </span>
       </summary>
-      <div class="activo-detalle">
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Valor en libros (sep-26)</span>
-          <span class="detalle-val" style="color:#f39c12;font-weight:700">$381.800</span>
+      <div class="det">
+        <div style="background:#f0f0f0;border-radius:4px;height:5px;margin:7px 0 3px;">
+          <div style="background:#27ae60;width:0.0%;height:5px;border-radius:4px;"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:.67em;color:#bbb;margin-bottom:6px;">
+          <span>Depreciado 0%</span><span>Saldo 100%</span></div>
+        <div class="det-row">
+          <span class="det-lbl">Valor en libros sep-26</span>
+          <span class="det-val vl-highlight">$381.800</span>
         </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Fecha compra</span>
-          <span class="detalle-val">2026-09-01</span>
+        <div class="det-row">
+          <span class="det-lbl">Dep. acumulada sep-26</span>
+          <span class="det-val">—</span>
         </div>
-        <div class="detalle-fila">
-          <span class="detalle-lbl">Estado</span>
-          <span class="detalle-val badge" style="background:#fef9ef;color:#f39c12">En depreciación</span>
+        <div class="det-row">
+          <span class="det-lbl">Dep. causada 2026</span>
+          <span class="det-val">$19.090</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Fecha compra</span>
+          <span class="det-val">01/09/2026</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Vida util</span>
+          <span class="det-val">60 meses &nbsp;·&nbsp; 60 restantes</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Estado</span>
+          <span class="det-val badge" style="background:#eafaf1;color:#27ae60">En depreciación</span>
         </div>
       </div>
     </details>
     </div>
   </div>
-  <div class="total-zona">
-    <span class="total-zona-lbl">Total POLO</span>
-    <span class="total-zona-val">$5.327.470</span>
+  <div class="resumen-zona">
+    <div class="rz-titulo">Resumen POLO &mdash; corte 30 sep 2026</div>
+    <div class="rz-row"><span class="rz-lbl">Total activos</span><span class="rz-val">6</span></div>
+    <div class="rz-row"><span class="rz-lbl">Costo historico</span><span class="rz-val">$5.327.470</span></div>
+    <div class="rz-row"><span class="rz-lbl">Dep. acumulada al 30-sep-26</span><span class="rz-val">$207.454</span></div>
+    <div class="rz-row"><span class="rz-lbl">Dep. causada en 2026 (ene-sep)</span><span class="rz-val">$501.827</span></div>
+    <div class="rz-row"><span class="rz-lbl">Valor en libros 30-sep-26</span><span class="rz-val hl">$5.120.016</span></div>
   </div>
 
   <div class="mapa-wrap">
     <iframe src="index.html" loading="lazy" allowfullscreen></iframe>
   </div>
   <a class="btn" href="index.html">Ver en el mapa general</a>
-  <a class="btn-maps" href="https://maps.google.com/?q=4.6685892,-74.0634701&z=17" target="_blank">Abrir en Google Maps</a>
+  
+  <a class="btn btn-dark" href="https://maps.google.com/?q=4.6685892,-74.0634701&z=17" target="_blank">Abrir en Google Maps</a>
+  <div class="bottom-pad"></div>
+
+  <script>
+    function buscar(q){
+      q = q.trim().toLowerCase();
+      document.querySelectorAll("details.act").forEach(function(d){
+        d.classList.toggle("hidden", q.length > 1 && !d.querySelector(".act-nom").textContent.toLowerCase().includes(q));
+      });
+    }
+  </script>
+  
 </body>
 </html>
