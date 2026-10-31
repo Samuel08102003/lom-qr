@@ -84,6 +84,17 @@ iframe{width:100%;height:270px;border:0;border-radius:10px;
 .bottom-pad{height:28px;}
 .hidden{display:none!important;}
 
+/* facturas */
+.fac-lista{margin-top:10px;border-top:1px dashed #f39c1230;padding-top:8px;}
+.fac-titulo{font-size:.64em;font-weight:700;color:#f39c12;text-transform:uppercase;
+             letter-spacing:.06em;margin-bottom:6px;}
+.fac-row{padding:8px 0;border-bottom:1px solid #f5f5f5;}
+.fac-row:last-child{border-bottom:none;}
+.fac-desc{display:block;font-size:.82em;color:#333;line-height:1.35;margin-bottom:5px;font-weight:600;}
+.fac-vals{display:grid;grid-template-columns:auto 1fr auto 1fr;gap:2px 10px;}
+.fac-val-lbl{font-size:.63em;color:#bbb;font-weight:700;text-transform:uppercase;letter-spacing:.04em;align-self:center;}
+.fac-val{font-size:.75em;color:#555;font-weight:700;align-self:center;}
+
 /* mantenimiento */
 .mant-box{margin-top:8px;}
 .mant-loading{font-size:.7em;color:#aaa;text-align:center;padding:8px 0;}
@@ -177,7 +188,9 @@ iframe{width:100%;height:270px;border:0;border-radius:10px;
     <div class="sec-body">
     <details class="act">
       <summary>
-        <span class="act-nom">COMPUTAOR AIO 23.8" LENOV IDEA AIO<span style="display:inline-block;background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:10px;font-size:.62em;font-weight:700;padding:1px 7px;margin-left:5px;vertical-align:middle;letter-spacing:.04em;">Pv Polo (nuevo)</span></span>
+        <span class="act-nom">Computadores<span style="display:inline-block;background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:10px;font-size:.6em;font-weight:700;padding:1px 7px;margin-left:6px;vertical-align:middle;">Pv Polo (nuevo)</span>
+          <span style="display:block;font-size:.65em;color:#aaa;font-weight:400;margin-top:2px;">1 registro</span>
+        </span>
         <span class="act-vr">
           <span class="act-vr-lbl">Costo hist.</span>
           <span class="act-vr-val">$2.399.070</span>
@@ -200,21 +213,23 @@ iframe{width:100%;height:270px;border:0;border-radius:10px;
           <span class="det-lbl">Dep. causada 2026</span>
           <span class="det-val">$239.907</span>
         </div>
-        <div class="det-row">
-          <span class="det-lbl">Categoria contable</span>
-          <span class="det-val" style="color:#888;font-weight:600">Equipo De Procesamiento De Datos</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Fecha compra</span>
-          <span class="det-val">17/07/2026</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Vida util</span>
-          <span class="det-val">60 meses &nbsp;·&nbsp; 60 restantes</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Estado</span>
-          <span class="det-val badge" style="background:#eafaf1;color:#27ae60">En depreciación</span>
+        <div class="fac-lista">
+          <div class="fac-titulo">Detalle de registros contables</div>
+              <div class="fac-row">
+                <span class="fac-desc">COMPUTAOR AIO 23.8" LENOV IDEA AIO</span>
+                <span class="fac-vals">
+                  <span class="fac-val-lbl">Costo</span>
+                  <span class="fac-val">$2.399.070</span>
+                  <span class="fac-val-lbl">VL sep-26</span>
+                  <span class="fac-val" style="color:#f39c12">$2.279.116</span>
+                  <span class="fac-val-lbl">Compra</span>
+                  <span class="fac-val">17/07/2026</span>
+                  <span class="fac-val-lbl">Vida util</span>
+                  <span class="fac-val">60 m / 60 rest.</span>
+                  <span class="fac-val-lbl">Estado</span>
+                  <span class="fac-val badge" style="background:#eafaf1;color:#27ae60;padding:2px 7px;border-radius:10px;">En depreciación</span>
+                </span>
+              </div>
         </div>
       </div>
     </details>
@@ -226,59 +241,18 @@ iframe{width:100%;height:270px;border:0;border-radius:10px;
       <span class="sec-titulo" style="color:#f39c12">MAQUINARIA Y ENSERES</span>
       <span class="sec-meta">
         <span class="sec-total" style="color:#f39c12">$2.928.400</span>
-        <span class="sec-cnt" style="color:#f39c12">VL $2.840.900 &nbsp;·&nbsp; 5 activos</span>
+        <span class="sec-cnt" style="color:#f39c12">VL $2.840.900 &nbsp;·&nbsp; 2 activos</span>
       </span>
     </div>
     <div class="sec-body">
     <details class="act">
       <summary>
-        <span class="act-nom">CAJON MID SIZE CASH DRAWER-24V.330MM WIDE<span style="display:inline-block;background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:10px;font-size:.62em;font-weight:700;padding:1px 7px;margin-left:5px;vertical-align:middle;letter-spacing:.04em;">Pv Polo (nuevo)</span></span>
-        <span class="act-vr">
-          <span class="act-vr-lbl">Costo hist.</span>
-          <span class="act-vr-val">$140.000</span>
+        <span class="act-nom">Computadores<span style="display:inline-block;background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:10px;font-size:.6em;font-weight:700;padding:1px 7px;margin-left:6px;vertical-align:middle;">Pv Polo (nuevo)</span>
+          <span style="display:block;font-size:.65em;color:#aaa;font-weight:400;margin-top:2px;">2 registros</span>
         </span>
-      </summary>
-      <div class="det">
-        <div style="background:#f0f0f0;border-radius:4px;height:5px;margin:7px 0 3px;">
-          <div style="background:#27ae60;width:25.0%;height:5px;border-radius:4px;"></div></div>
-        <div style="display:flex;justify-content:space-between;font-size:.67em;color:#bbb;margin-bottom:6px;">
-          <span>Depreciado 25%</span><span>Saldo 75%</span></div>
-        <div class="det-row">
-          <span class="det-lbl">Valor en libros sep-26</span>
-          <span class="det-val vl-highlight">$105.000</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Dep. acumulada sep-26</span>
-          <span class="det-val">$35.000</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Dep. causada 2026</span>
-          <span class="det-val">$70.000</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Categoria contable</span>
-          <span class="det-val" style="color:#888;font-weight:600">Maquinaria Y Equipo De Planta</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Fecha compra</span>
-          <span class="det-val">18/07/2026</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Vida util</span>
-          <span class="det-val">12 meses &nbsp;·&nbsp; 12 restantes</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Estado</span>
-          <span class="det-val badge" style="background:#eafaf1;color:#27ae60">En depreciación</span>
-        </div>
-      </div>
-    </details>
-    <details class="act">
-      <summary>
-        <span class="act-nom">IMPRESORA TERMICA DE RECIBOS SAT 22T SAT 22T - ETHERNET<span style="display:inline-block;background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:10px;font-size:.62em;font-weight:700;padding:1px 7px;margin-left:5px;vertical-align:middle;letter-spacing:.04em;">Pv Polo (nuevo)</span></span>
         <span class="act-vr">
           <span class="act-vr-lbl">Costo hist.</span>
-          <span class="act-vr-val">$350.000</span>
+          <span class="act-vr-val">$1.050.000</span>
         </span>
       </summary>
       <div class="det">
@@ -288,160 +262,125 @@ iframe{width:100%;height:270px;border:0;border-radius:10px;
           <span>Depreciado 5%</span><span>Saldo 95%</span></div>
         <div class="det-row">
           <span class="det-lbl">Valor en libros sep-26</span>
-          <span class="det-val vl-highlight">$332.500</span>
+          <span class="det-val vl-highlight">$997.500</span>
         </div>
         <div class="det-row">
           <span class="det-lbl">Dep. acumulada sep-26</span>
-          <span class="det-val">$17.500</span>
+          <span class="det-val">$52.500</span>
         </div>
         <div class="det-row">
           <span class="det-lbl">Dep. causada 2026</span>
+          <span class="det-val">$105.000</span>
+        </div>
+        <div class="fac-lista">
+          <div class="fac-titulo">Detalle de registros contables</div>
+              <div class="fac-row">
+                <span class="fac-desc">IMPRESORA TERMICA DE RECIBOS SAT 22T SAT 22T - ETHERNET</span>
+                <span class="fac-vals">
+                  <span class="fac-val-lbl">Costo</span>
+                  <span class="fac-val">$350.000</span>
+                  <span class="fac-val-lbl">VL sep-26</span>
+                  <span class="fac-val" style="color:#f39c12">$332.500</span>
+                  <span class="fac-val-lbl">Compra</span>
+                  <span class="fac-val">18/07/2026</span>
+                  <span class="fac-val-lbl">Vida util</span>
+                  <span class="fac-val">60 m / 60 rest.</span>
+                  <span class="fac-val-lbl">Estado</span>
+                  <span class="fac-val badge" style="background:#eafaf1;color:#27ae60;padding:2px 7px;border-radius:10px;">En depreciación</span>
+                </span>
+              </div>
+              <div class="fac-row">
+                <span class="fac-desc">MULTIFUNCIONAL EPSON ECOTANK L3210 HG</span>
+                <span class="fac-vals">
+                  <span class="fac-val-lbl">Costo</span>
+                  <span class="fac-val">$700.000</span>
+                  <span class="fac-val-lbl">VL sep-26</span>
+                  <span class="fac-val" style="color:#f39c12">$665.000</span>
+                  <span class="fac-val-lbl">Compra</span>
+                  <span class="fac-val">18/07/2026</span>
+                  <span class="fac-val-lbl">Vida util</span>
+                  <span class="fac-val">60 m / 60 rest.</span>
+                  <span class="fac-val-lbl">Estado</span>
+                  <span class="fac-val badge" style="background:#eafaf1;color:#27ae60;padding:2px 7px;border-radius:10px;">En depreciación</span>
+                </span>
+              </div>
+        </div>
+      </div>
+    </details>
+    <details class="act">
+      <summary>
+        <span class="act-nom">Muebles y enseres PDV Polo<span style="display:inline-block;background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:10px;font-size:.6em;font-weight:700;padding:1px 7px;margin-left:6px;vertical-align:middle;">Pv Polo (nuevo)</span>
+          <span style="display:block;font-size:.65em;color:#aaa;font-weight:400;margin-top:2px;">3 registros</span>
+        </span>
+        <span class="act-vr">
+          <span class="act-vr-lbl">Costo hist.</span>
+          <span class="act-vr-val">$1.878.400</span>
+        </span>
+      </summary>
+      <div class="det">
+        <div style="background:#f0f0f0;border-radius:4px;height:5px;margin:7px 0 3px;">
+          <div style="background:#27ae60;width:1.9%;height:5px;border-radius:4px;"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:.67em;color:#bbb;margin-bottom:6px;">
+          <span>Depreciado 2%</span><span>Saldo 98%</span></div>
+        <div class="det-row">
+          <span class="det-lbl">Valor en libros sep-26</span>
+          <span class="det-val vl-highlight">$1.843.400</span>
+        </div>
+        <div class="det-row">
+          <span class="det-lbl">Dep. acumulada sep-26</span>
           <span class="det-val">$35.000</span>
         </div>
         <div class="det-row">
-          <span class="det-lbl">Categoria contable</span>
-          <span class="det-val" style="color:#888;font-weight:600">Maquinaria Y Equipo De Planta</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Fecha compra</span>
-          <span class="det-val">18/07/2026</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Vida util</span>
-          <span class="det-val">60 meses &nbsp;·&nbsp; 60 restantes</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Estado</span>
-          <span class="det-val badge" style="background:#eafaf1;color:#27ae60">En depreciación</span>
-        </div>
-      </div>
-    </details>
-    <details class="act">
-      <summary>
-        <span class="act-nom">MULTIFUNCIONAL EPSON ECOTANK L3210 HG<span style="display:inline-block;background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:10px;font-size:.62em;font-weight:700;padding:1px 7px;margin-left:5px;vertical-align:middle;letter-spacing:.04em;">Pv Polo (nuevo)</span></span>
-        <span class="act-vr">
-          <span class="act-vr-lbl">Costo hist.</span>
-          <span class="act-vr-val">$700.000</span>
-        </span>
-      </summary>
-      <div class="det">
-        <div style="background:#f0f0f0;border-radius:4px;height:5px;margin:7px 0 3px;">
-          <div style="background:#27ae60;width:5.0%;height:5px;border-radius:4px;"></div></div>
-        <div style="display:flex;justify-content:space-between;font-size:.67em;color:#bbb;margin-bottom:6px;">
-          <span>Depreciado 5%</span><span>Saldo 95%</span></div>
-        <div class="det-row">
-          <span class="det-lbl">Valor en libros sep-26</span>
-          <span class="det-val vl-highlight">$665.000</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Dep. acumulada sep-26</span>
-          <span class="det-val">$35.000</span>
-        </div>
-        <div class="det-row">
           <span class="det-lbl">Dep. causada 2026</span>
-          <span class="det-val">$70.000</span>
+          <span class="det-val">$156.920</span>
         </div>
-        <div class="det-row">
-          <span class="det-lbl">Categoria contable</span>
-          <span class="det-val" style="color:#888;font-weight:600">Maquinaria Y Equipo De Planta</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Fecha compra</span>
-          <span class="det-val">18/07/2026</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Vida util</span>
-          <span class="det-val">60 meses &nbsp;·&nbsp; 60 restantes</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Estado</span>
-          <span class="det-val badge" style="background:#eafaf1;color:#27ae60">En depreciación</span>
-        </div>
-      </div>
-    </details>
-    <details class="act">
-      <summary>
-        <span class="act-nom">BIBLIOTECA FABRICADA EN MELAMINA DE 18MM CON ESTRUCTURA BLAN<span style="display:inline-block;background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:10px;font-size:.62em;font-weight:700;padding:1px 7px;margin-left:5px;vertical-align:middle;letter-spacing:.04em;">Pv Polo (nuevo)</span></span>
-        <span class="act-vr">
-          <span class="act-vr-lbl">Costo hist.</span>
-          <span class="act-vr-val">$1.356.600</span>
-        </span>
-      </summary>
-      <div class="det">
-        <div style="background:#f0f0f0;border-radius:4px;height:5px;margin:7px 0 3px;">
-          <div style="background:#27ae60;width:0.0%;height:5px;border-radius:4px;"></div></div>
-        <div style="display:flex;justify-content:space-between;font-size:.67em;color:#bbb;margin-bottom:6px;">
-          <span>Depreciado 0%</span><span>Saldo 100%</span></div>
-        <div class="det-row">
-          <span class="det-lbl">Valor en libros sep-26</span>
-          <span class="det-val vl-highlight">$1.356.600</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Dep. acumulada sep-26</span>
-          <span class="det-val">—</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Dep. causada 2026</span>
-          <span class="det-val">$67.830</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Categoria contable</span>
-          <span class="det-val" style="color:#888;font-weight:600">Muebles Y Enseres</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Fecha compra</span>
-          <span class="det-val">14/09/2026</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Vida util</span>
-          <span class="det-val">60 meses &nbsp;·&nbsp; 60 restantes</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Estado</span>
-          <span class="det-val badge" style="background:#eafaf1;color:#27ae60">En depreciación</span>
-        </div>
-      </div>
-    </details>
-    <details class="act">
-      <summary>
-        <span class="act-nom">MESA ROMA BLANCA RECTANGULAR 120 CM + ENVIO<span style="display:inline-block;background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:10px;font-size:.62em;font-weight:700;padding:1px 7px;margin-left:5px;vertical-align:middle;letter-spacing:.04em;">Pv Polo (nuevo)</span></span>
-        <span class="act-vr">
-          <span class="act-vr-lbl">Costo hist.</span>
-          <span class="act-vr-val">$381.800</span>
-        </span>
-      </summary>
-      <div class="det">
-        <div style="background:#f0f0f0;border-radius:4px;height:5px;margin:7px 0 3px;">
-          <div style="background:#27ae60;width:0.0%;height:5px;border-radius:4px;"></div></div>
-        <div style="display:flex;justify-content:space-between;font-size:.67em;color:#bbb;margin-bottom:6px;">
-          <span>Depreciado 0%</span><span>Saldo 100%</span></div>
-        <div class="det-row">
-          <span class="det-lbl">Valor en libros sep-26</span>
-          <span class="det-val vl-highlight">$381.800</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Dep. acumulada sep-26</span>
-          <span class="det-val">—</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Dep. causada 2026</span>
-          <span class="det-val">$19.090</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Categoria contable</span>
-          <span class="det-val" style="color:#888;font-weight:600">Muebles Y Enseres</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Fecha compra</span>
-          <span class="det-val">01/09/2026</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Vida util</span>
-          <span class="det-val">60 meses &nbsp;·&nbsp; 60 restantes</span>
-        </div>
-        <div class="det-row">
-          <span class="det-lbl">Estado</span>
-          <span class="det-val badge" style="background:#eafaf1;color:#27ae60">En depreciación</span>
+        <div class="fac-lista">
+          <div class="fac-titulo">Detalle de registros contables</div>
+              <div class="fac-row">
+                <span class="fac-desc">CAJON MID SIZE CASH DRAWER-24V.330MM WIDE</span>
+                <span class="fac-vals">
+                  <span class="fac-val-lbl">Costo</span>
+                  <span class="fac-val">$140.000</span>
+                  <span class="fac-val-lbl">VL sep-26</span>
+                  <span class="fac-val" style="color:#f39c12">$105.000</span>
+                  <span class="fac-val-lbl">Compra</span>
+                  <span class="fac-val">18/07/2026</span>
+                  <span class="fac-val-lbl">Vida util</span>
+                  <span class="fac-val">12 m / 12 rest.</span>
+                  <span class="fac-val-lbl">Estado</span>
+                  <span class="fac-val badge" style="background:#eafaf1;color:#27ae60;padding:2px 7px;border-radius:10px;">En depreciación</span>
+                </span>
+              </div>
+              <div class="fac-row">
+                <span class="fac-desc">MESA ROMA BLANCA RECTANGULAR 120 CM + ENVIO</span>
+                <span class="fac-vals">
+                  <span class="fac-val-lbl">Costo</span>
+                  <span class="fac-val">$381.800</span>
+                  <span class="fac-val-lbl">VL sep-26</span>
+                  <span class="fac-val" style="color:#f39c12">$381.800</span>
+                  <span class="fac-val-lbl">Compra</span>
+                  <span class="fac-val">01/09/2026</span>
+                  <span class="fac-val-lbl">Vida util</span>
+                  <span class="fac-val">60 m / 60 rest.</span>
+                  <span class="fac-val-lbl">Estado</span>
+                  <span class="fac-val badge" style="background:#eafaf1;color:#27ae60;padding:2px 7px;border-radius:10px;">En depreciación</span>
+                </span>
+              </div>
+              <div class="fac-row">
+                <span class="fac-desc">BIBLIOTECA FABRICADA EN MELAMINA DE 18MM CON ESTRUCTURA BLAN</span>
+                <span class="fac-vals">
+                  <span class="fac-val-lbl">Costo</span>
+                  <span class="fac-val">$1.356.600</span>
+                  <span class="fac-val-lbl">VL sep-26</span>
+                  <span class="fac-val" style="color:#f39c12">$1.356.600</span>
+                  <span class="fac-val-lbl">Compra</span>
+                  <span class="fac-val">14/09/2026</span>
+                  <span class="fac-val-lbl">Vida util</span>
+                  <span class="fac-val">60 m / 60 rest.</span>
+                  <span class="fac-val-lbl">Estado</span>
+                  <span class="fac-val badge" style="background:#eafaf1;color:#27ae60;padding:2px 7px;border-radius:10px;">En depreciación</span>
+                </span>
+              </div>
         </div>
       </div>
     </details>
