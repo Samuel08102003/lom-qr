@@ -1640,5 +1640,40 @@ window.addEventListener('load', function () {
         marker_polo.bindTooltip('<div>QR &mdash; POLO</div>', {sticky:true});
         // ---- fin POLO ----
 
+        // ---- PRODUCCION ----
+        var circle_produccion = L.circle(
+            [4.6720392, -74.0749430],
+            {color:"#1abc9c",fill:true,fillColor:"#1abc9c",fillOpacity:0.15,radius:200,weight:3}
+        ).addTo(map_c5c3f53107f3f51a09d959d611edc6b2);
+
+        var popup_produccion = L.popup({maxWidth:320});
+        popup_produccion.setContent(`<div style='font-family:Arial;width:300px;'>
+          <div style='background:#1abc9c;color:white;padding:12px 16px;border-radius:8px 8px 0 0;text-align:center;'>
+            <b style='font-size:1.1em;'>PRODUCCION</b><br>
+            <span style='font-size:.76em;opacity:.85;'>Inversiones Agropecuarias LOM SAS</span>
+          </div>
+          <div style='padding:12px 16px;background:#fff;border:1px solid #eee;border-top:none;'>
+            <p style='font-size:.74em;color:#888;margin-bottom:8px;'>Cra 55 #74-90, Barrios Unidos, Bogota</p>
+            <p style='font-size:.74em;font-weight:700;color:#1abc9c;margin-bottom:5px;'>188 ACTIVOS</p>
+            <a href='zona_produccion.html' target='_blank'
+               style='display:block;background:#1abc9c;color:white;text-align:center;padding:9px;
+                      border-radius:7px;text-decoration:none;font-weight:700;margin-top:6px;font-size:.85em;'>
+              Ver activos + detalle
+            </a>
+          </div>
+        </div>`);
+        circle_produccion.bindPopup(popup_produccion);
+        circle_produccion.bindTooltip('<div>PRODUCCION &mdash; 188 activos</div>', {sticky:true});
+
+        var marker_produccion = L.marker([4.6720392, -74.0749430]).addTo(map_c5c3f53107f3f51a09d959d611edc6b2);
+        var icon_produccion = L.divIcon({
+          html: "<div style='background:#1abc9c;color:white;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72em;font-weight:900;box-shadow:0 3px 8px rgba(0,0,0,.45);border:2px solid white;cursor:pointer;'>QR</div>",
+          iconSize:[36,36], iconAnchor:[18,18], className:"empty"
+        });
+        marker_produccion.setIcon(icon_produccion);
+        marker_produccion.bindPopup(popup_produccion);
+        marker_produccion.bindTooltip('<div>QR &mdash; PRODUCCION</div>', {sticky:true});
+        // ---- fin PRODUCCION ----
+
 </script>
 </html>
