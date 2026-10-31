@@ -1604,11 +1604,22 @@ window.addEventListener('load', function () {
 });
 
         // ---- lineas POLO y PRODUCCION ----
-        var lnStyle = {color:"#888",weight:1.5,dashArray:"5,6",opacity:0.55};
-        L.polyline([[4.6685892,-74.0634701],[4.7698895,-74.0639200]], lnStyle).addTo(map_c5c3f53107f3f51a09d959d611edc6b2);
-        L.polyline([[4.6685892,-74.0634701],[4.6720392,-74.0749430]], lnStyle).addTo(map_c5c3f53107f3f51a09d959d611edc6b2);
-        L.polyline([[4.6720392,-74.0749430],[4.6145000,-74.1628000]], lnStyle).addTo(map_c5c3f53107f3f51a09d959d611edc6b2);
-        L.polyline([[4.6720392,-74.0749430],[4.7515516,-74.0571851]], lnStyle).addTo(map_c5c3f53107f3f51a09d959d611edc6b2);
+        var MAP = map_c5c3f53107f3f51a09d959d611edc6b2;
+        var stPolo  = {color:"#f39c12", weight:3, opacity:0.85};
+        var stProd  = {color:"#1abc9c", weight:3, opacity:0.85};
+        // POLO <-> MERIDIANO
+        L.polyline([[4.6685892,-74.0634701],[4.7698895,-74.0639200]], stPolo).addTo(MAP);
+        // POLO <-> PRODUCCION
+        L.polyline([[4.6685892,-74.0634701],[4.6720392,-74.0749430]], stPolo).addTo(MAP);
+        // PRODUCCION <-> BLE
+        L.polyline([[4.6720392,-74.0749430],[4.6145000,-74.1628000]], stProd).addTo(MAP);
+        // PRODUCCION <-> GALAN
+        L.polyline([[4.6720392,-74.0749430],[4.7515516,-74.0571851]], stProd).addTo(MAP);
+        // Ajustar vista para incluir Bogota y Casanare
+        MAP.fitBounds([
+            [3.95, -74.22],   // SW (sur de Casanare / BLE)
+            [4.80, -72.40]    // NE (norte Bogota / Casanare)
+        ], {padding:[30,30]});
         // ---- POLO ----
         var circle_polo = L.circle(
             [4.6685892, -74.0634701],
