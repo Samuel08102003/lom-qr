@@ -134,6 +134,7 @@ async function main(){
   const p=new URLSearchParams(location.search);
   const zona=(p.get("zona")||"").trim().toUpperCase();
   const ap=(p.get("ap")||"").trim();
+  const actId=(p.get("id")||"").trim();
 
   if(!zona||!ap){
     document.getElementById("loading").innerHTML=
@@ -158,10 +159,10 @@ async function main(){
     return;
   }
 
-  render(zona, ap, rows);
+  render(zona, ap, rows, actId);
 }
 
-function render(zona, ap, rows){
+function render(zona, ap, rows, actId){
   const color = ZONAS[zona] || "#333";
   const zoneFile = ZONA_FILES[zona] || "index.html";
 
@@ -173,13 +174,11 @@ function render(zona, ap, rows){
 
   const esBaja = rows.some(r=>(r.estado||"").toUpperCase().includes("BAJA"));
 
-  // ID
-  const zSlug = zona.replace(/\s+/g,"").slice(0,5).toUpperCase();
-  const apSlug = ap.toUpperCase().replace(/\s+/g,"-").replace(/[^A-Z0-9-]/g,"").slice(0,20);
-  const actId = `${zSlug}-${apSlug}`;
+  // ID: usar el que viene en la URL, si no hay fallback al nombre
+  const displayId = actId || zona.replace(/\s+/g,"").slice(0,4).toUpperCase() + "-???";
 
   // Current page URL (canonical)
-  const pageURL = `https://samuel08102003.github.io/lom-qr/activo.html?zona=${encodeURIComponent(zona)}&ap=${encodeURIComponent(ap)}`;
+  const pageURL = location.href;
   const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&bgcolor=ffffff&color=000000&qzone=1&margin=5&data=${encodeURIComponent(pageURL)}`;
 
   // Facturas HTML
@@ -249,7 +248,7 @@ function render(zona, ap, rows){
   document.getElementById("page").innerHTML=`
   <header style="background:${color};">
     <div class="hdr-zona">${zona} — Inversiones Agropecuarias LOM SAS</div>
-    <div class="hdr-id">${actId}</div>
+    <div class="hdr-id">${displayId}</div>
     <h1>${ap}</h1>
     <div class="hdr-cnt">${rows.length} registro${rows.length!==1?"s":""} contables</div>
   </header>
@@ -258,7 +257,7 @@ function render(zona, ap, rows){
     <img class="qr-img" src="${qrSrc}" alt="QR ${ap}" />
     <div class="qr-info">
       <div class="qr-lbl">Codigo QR del activo</div>
-      <div class="qr-id">${actId}</div>
+      <div class="qr-id">${displayId}</div>
       <div class="qr-link">${pageURL}</div>
       <button class="btn-copy" onclick="copiarLink('${pageURL.replace(/'/g,"\\'")}')">Copiar link</button>
     </div>
