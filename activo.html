@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ficha de Activo — LOM SAS</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:Arial,sans-serif;background:#f0f2f5;min-height:100vh;}
+    #loading{display:flex;flex-direction:column;align-items:center;justify-content:center;
+             min-height:100vh;gap:14px;color:#aaa;}
+    .spin{width:36px;height:36px;border:3px solid #eee;border-top-color:#333;
+          border-radius:50%;animation:spin .7s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    header{padding:20px 16px 18px;text-align:center;color:#fff;}
+    .hdr-zona{font-size:.72em;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+              opacity:.85;margin-bottom:5px;}
+    .hdr-id{font-size:.65em;background:rgba(255,255,255,.2);border-radius:20px;
+            padding:3px 10px;display:inline-block;margin-bottom:8px;letter-spacing:.06em;}
+    h1{font-size:1.25em;font-weight:700;line-height:1.3;}
+    .hdr-cnt{font-size:.76em;opacity:.8;margin-top:4px;}
+
+    .qr-card{margin:14px;background:#fff;border-radius:14px;
+             box-shadow:0 2px 10px rgba(0,0,0,.08);padding:18px 16px;
+             display:flex;align-items:center;gap:16px;}
+    .qr-img{width:110px;height:110px;border-radius:8px;border:1px solid #eee;flex-shrink:0;}
+    .qr-info{flex:1;}
+    .qr-lbl{font-size:.65em;font-weight:700;text-transform:uppercase;letter-spacing:.07em;
+             color:#aaa;margin-bottom:4px;}
+    .qr-id{font-size:.88em;font-weight:700;color:#222;margin-bottom:6px;word-break:break-all;}
+    .qr-link{font-size:.72em;color:#666;word-break:break-all;line-height:1.4;}
+    .btn-copy{display:inline-block;margin-top:8px;font-size:.72em;font-weight:700;
+              padding:5px 12px;border-radius:8px;border:none;cursor:pointer;
+              background:#f0f0f0;color:#333;}
+
+    .kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px 4px;}
+    .kpi{background:#fff;border-radius:12px;padding:12px 14px;
+         box-shadow:0 1px 4px rgba(0,0,0,.07);}
+    .kpi-lbl{font-size:.6em;color:#aaa;font-weight:700;text-transform:uppercase;
+             letter-spacing:.06em;margin-bottom:4px;}
+    .kpi-val{font-size:1em;font-weight:700;color:#1a1a2e;}
+
+    .barra-wrap{margin:14px;background:#fff;border-radius:12px;
+                box-shadow:0 1px 4px rgba(0,0,0,.07);padding:14px;}
+    .barra-hdr{display:flex;justify-content:space-between;font-size:.7em;color:#aaa;margin-bottom:7px;}
+    .barra-bg{background:#f0f0f0;border-radius:4px;height:7px;}
+    .barra-fill{height:7px;border-radius:4px;transition:width .5s;}
+
+    .seccion{margin:0 14px 10px;}
+    .sec-titulo{font-size:.7em;font-weight:700;text-transform:uppercase;letter-spacing:.07em;
+                color:#aaa;padding:10px 0 6px;}
+    .fac-card{background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.06);
+              margin-bottom:8px;overflow:hidden;}
+    .fac-hdr{padding:11px 14px 9px;border-bottom:1px solid #f5f5f5;}
+    .fac-nombre{font-size:.85em;font-weight:700;color:#2d3436;line-height:1.35;margin-bottom:4px;}
+    .fac-doc{display:inline-block;font-size:.66em;font-weight:700;padding:2px 8px;
+             border-radius:10px;margin-right:4px;}
+    .fac-body{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#f5f5f5;}
+    .fac-cell{background:#fff;padding:8px 12px;}
+    .fac-cell-lbl{font-size:.6em;color:#bbb;font-weight:700;text-transform:uppercase;
+                  letter-spacing:.04em;display:block;margin-bottom:2px;}
+    .fac-cell-val{font-size:.82em;font-weight:700;color:#2d3436;}
+
+    .actions{padding:0 14px 28px;display:flex;flex-direction:column;gap:8px;margin-top:6px;}
+    .btn{display:block;padding:13px;border-radius:10px;text-align:center;
+         text-decoration:none;font-weight:700;font-size:.88em;color:#fff;}
+    .btn-dark{background:#333;}
+
+    .badge{display:inline-block;padding:2px 8px;border-radius:10px;
+           font-size:.72em;font-weight:700;}
+    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+           background:#222;color:#fff;padding:10px 20px;border-radius:10px;
+           font-size:.82em;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;}
+    .toast.show{opacity:1;}
+  </style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="spin"></div>
+  <span>Cargando activo…</span>
+</div>
+
+<div id="page" style="display:none"></div>
+<div class="toast" id="toast">Link copiado</div>
+
+<script>
+const SB_URL = "https://pqcgibsdewrrbukibubd.supabase.co";
+const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxY2dpYnNkZXdycmJ1a2lidWJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3OTQyMDQsImV4cCI6MjA5MDM3MDIwNH0.7WnJydoru0E_aOGkyMGxPgZXTAEVmu4KQwqPPM-W14A";
+const HDR = {apikey: SB_KEY, Authorization: "Bearer " + SB_KEY};
+
+const ZONAS = {
+  "GRANJA":            "#e74c3c",
+  "FLOR DE LA CANELA": "#8e44ad",
+  "TRANQUERA":         "#2980b9",
+  "BLE":               "#27ae60",
+  "GALAN":             "#e67e22",
+  "MERIDIANO":         "#16a085",
+  "POLO":              "#f39c12",
+  "PRODUCCION":        "#1abc9c",
+};
+
+const ZONA_FILES = {
+  "GRANJA":"zona_granja.html","FLOR DE LA CANELA":"zona_flor_de_la_canela.html",
+  "TRANQUERA":"zona_tranquera.html","BLE":"zona_ble.html","GALAN":"zona_galan.html",
+  "MERIDIANO":"zona_meridiano.html","POLO":"zona_polo.html","PRODUCCION":"zona_produccion.html",
+};
+
+function fmt(v){
+  if(v==null||v===0||v==="")return "—";
+  return "$"+Math.abs(v).toLocaleString("es-CO",{maximumFractionDigits:0});
+}
+function fmtF(s){
+  if(!s)return "—";
+  try{const p=s.slice(0,10).split("-");return p[2]+"/"+p[1]+"/"+p[0];}catch(e){return s;}
+}
+function limpiar(d){
+  if(!d)return "—";
+  let n=d.split("|")[0].trim();
+  if(n.includes("/")&&n.split("/")[0].length<=12)n=n.split("/").slice(1).join("/").trim();
+  return n.slice(0,90);
+}
+function depHoy(r){
+  const c=r.costo_historico||0;
+  const d=(r.dep_acum_sep26||0)+(r.dep_total_2026||0)/12;
+  const vl=Math.max(0,c-d);
+  const pct=c?Math.min(100,d/c*100):0;
+  return{d,vl,pct};
+}
+function barColor(p){return p<50?"#27ae60":p<80?"#e67e22":"#e74c3c";}
+
+async function main(){
+  const p=new URLSearchParams(location.search);
+  const zona=(p.get("zona")||"").trim().toUpperCase();
+  const ap=(p.get("ap")||"").trim();
+
+  if(!zona||!ap){
+    document.getElementById("loading").innerHTML=
+      "<p style='padding:30px;color:#e74c3c;'>Faltan parámetros (zona y ap).</p>";
+    return;
+  }
+
+  const url=`${SB_URL}/rest/v1/lom_activos?zona=eq.${encodeURIComponent(zona)}&activo_principal=eq.${encodeURIComponent(ap)}&select=descripcion,nombre_cuenta,costo_historico,dep_acum_sep26,vl_sep26,dep_total_2026,vida_util_meses,vida_util_restante_meses,fecha_compra,fecha_baja,estado,documento,tercero,costo_dado_baja,dep_acum_dada_baja&order=fecha_compra&limit=500`;
+
+  let rows;
+  try{
+    const res=await fetch(url,{headers:HDR});
+    rows=await res.json();
+  }catch(e){
+    document.getElementById("loading").innerHTML="<p style='padding:30px;color:#e74c3c;'>Error de conexión.</p>";
+    return;
+  }
+
+  if(!Array.isArray(rows)||!rows.length){
+    document.getElementById("loading").innerHTML=
+      `<p style='padding:30px;color:#e74c3c;'>Activo no encontrado: ${zona} / ${ap}</p>`;
+    return;
+  }
+
+  render(zona, ap, rows);
+}
+
+function render(zona, ap, rows){
+  const color = ZONAS[zona] || "#333";
+  const zoneFile = ZONA_FILES[zona] || "index.html";
+
+  // Totals
+  const totalC = rows.reduce((s,r)=>s+(r.costo_historico||0),0);
+  const totalD = rows.reduce((s,r)=>s+depHoy(r).d,0);
+  const totalVL = rows.reduce((s,r)=>s+depHoy(r).vl,0);
+  const pctGlobal = totalC ? Math.min(100, totalD/totalC*100) : 0;
+
+  const esBaja = rows.some(r=>(r.estado||"").toUpperCase().includes("BAJA"));
+
+  // ID
+  const zSlug = zona.replace(/\s+/g,"").slice(0,5).toUpperCase();
+  const apSlug = ap.toUpperCase().replace(/\s+/g,"-").replace(/[^A-Z0-9-]/g,"").slice(0,20);
+  const actId = `${zSlug}-${apSlug}`;
+
+  // Current page URL (canonical)
+  const pageURL = `https://samuel08102003.github.io/lom-qr/activo.html?zona=${encodeURIComponent(zona)}&ap=${encodeURIComponent(ap)}`;
+  const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&bgcolor=ffffff&color=000000&qzone=1&margin=5&data=${encodeURIComponent(pageURL)}`;
+
+  // Facturas HTML
+  let facCards = "";
+  rows.forEach(r=>{
+    const {d,vl,pct}=depHoy(r);
+    const desc=limpiar(r.descripcion);
+    const doc=(r.documento||"").trim();
+    const prov=(r.tercero||"").trim();
+    const est=r.estado||"Activo";
+    const estBaja=(est.toUpperCase().includes("BAJA"));
+    const estColor=estBaja?"#e74c3c":pct>=80?"#e67e22":"#27ae60";
+    const estBg=estBaja?"#fde8e8":pct>=80?"#fef9ec":"#eafaf1";
+    const docBadge=doc?`<span class="fac-doc" style="background:${color}18;color:${color};">N° ${doc}</span>`:"";
+    const provTxt=prov?`<span style="font-size:.66em;color:#999;">${prov}</span>`:"";
+
+    const fb=r.fecha_baja?`<div class="fac-cell" style="grid-column:1/-1;">
+      <span class="fac-cell-lbl">Fecha baja</span>
+      <span class="fac-cell-val" style="color:#e74c3c;">${fmtF(r.fecha_baja)}</span></div>`:"";
+
+    facCards+=`
+    <div class="fac-card">
+      <div class="fac-hdr">
+        <div class="fac-nombre">${desc}</div>
+        <div style="margin-top:3px;">${docBadge}${provTxt}</div>
+      </div>
+      <div class="fac-body">
+        <div class="fac-cell">
+          <span class="fac-cell-lbl">Costo historico</span>
+          <span class="fac-cell-val">${fmt(r.costo_historico)}</span>
+        </div>
+        <div class="fac-cell">
+          <span class="fac-cell-lbl">VL oct-26</span>
+          <span class="fac-cell-val" style="color:${color};">${fmt(vl)}</span>
+        </div>
+        <div class="fac-cell">
+          <span class="fac-cell-lbl">Dep. acum. oct-26</span>
+          <span class="fac-cell-val">${fmt(d)}</span>
+        </div>
+        <div class="fac-cell">
+          <span class="fac-cell-lbl">Dep. 2026 (anual)</span>
+          <span class="fac-cell-val">${fmt(r.dep_total_2026)}</span>
+        </div>
+        <div class="fac-cell">
+          <span class="fac-cell-lbl">Fecha compra</span>
+          <span class="fac-cell-val">${fmtF(r.fecha_compra)}</span>
+        </div>
+        <div class="fac-cell">
+          <span class="fac-cell-lbl">Estado</span>
+          <span class="fac-cell-val badge" style="background:${estBg};color:${estColor};">${est}</span>
+        </div>
+        <div class="fac-cell">
+          <span class="fac-cell-lbl">Vida util</span>
+          <span class="fac-cell-val">${r.vida_util_meses||"—"} m</span>
+        </div>
+        <div class="fac-cell">
+          <span class="fac-cell-lbl">Vida restante</span>
+          <span class="fac-cell-val">${r.vida_util_restante_meses||"—"} m</span>
+        </div>
+        ${fb}
+      </div>
+    </div>`;
+  });
+
+  const bcol = barColor(pctGlobal);
+
+  document.getElementById("page").innerHTML=`
+  <header style="background:${color};">
+    <div class="hdr-zona">${zona} — Inversiones Agropecuarias LOM SAS</div>
+    <div class="hdr-id">${actId}</div>
+    <h1>${ap}</h1>
+    <div class="hdr-cnt">${rows.length} registro${rows.length!==1?"s":""} contables</div>
+  </header>
+
+  <div class="qr-card">
+    <img class="qr-img" src="${qrSrc}" alt="QR ${ap}" />
+    <div class="qr-info">
+      <div class="qr-lbl">Codigo QR del activo</div>
+      <div class="qr-id">${actId}</div>
+      <div class="qr-link">${pageURL}</div>
+      <button class="btn-copy" onclick="copiarLink('${pageURL.replace(/'/g,"\\'")}')">Copiar link</button>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi" style="border-top:3px solid ${color};">
+      <div class="kpi-lbl">Registros</div>
+      <div class="kpi-val">${rows.length}</div>
+    </div>
+    <div class="kpi" style="border-top:3px solid ${color};">
+      <div class="kpi-lbl">Costo historico</div>
+      <div class="kpi-val">${fmt(totalC)}</div>
+    </div>
+    <div class="kpi" style="border-top:3px solid ${color};">
+      <div class="kpi-lbl">Dep. acum. oct-26</div>
+      <div class="kpi-val">${fmt(totalD)}</div>
+    </div>
+    <div class="kpi" style="border-top:3px solid ${color};">
+      <div class="kpi-lbl">Valor en libros oct-26</div>
+      <div class="kpi-val" style="color:${color};">${fmt(totalVL)}</div>
+    </div>
+  </div>
+
+  <div class="barra-wrap">
+    <div class="barra-hdr">
+      <span>Depreciacion acumulada oct-26</span>
+      <span style="font-weight:700;color:${bcol};">${pctGlobal.toFixed(1)}%</span>
+    </div>
+    <div class="barra-bg">
+      <div class="barra-fill" style="width:${pctGlobal.toFixed(1)}%;background:${bcol};"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:.67em;color:#bbb;margin-top:4px;">
+      <span>Depreciado ${pctGlobal.toFixed(0)}%</span>
+      <span>Saldo ${(100-pctGlobal).toFixed(0)}%</span>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="sec-titulo">Detalle de registros contables (${rows.length})</div>
+    ${facCards}
+  </div>
+
+  <div class="actions">
+    <a class="btn" href="${zoneFile}" style="background:${color};">Ver zona ${zona} completa</a>
+    <a class="btn btn-dark" href="javascript:window.print()">Imprimir ficha / etiqueta QR</a>
+    <a class="btn btn-dark" href="index.html">Ver mapa general</a>
+  </div>`;
+
+  document.title = ap + " — LOM SAS";
+  document.getElementById("loading").style.display="none";
+  document.getElementById("page").style.display="block";
+}
+
+function copiarLink(url){
+  navigator.clipboard.writeText(url).catch(()=>{});
+  const t=document.getElementById("toast");
+  t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),2000);
+}
+
+main();
+</script>
+
+<style>
+@media print {
+  .actions{display:none!important;}
+  header{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .qr-card{box-shadow:none;border:1px solid #eee;}
+  .kpis{page-break-inside:avoid;}
+}
+</style>
+</body>
+</html>
