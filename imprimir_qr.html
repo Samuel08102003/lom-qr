@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Etiquetas QR — LOM SAS</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:Arial,sans-serif;background:#f0f2f5;}
+
+    /* ── Controles (ocultos al imprimir) ── */
+    .controls{background:#1a1a2e;color:#fff;padding:16px 20px;display:flex;
+              flex-wrap:wrap;gap:10px;align-items:center;position:sticky;top:0;z-index:99;}
+    .ctrl-title{font-size:1em;font-weight:700;margin-right:8px;flex-shrink:0;}
+    .ctrl-title span{color:#f39c12;}
+    .btn-ctrl{padding:7px 14px;border-radius:8px;border:none;cursor:pointer;
+              font-size:.8em;font-weight:700;background:#fff;color:#1a1a2e;}
+    .btn-ctrl.active{color:#fff;}
+    .btn-print{background:#27ae60;color:#fff;padding:9px 18px;border-radius:8px;
+               border:none;cursor:pointer;font-size:.85em;font-weight:700;margin-left:auto;}
+    .stats{font-size:.75em;opacity:.7;flex-shrink:0;}
+
+    /* ── Loading ── */
+    #loading{display:flex;flex-direction:column;align-items:center;justify-content:center;
+             min-height:60vh;gap:14px;color:#aaa;}
+    .spin{width:40px;height:40px;border:3px solid #eee;border-top-color:#1a1a2e;
+          border-radius:50%;animation:spin .7s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* ── Grilla de etiquetas ── */
+    .zona-bloque{padding:12px 16px 0;}
+    .zona-titulo{font-size:.72em;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+                 color:#fff;padding:6px 14px;border-radius:6px;display:inline-block;margin-bottom:10px;}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));
+          gap:10px;padding:0 16px 16px;}
+
+    .card{background:#fff;border:1.5px solid #e0e0e0;border-radius:10px;
+          padding:12px 10px 10px;text-align:center;break-inside:avoid;
+          box-shadow:0 1px 4px rgba(0,0,0,.07);}
+    .card-qr{width:110px;height:110px;margin:0 auto 8px;display:block;border-radius:6px;border:1px solid #f0f0f0;}
+    .card-id{font-size:.95em;font-weight:900;color:#111;letter-spacing:.04em;margin-bottom:4px;}
+    .card-name{font-size:.72em;color:#444;line-height:1.35;min-height:2.6em;
+               display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+    .card-zona{font-size:.62em;font-weight:700;color:#fff;margin-top:7px;
+               display:inline-block;padding:2px 8px;border-radius:10px;}
+    .card-sep{border-top:1px dashed #eee;margin:7px 0 5px;}
+    .card-lom{font-size:.58em;color:#bbb;letter-spacing:.05em;}
+
+    .hidden{display:none!important;}
+
+    /* ── Estilos de impresión ── */
+    @media print {
+      body{background:#fff;}
+      .controls{display:none!important;}
+      .zona-bloque{padding:0;page-break-inside:avoid;}
+      .zona-titulo{display:none;}
+      .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;padding:3mm;
+            page-break-inside:auto;}
+      .card{border:1px solid #ccc;border-radius:6px;padding:6px;box-shadow:none;
+            break-inside:avoid;page-break-inside:avoid;}
+      .card-qr{width:90px;height:90px;margin-bottom:5px;}
+      .card-id{font-size:.85em;}
+      .card-name{font-size:.63em;}
+      .card-zona{font-size:.55em;}
+      .card-lom{font-size:.52em;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="controls" id="controls" style="display:none;">
+  <span class="ctrl-title">Etiquetas QR &nbsp;<span>LOM SAS</span></span>
+  <div id="zona-btns" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+  <span class="stats" id="stats"></span>
+  <button class="btn-print" onclick="window.print()">&#128438; Imprimir todo</button>
+</div>
+
+<div id="loading">
+  <div class="spin"></div>
+  <span>Cargando activos…</span>
+</div>
+
+<div id="contenido" style="display:none;"></div>
+
+<script>
+const SB_URL="https://pqcgibsdewrrbukibubd.supabase.co";
+const SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxY2dpYnNkZXdycmJ1a2lidWJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3OTQyMDQsImV4cCI6MjA5MDM3MDIwNH0.7WnJydoru0E_aOGkyMGxPgZXTAEVmu4KQwqPPM-W14A";
+const HDR={apikey:SB_KEY,Authorization:"Bearer "+SB_KEY};
+
+const ZONA_PREFIJOS={
+  "GRANJA":"GRNJ","FLOR DE LA CANELA":"FLOR","TRANQUERA":"TRNQ",
+  "BLE":"BLE","GALAN":"GALN","MERIDIANO":"MERI","POLO":"POLO","PRODUCCION":"PROD"
+};
+const ZONA_COLORS={
+  "GRANJA":"#e74c3c","FLOR DE LA CANELA":"#8e44ad","TRANQUERA":"#2980b9",
+  "BLE":"#27ae60","GALAN":"#e67e22","MERIDIANO":"#16a085","POLO":"#f39c12","PRODUCCION":"#1abc9c"
+};
+const ZONA_ORDER=["GRANJA","FLOR DE LA CANELA","TRANQUERA","BLE","GALAN","MERIDIANO","POLO","PRODUCCION"];
+
+function limpiar(d){
+  if(!d)return "Sin nombre";
+  let n=d.split("|")[0].trim();
+  if(n.includes("/")&&n.split("/")[0].length<=12)n=n.split("/").slice(1).join("/").trim();
+  return n.slice(0,60);
+}
+
+async function fetchAll(){
+  let all=[],offset=0;
+  while(true){
+    const url=`${SB_URL}/rest/v1/lom_activos?select=zona,activo_principal,descripcion,estado&order=zona,activo_principal&limit=1000&offset=${offset}`;
+    const r=await fetch(url,{headers:HDR});
+    const data=await r.json();
+    if(!Array.isArray(data)||!data.length)break;
+    all=all.concat(data);
+    if(data.length<1000)break;
+    offset+=1000;
+  }
+  return all;
+}
+
+function esConst(r){return false;} // construcciones se incluyen
+function esBaja(r){return (r.estado||"").toUpperCase().includes("BAJA");}
+
+async function main(){
+  const rows=await fetchAll();
+
+  // Agrupar por zona -> activo_principal (excluir bajas)
+  const byZona={};
+  rows.forEach(r=>{
+    if(esBaja(r))return;
+    const z=r.zona||"SIN ZONA";
+    const ap=(r.activo_principal||limpiar(r.descripcion)||"Sin nombre").trim();
+    if(!byZona[z])byZona[z]={};
+    byZona[z][ap]=true;
+  });
+
+  // Asignar IDs secuenciales (mismo algoritmo que generar_zonas.py)
+  const apIds={};
+  Object.keys(byZona).forEach(zona=>{
+    const prefijo=(ZONA_PREFIJOS[zona]||zona.slice(0,4).toUpperCase());
+    const aps=Object.keys(byZona[zona]).sort();
+    aps.forEach((ap,i)=>{
+      apIds[zona+"||"+ap]=`${prefijo}-${String(i+1).padStart(3,"0")}`;
+    });
+  });
+
+  // Construir HTML
+  let html="";
+  let totalCards=0;
+
+  const zonasSorted=ZONA_ORDER.filter(z=>byZona[z]).concat(
+    Object.keys(byZona).filter(z=>!ZONA_ORDER.includes(z))
+  );
+
+  zonasSorted.forEach(zona=>{
+    const color=ZONA_COLORS[zona]||"#333";
+    const aps=Object.keys(byZona[zona]).sort();
+    totalCards+=aps.length;
+
+    let cards="";
+    aps.forEach(ap=>{
+      const id=apIds[zona+"||"+ap];
+      const ficha=`https://samuel08102003.github.io/lom-qr/activo.html?zona=${encodeURIComponent(zona)}&ap=${encodeURIComponent(ap)}&id=${encodeURIComponent(id)}`;
+      const qr=`https://api.qrserver.com/v1/create-qr-code/?size=220x220&bgcolor=ffffff&color=000000&qzone=1&data=${encodeURIComponent(ficha)}`;
+      const apDisplay=ap.length>45?ap.slice(0,43)+"…":ap;
+      cards+=`
+      <div class="card">
+        <img class="card-qr" src="${qr}" alt="QR ${id}" loading="lazy" />
+        <div class="card-id">${id}</div>
+        <div class="card-name">${apDisplay}</div>
+        <div class="card-sep"></div>
+        <span class="card-zona" style="background:${color};">${zona}</span>
+        <div class="card-lom">INVERSIONES AGROPECUARIAS LOM SAS</div>
+      </div>`;
+    });
+
+    const zSlug=zona.replace(/\s+/g,"-").toLowerCase();
+    html+=`
+    <div class="zona-bloque" id="zona-${zSlug}" data-zona="${zona}">
+      <div class="zona-titulo" style="background:${color};">${zona} &nbsp;·&nbsp; ${aps.length} activos</div>
+      <div class="grid">${cards}</div>
+    </div>`;
+  });
+
+  document.getElementById("contenido").innerHTML=html;
+
+  // Botones de zona
+  const btns=document.getElementById("zona-btns");
+  btns.innerHTML=`<button class="btn-ctrl active" style="background:#555;color:#fff;"
+    onclick="filtrar('TODAS',this)">Todas</button>`;
+  zonasSorted.forEach(zona=>{
+    const color=ZONA_COLORS[zona]||"#333";
+    const zSlug=zona.replace(/\s+/g,"-").toLowerCase();
+    btns.innerHTML+=`<button class="btn-ctrl" style="border:2px solid ${color};"
+      onclick="filtrar('${zona}',this)" data-zona="${zona}">${zona}</button>`;
+  });
+
+  document.getElementById("stats").textContent=`${totalCards} activos · ${zonasSorted.length} zonas`;
+  document.getElementById("loading").style.display="none";
+  document.getElementById("contenido").style.display="block";
+  document.getElementById("controls").style.display="flex";
+}
+
+function filtrar(zona, btn){
+  document.querySelectorAll(".btn-ctrl").forEach(b=>{
+    b.classList.remove("active");
+    b.style.background="";
+    b.style.color="#1a1a2e";
+  });
+  btn.classList.add("active");
+
+  if(zona==="TODAS"){
+    btn.style.background="#555"; btn.style.color="#fff";
+    document.querySelectorAll(".zona-bloque").forEach(el=>el.classList.remove("hidden"));
+  } else {
+    const color=ZONA_COLORS[zona]||"#333";
+    btn.style.background=color; btn.style.color="#fff";
+    document.querySelectorAll(".zona-bloque").forEach(el=>{
+      el.classList.toggle("hidden", el.dataset.zona!==zona);
+    });
+  }
+}
+
+main();
+</script>
+</body>
+</html>
