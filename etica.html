@@ -3,50 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Código de Ética y Conducta — LOM SAS</title>
+  <title>Código de Ética — LOM SAS</title>
   <style>
     *{margin:0;padding:0;box-sizing:border-box;}
-    body{font-family:Arial,sans-serif;background:#f0f2f5;min-height:100vh;
-         display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;}
-    .card{background:#fff;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.1);
-          max-width:360px;width:100%;overflow:hidden;text-align:center;}
-    .header{background:#1a1a2e;color:#fff;padding:24px 20px 20px;}
-    .header-sub{font-size:.7em;opacity:.6;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;}
-    .header-title{font-size:1.1em;font-weight:700;line-height:1.35;}
-    .header-doc{font-size:.65em;opacity:.5;margin-top:6px;}
-    .body{padding:28px 24px 24px;}
-    .qr-wrap{display:inline-block;padding:12px;background:#fff;
-             border:1.5px solid #eee;border-radius:12px;margin-bottom:20px;}
-    .qr-wrap img{display:block;width:200px;height:200px;}
-    .scan-lbl{font-size:.72em;color:#aaa;margin-bottom:20px;}
-    .btn{display:block;padding:14px;border-radius:10px;text-decoration:none;
-         font-weight:700;font-size:.88em;margin-bottom:10px;}
-    .btn-primary{background:#1a1a2e;color:#fff;}
-    .btn-secondary{background:#f0f2f5;color:#333;border:1px solid #ddd;}
-    .footer{font-size:.62em;color:#ccc;margin-top:16px;letter-spacing:.04em;}
+    body{font-family:Arial,sans-serif;background:#f0f2f5;
+         display:flex;align-items:center;justify-content:center;
+         min-height:100vh;padding:20px;}
+
+    .card{background:#fff;border:1.5px solid #e0e0e0;border-radius:10px;
+          padding:12px 10px 10px;text-align:center;
+          box-shadow:0 1px 4px rgba(0,0,0,.07);width:220px;}
+    .card-qr{width:160px;height:160px;margin:0 auto 8px;display:block;
+             border-radius:6px;border:1px solid #f0f0f0;}
+    .card-id{font-size:.95em;font-weight:900;color:#111;letter-spacing:.04em;margin-bottom:4px;}
+    .card-name{font-size:.72em;color:#444;line-height:1.35;}
+    .card-sep{border-top:1px dashed #eee;margin:7px 0 5px;}
+    .card-zona{font-size:.62em;font-weight:700;color:#fff;
+               display:inline-block;padding:2px 8px;border-radius:10px;
+               background:#1a1a2e;}
+    .card-lom{font-size:.58em;color:#bbb;letter-spacing:.05em;margin-top:5px;}
+
+    .btn{display:inline-block;margin-top:12px;padding:8px 16px;background:#1a1a2e;
+         color:#fff;border-radius:8px;text-decoration:none;font-size:.75em;font-weight:700;}
+
+    @page{size:A4 portrait;margin:8mm;}
+    @media print{
+      body{background:#fff;min-height:0;padding:0;}
+      .btn{display:none;}
+      .card{width:auto;max-width:220px;margin:0 auto;
+            border:1.5px solid #ccc;box-shadow:none;}
+      .card-qr{width:160px;height:160px;}
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="header">
-      <div class="header-sub">Inversiones Agropecuarias LOM SAS</div>
-      <div class="header-title">Código de Ética<br>y Conducta</div>
-      <div class="header-doc">CDT-GTH-02</div>
+  <div>
+    <div class="card">
+      <img class="card-qr"
+           src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&bgcolor=ffffff&color=000000&qzone=1&data=https%3A%2F%2Fsamuel08102003.github.io%2Flom-qr%2Fcodigo_etica_lom.pdf"
+           alt="QR Código de Ética" />
+      <div class="card-id">CDT-GTH-02</div>
+      <div class="card-name">Código de Ética y Conducta</div>
+      <div class="card-sep"></div>
+      <span class="card-zona">LOM SAS</span>
+      <div class="card-lom">INVERSIONES AGROPECUARIAS LOM SAS</div>
     </div>
-    <div class="body">
-      <div class="qr-wrap">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&bgcolor=ffffff&color=1a1a2e&qzone=1&data=https%3A%2F%2Fsamuel08102003.github.io%2Flom-qr%2Fcodigo_etica_lom.pdf"
-             alt="QR Código de Ética LOM" />
-      </div>
-      <p class="scan-lbl">Escanea para ver el documento</p>
-      <a class="btn btn-primary" href="codigo_etica_lom.pdf" target="_blank">
-        &#128196; Ver documento
-      </a>
-      <a class="btn btn-secondary" href="codigo_etica_lom.pdf" download>
-        &#8595; Descargar PDF
-      </a>
-      <div class="footer">INVERSIONES AGROPECUARIAS LOM SAS</div>
-    </div>
+    <a class="btn" href="codigo_etica_lom.pdf" target="_blank">&#128196; Ver documento</a>
   </div>
 </body>
 </html>
