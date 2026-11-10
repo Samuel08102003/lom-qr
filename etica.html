@@ -3,52 +3,104 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Código de Ética — LOM SAS</title>
+  <title>Código de Ética y Conducta — LOM SAS</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700;900&display=swap');
+
     *{margin:0;padding:0;box-sizing:border-box;}
-    body{font-family:Arial,sans-serif;background:#f0f2f5;
-         display:flex;align-items:center;justify-content:center;
-         min-height:100vh;padding:20px;}
 
-    .card{background:#fff;border:1.5px solid #e0e0e0;border-radius:10px;
-          padding:12px 10px 10px;text-align:center;
-          box-shadow:0 1px 4px rgba(0,0,0,.07);width:220px;}
-    .card-qr{width:160px;height:160px;margin:0 auto 8px;display:block;
-             border-radius:6px;border:1px solid #f0f0f0;}
-    .card-id{font-size:.95em;font-weight:900;color:#111;letter-spacing:.04em;margin-bottom:4px;}
-    .card-name{font-size:.72em;color:#444;line-height:1.35;}
-    .card-sep{border-top:1px dashed #eee;margin:7px 0 5px;}
-    .card-zona{font-size:.62em;font-weight:700;color:#fff;
-               display:inline-block;padding:2px 8px;border-radius:10px;
-               background:#1a1a2e;}
-    .card-lom{font-size:.58em;color:#bbb;letter-spacing:.05em;margin-top:5px;}
+    body{
+      font-family:'Segoe UI', Arial, sans-serif;
+      background:#fff;
+      display:flex;align-items:center;justify-content:center;
+      min-height:100vh;
+    }
 
-    .btn{display:inline-block;margin-top:12px;padding:8px 16px;background:#1a1a2e;
-         color:#fff;border-radius:8px;text-decoration:none;font-size:.75em;font-weight:700;}
+    .poster{
+      width:595px;
+      min-height:842px;
+      background:#fff;
+      padding:48px 56px 56px;
+      display:flex;
+      flex-direction:column;
+    }
 
-    @page{size:A4 portrait;margin:8mm;}
+    /* ── Header ── */
+    .header{display:flex;align-items:center;gap:14px;margin-bottom:28px;}
+    .logo-badge{
+      width:48px;height:48px;border-radius:50%;
+      background:#e8445a;
+      display:flex;align-items:center;justify-content:center;
+      flex-shrink:0;
+    }
+    .logo-badge span{color:#fff;font-size:1.3em;font-weight:900;}
+    .header-text{}
+    .company-name{font-size:.95em;font-weight:900;color:#1a1a2e;line-height:1.2;}
+    .company-sub{font-size:.68em;color:#888;margin-top:2px;}
+
+    /* ── Divider ── */
+    .divider{height:2px;background:#e8445a;border-radius:2px;margin-bottom:52px;}
+
+    /* ── Content ── */
+    .content{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;}
+    .doc-title{font-size:2em;font-weight:900;color:#1a1a2e;line-height:1.25;margin-bottom:16px;}
+    .doc-sub{font-size:.82em;color:#555;margin-bottom:52px;}
+
+    /* ── QR ── */
+    .qr-wrap{
+      background:#f8f8f8;
+      border-radius:20px;
+      padding:24px;
+      display:inline-block;
+      margin-bottom:32px;
+    }
+    .qr-wrap img{display:block;width:260px;height:260px;}
+
+    .doc-code{font-size:.75em;color:#aaa;letter-spacing:.08em;margin-top:8px;}
+
+    /* ── Print ── */
+    @page{size:A4 portrait;margin:0;}
     @media print{
-      body{background:#fff;min-height:0;padding:0;}
-      .btn{display:none;}
-      .card{width:auto;max-width:220px;margin:0 auto;
-            border:1.5px solid #ccc;box-shadow:none;}
-      .card-qr{width:160px;height:160px;}
+      body{min-height:0;}
+      .poster{width:210mm;min-height:297mm;padding:14mm 18mm 18mm;}
+      .btn-ver{display:none!important;}
+    }
+
+    .btn-ver{
+      display:inline-block;margin-top:28px;
+      padding:12px 28px;background:#1a1a2e;color:#fff;
+      border-radius:10px;text-decoration:none;
+      font-size:.85em;font-weight:700;
     }
   </style>
 </head>
 <body>
-  <div>
-    <div class="card">
-      <img class="card-qr"
-           src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&bgcolor=ffffff&color=000000&qzone=1&data=https%3A%2F%2Fsamuel08102003.github.io%2Flom-qr%2Fcodigo_etica_lom.pdf"
-           alt="QR Código de Ética" />
-      <div class="card-id">CDT-GTH-02</div>
-      <div class="card-name">Código de Ética y Conducta</div>
-      <div class="card-sep"></div>
-      <span class="card-zona">LOM SAS</span>
-      <div class="card-lom">INVERSIONES AGROPECUARIAS LOM SAS</div>
+<div class="poster">
+
+  <div class="header">
+    <div class="logo-badge"><span>L</span></div>
+    <div class="header-text">
+      <div class="company-name">Inversiones Agropecuarias LOM SAS</div>
+      <div class="company-sub">Lomarosa &nbsp;·&nbsp; Facatativá, Cundinamarca</div>
     </div>
-    <a class="btn" href="codigo_etica_lom.pdf" target="_blank">&#128196; Ver documento</a>
   </div>
+
+  <div class="divider"></div>
+
+  <div class="content">
+    <div class="doc-title">Código de Ética<br>y Conducta</div>
+    <div class="doc-sub">Disponible para consulta de todos los trabajadores</div>
+
+    <div class="qr-wrap">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=520x520&bgcolor=f8f8f8&color=1a1a2e&qzone=1&margin=5&data=https%3A%2F%2Fsamuel08102003.github.io%2Flom-qr%2Fcodigo_etica_lom.pdf"
+           alt="QR Código de Ética LOM" />
+    </div>
+
+    <div class="doc-code">CDT-GTH-02</div>
+
+    <a class="btn-ver" href="codigo_etica_lom.pdf" target="_blank">&#128196; Ver documento</a>
+  </div>
+
+</div>
 </body>
 </html>
